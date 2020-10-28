@@ -1,0 +1,205 @@
+General:
+
+Material Design 2 UI
+Android R Style Screenrecord Dialog
+Rounded UI
+Inbuilt GApps (optional)
+Face Unlock
+Enhanced QS Battery Estimation
+Lockscreen Clocks
+Font Customisation
+Dark Theme Support for AOSP apps
+Notification LED Settings
+Pixel Lockscreen weather
+Signature Spoofing
+Micro-G support
+Lockscreen charging animation
+
+Status Bar:
+
+Clock & Date Settings
+Custom Logo
+Brightness Control Gesture
+Double Tap to Sleep
+Network Traffic Indicator Settings
+Carrier Label Settings
+Battery Icon Style/Percentage Settings
+Status Bar Icons Toggle
+HD/VoLTE Icon Toggle
+4G/LTE Icon Toggle
+Data Disable Icon Toggle
+Roaming Indicator Toggle
+Small Mobile Type Icon Toggle
+Bluetooth Battery Status Toggle
+
+Quick Settings:
+
+Quick Pulldown
+Smart Pulldown
+Battery Estimates Toggle
+Background Opacity
+Background Blur Configuration
+Header Image Configuration
+QS Customisations
+  Rows/Column
+  Tile Title
+  Vibrate on Touch
+Brightness Slider Customization
+  Brightness Slider On Bottom/Top/Hidden
+  Auto Brightness Icon
+  Brightness Control Buttons
+QS Footer Customization
+  Settings Icon
+  Running Services Icon
+  Edit Icon
+  User Switcher Icon
+
+Ambient Display:
+
+Show/Hide Battery Level
+Ambient Options
+  Always On
+  Always On When Charging
+  Wakeup On New Notifications
+  Wakeup on New Music (Music Ticker)
+  Sensor Based Screen Wakeup (Tilt/Hand Wave/Pocket)
+  Double Tap for Ambient Display
+Ambient/Always On Display Brightness Configuration
+
+Screen:
+
+Corners Customisation
+  Rounded Corner Radius
+  Corner Content Padding
+Legacy App Scaling
+  Force Higher Aspect Ratio for Selected Apps
+
+Buttons:
+
+Navigation
+  Nav Bar Toggle
+  System Navigation Type
+  Arrows Keys
+Volume Buttons
+  Swap Keys
+  Volume Steps
+  Long Press to Seek Tracks
+  Keyboard Cursor Control
+  Volume Rocker Wakeup
+  Volume keys Answer Call
+Power Button
+  Power Menu Customization
+  Lockscreen Options
+    Visibility on the Lockscreen
+    Reboot
+    Advanced Reboot
+    Screenshot Option
+    Screenrecord
+  Screen-Off Torch
+    Double Tap Power Button
+    Long Press Power Button
+Back Gesture
+  Arrow Animation toggle
+  Long Swipe Type (Swipe and Hold/Swipe Edge to Edge)
+  Long Swipe Timeout
+  Long Left/Right Swipe Action
+  Haptic Feedback toggle
+ 
+Gestures:
+
+Jump To Camera
+System Navigation Settings
+Prevent Ringing Gesture
+Swipe To Screenshot
+Touchscreen Gestures
+
+Lockscreen:
+
+Double Tap to Sleep
+Media Cover Art
+Media Cover Art Blur Level
+Music Visualiser
+Unlocking
+  Pocket Detection
+Fingerprint
+  Screen Off FOD
+  Show Icon
+  Recognizing Animation
+  FP Authentication Vibration
+  FP error Vibration
+Elements Customisation
+  Status Bar
+  Quick Settings
+  Lock Icon
+  Charging Info
+
+Notifications:
+
+Flashlight
+  Blink for incoming call
+  Blink for Call Waiting
+Screen 
+  Edge Lighting Customisation
+Status Bar
+  Heads Up
+System
+  FC Notifications
+Misc
+  Kill App Button
+  Noisy Notifications
+
+Animations:
+
+Animation Duration
+System Animation customization
+QS Tile Animation Customisation
+
+Battery Saving:
+
+Smart Pixels
+Suspend Actions
+
+Miscellaneous:
+
+Gaming Mode
+Wake Up on Charge
+Charging Animation
+Screenshot Type (Full/Partial)
+Adaptive Playback
+Playback Timeout (30sec/1min/2min/5min/10min)
+
+Other Features:
+
+Vibration & Haptics Customization
+LiveDisplay
+Notch Hide Settings
+Seperate ringtone for SIM1&2
+Screen Refresh Rate (For Supported Devices)
+ALways On Display
+Smart Charging
+Theming
+  Styles and Wallpapers
+  Dark Theme
+  Accent Colour
+  Icon Shape
+
+QS Tile Shortcuts:
+
+  Heads Up tile
+  Caffeine tile
+  CPU info tile
+  Smart pixel tile
+  Live Caption
+  Screenrecord tile
+  Gaming Mode tile
+  Screenshot tile
+  LTE tile
+  Music Tile
+  LiveDisplay
+  Switch Data Card Tile
+  Reboot Tile
+  Reading Mode
+  Gaming Mode
+  Compass
+  Sound Search
+  Compass Tile
