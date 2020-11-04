@@ -12,6 +12,72 @@ const passport = require('passport');
 const { ensureAuthenticated } = require('./config/auth');
 const MongoDBStore = require('connect-mongodb-session')(session);
 require('./config/passport')(passport);
+var objid = require('mongodb').ObjectID;
+const dbConnect = require('./commentdb')
+
+dbConnect()
+application.use(express.json())
+const Comment = require('./models/comment')
+//routes for comments
+application.post('/api/comments',(req,res) => {
+    const comment = new Comment({
+        username: req.body.username,
+        usertype: req.body.usertype,
+        comment: req.body.comment
+    })
+    comment.save().then(response =>{
+        res.send(response)
+    })
+})
+
+application.get('/api/comments', (req,res) => {
+    Comment.find().then(function(comments){
+        res.send(comments)
+    })
+})
+
+//routes for replies
+application.post('/api/replies',(req,res)=>{
+    const IDpassed =req.body.objectId
+    const newreplies={
+      reply :req.body.reply,
+      username :req.body.username,
+      usertype :req.body.usertype,
+      date: Date()
+    }
+    //console.log(`api working${newreplies.reply}${newreplies.username}${newreplies.usertype}${IDpassed}`)
+    Comment.collection.updateOne({"_id":objid(IDpassed)},{ $push: { replies: newreplies }})
+     .then(()=>{
+         console.log('Reply added')
+     })
+     .catch(err =>{
+         console.log(err)
+     })
+})
+/*application.get('/api/comments',(req,res)=>{
+    //Comment.find("replies.Array").then(function(replies){
+    const replies = {
+        username: "Tester",
+        usertype: "test",
+        reply: "testing"
+    }    
+    res.send(replies)
+    })*/
+
+
+
+application.post('/api/deletecomment',(req,res) => {
+    //console.log('hello api working')
+    
+    const deleteid = req.body.ID
+    Comment.findOneAndRemove({"_id":objid(deleteid)})
+     .then(() => {
+         console.log('comment deleted')
+     })
+     .catch(err => {
+         console.log(err)
+     })
+})
 
 const registration = require("./models/registrationmongo");
 const store = new MongoDBStore({
@@ -70,7 +136,7 @@ application.set('view engine','pug')
 application.set('views',[path.join(__dirname,'views'),path.join(__dirname, '/views/homepage')]);
 
 application.get("/",(req,res)=>{
-    res.status(200).render('homepage.pug');
+    res.status(200).render('homepage.pug',user=req.user);
 })
 application.get('*', (req, res, next) => {
     user = req.user || null;
@@ -106,9 +172,7 @@ application.get("/registration",(req,res)=>{
     res.status(200).render('registration.pug');  
 })
 
-application.get("/homepage", (req,res)=>{
-    res.status(200).render('homepage.pug',user=req.user);  
-})
+
 application.get("/homepage/dashboard",ensureAuthenticated,(req,res)=>{
     res.status(200).render('dashboard.pug');
 })
@@ -127,11 +191,31 @@ application.get("/logout",(req,res)=>{
     res.redirect("/");
 })
 
-application.listen("3000", ()=>{
+const server = application.listen("3000", ()=>{
     console.log("server started");
 });     
 
+let io = require('socket.io')(server)
 
+io.on('connection',(socket)=>{
+    console.log(`New Connection: ${socket.id}`)
+    // Recieve event 
+    socket.on('comment',(data)=>{
+        console.log(data)
+        data.time = Date()
+        socket.broadcast.emit('comment',data)
+    })
+})
+
+io.on('connection',(socket)=>{
+    console.log(`New reply connection: ${socket.id}`)
+    //recieve event
+    socket.on('reply',(replyData)=>{
+        console.log(replyData)
+       // replyData.time = Date()
+       // socket.broadcast.emit('reply',replyData)
+    })
+})
 
 
 
@@ -238,7 +322,7 @@ application.post('/devregistration',(req,res)=>{
 // Login
 application.post('/login', (req, res, next) => {
     passport.authenticate('local', {
-      successRedirect: '/homepage',
+      successRedirect: 'back',
       failureRedirect: '/loginfailure',
       failureFlash: true
     })(req, res, next);

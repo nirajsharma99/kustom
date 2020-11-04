@@ -229,12 +229,12 @@ style
         <textarea id="review-textarea" style="width:100%;"></textarea>
         <div style="text-align:right;"><button type="button" id="submitbtn" class="post-comment-button"> Post Comment </button></div>
         <div class="comments-container" >
-        <ul class="all_comments">
-        //-<li class="comment">
-        //-<div class="cards">
-        //-<div class="cards-body">
-        //-<div class="user-image"></div>
+        
 
+      <ul class="all_comments">
+        //-<li class="comment">
+        //-<div class="comments">
+        //-<div class="image-container"><div class="user-image"></div></div>
         //-<div class="user-details">
         //-if user.usertype == "developer"
          <p style="color:white;display:inline;">#{user.username}</p>
@@ -251,18 +251,17 @@ style
         //-<label for="dislike"><i class="far fa-thumbs-down"></i></i></label>
         //-</div>
         //-</div>
-
         //-</div>
         //-</div>
         //-</li>
-        </ul>
-        </div>
-
-        </div>
-        </div>
+      </ul>
 
 
         </div>
+        </div>
+        </div>
+        </div>
+        
 
 
 </div>
@@ -353,15 +352,14 @@ style
            div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
        <form action="/login" method='POST'>
        <div class="login-data">
-       <input type="email" name="email-id" class="email-id" placeholder="Your @email ">
-       <input type="password" name="password" placeholder="password">
-       <p align="right"><a href="#" class="forgotpassword">forgot password?</a></p>
-       <button type="submit" name="login" class="login">LOGIN</button>
-       <a href="/registration" class="register">Register</a><span style="color:#DCDCDC;"> or </span><a href="#" class="loginwithgoogle">Login with google</a>
+        <input type="email" id="email" name="email" class="email" placeholder="Your @email ">
+        <input type="password" id="password" name="password" placeholder="password">
+        <p align="right"><a href="#" class="forgotpassword">forgot password?</a></p>
+        <a href="/login" ><button type="submit" name="login" class="login">LOGIN</button></a>
+        <a href="/registration" class="register">Register</a><span style="color:#DCDCDC;"> or </span><a href="#" class="loginwithgoogle">Login with google</a>
        </div>
        </form>
        </div>
-
 </div>
 </div>
     
@@ -427,19 +425,14 @@ style
       function showSlides(n) {
       var i;
       var slides = document.getElementsByClassName("mySlides");
-      var dots = document.getElementsByClassName("demo");
+     
       var captionText = document.getElementById("caption");
       if (n > slides.length) {slideIndex = 1}
       if (n < 1) {slideIndex = slides.length}
       for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
        }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-       }
       slides[slideIndex-1].style.display = "block";
-      dots[slideIndex-1].className += " active";
-      captionText.innerHTML = dots[slideIndex-1].alt;
       }
 
       //---------star rating--------------
@@ -456,16 +449,21 @@ style
         }
         return false;
       }
+      
+
+    
+    if(isAuthenticated)
       //- --------comment box------------
-      let username = "hello"
-      let usertype = "developer"
-
-      const textarea = document.querySelector('#review-textarea')
-      const submitbtn = document.querySelector('#submitbtn')
-      const comment_box = document.querySelector('.all_comments')
-
-      submitbtn.addEventListener('click',(e) => {
-          e.preventDefault()
+      script.
+       window.onload = function() {
+       let username = "#{ user.username }"
+       let usertype = "#{ user.usertype }"
+       var socket = io();
+       const textarea = document.querySelector('#review-textarea')
+       const submitbtn = document.querySelector('#submitbtn')
+       const comment_box = document.querySelector('.all_comments')
+       submitbtn.addEventListener('click',(e) => {
+          e.preventDefault()//prevent refresh and hash value on clicking
           let comment= textarea.value 
 
           if(!comment){
@@ -473,51 +471,339 @@ style
           }
           postComment(comment)
         })
+       
 
-      function postComment(comment){
-      //append to dom
-      let data ={
+       function postComment(comment){
+       //append to dom
+       let data ={
          username: username,
          usertype: usertype,
          comment: comment
+        }
+       appendToDom(data)
+       textarea.value=''
+       //broadcast
+       broadcastComment(data)
+
+       //sync with mongodb
+       syncWithDb(data)
        }
-      appendToDom(data)
-      textarea.value=''
-      }
 
-      function appendToDom(data){
-      let lTag= document.createElement('li')
-      lTag.classList.add('comment')
-    
-      let markup = `
+       function appendToDom(data){
+       let lTag= document.createElement('li')
+       lTag.classList.add("comment")
+       if (data.usertype=="developer"){
+        let markup = `
+          <div class="comments ${data.objectId}">
+             <div class="image-container"><div class="user-image"></div></div>
+             <div class="user-details">
+               <p style="color:white;display:inline;">${data.username}</p>
+               <p style="display:inline;color:green;"><strong>&lt;dev&gt;</strong></p><button onclick="deleteComment('${data.objectId}')" class=${username === data.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
+               <hr style="background-color:#C4C1C1;">
+               <div class="user-comments"><p style="color:white;white-space: initial;overflow:hidden;">${data.comment}</p></div>
+               <div class="comment-buttons" style="text-align:right;">
+                 <small class="time"><i class="far fa-clock"></i>${moment(data.time).format('LT')} ${moment(data.date).format('DD/MM/YYYY')}</small>
+                 <button class="replybtn" ><i class="fas fa-reply"></i><b><i>reply</i></b></button>
+                 <button class="like"><i class="fas fa-thumbs-up"></i></button>&nbsp;
+                 <button class="dislike" ><i class="fas fa-thumbs-down"></i></button>
+               </div>
+               <div class="reply-section"><textarea class="replytextarea" id="reply-textarea" ></textarea>
+               <button type="button" onclick="callingForReply('${data.objectId}')" id="replysubmitbtn" class="post-comment-button">Submit</button></div>
+              
+               <div class="replies">
+               <ul class="all_replies">
 
-           <div class="cards">
-           <div class="cards-body">
-           <div class="user-image"></div>
+               </ul>
+               </div>
 
-           <div class="user-details">
-           if ${data.usertype} == "developer"
-             <p style="color:white;display:inline;">${data.username}</p>
-             <p style="display:inline;color:green;"><strong>&lt;dev&gt;</strong></p>
-           else
-             <p>${data.username}</p>
-           <hr>
-           <div class="user-comments"><p style="color:white;">${data.comment}</p></div>
-           <div class="comment-buttons" style="text-align:right;">
-           <button class="reply" ><i class="fas fa-reply"></i><b><i>reply</i></b></button>
-           <input type="radio" style="display:none;" id="like">
-           <label for="like" ><i  style="color:white;"class="far fa-thumbs-up"></i></label>&nbsp;
-           <input type="radio" style="display:none;" id="dislike">
-           <label for="dislike"><i class="far fa-thumbs-down"></i></i></label>
-           </div>
-           </div>
 
-           </div>
+             </div>
            </div>
            `
-      lTag.innerHTML = markup
-      comment_box.prepend(lTag)
+         lTag.innerHTML = markup
+         comment_box.prepend(lTag)
+         
+        }
+       else{
+         let markup = `
+          <div class="comments ${data.objectId}">
+             <div class="image-container"><div class="user-image"></div></div>
+             <div class="user-details">
+               <p style="color:white;display:inline;">${data.username}</p><button onclick="deleteComment('${data.objectId}')" class=${username === data.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
+               <hr style="background-color:#C4C1C1;">
+               <div class="user-comments"><p style="color:white;white-space: initial;overflow:hidden;">${data.comment}</p></div>
+               <div class="comment-buttons" style="text-align:right;">
+                 <small class="time"><i class="far fa-clock"></i>${moment(data.time).format('LT')} ${moment(data.date).format('DD/MM/YYYY')}</small>
+                 <button class="replybtn" ><i class="fas fa-reply"></i><b><i>reply</i></b></button>
+                 <button class="like"><i class="fas fa-thumbs-up"></i></button>&nbsp;
+                 <button class="dislike" ><i class="fas fa-thumbs-down"></i></button>
+               </div>
+             </div>
+          </div>
+           `
+         lTag.innerHTML = markup
+         comment_box.prepend(lTag)
+        }
+
+       }
+      
+       function broadcastComment(data){
+        //socket
+        
+         socket.emit('comment',data)
+       }
+
+      
+       socket.on('comment',(data)=>{
+       appendToDom(data)
+       })
+
+       //API calls
+       function syncWithDb(data){
+         const headers = {
+           'Content-Type': 'application/json'
+         }
+         fetch('/api/comments',{method: 'Post',body: JSON.stringify(data), headers})
+           .then(response => response.json())
+           .then(result => {
+           console.log(result)
+          })
+        }
+        fetchComments();
+        function fetchComments(){
+         fetch('/api/comments')
+           .then(res => res.json())
+           .then(result => {
+             result.forEach((comment) => {
+               comment.time = comment.createdAt
+               comment.objectId = comment._id
+               appendToDom(comment)
+               
+             })
+           })
+        }
+      
+       
+
+
+       }
+
+
+       //if User is not authenticated (just show comments)-------------------------------------------------
+    else
+     script.
+      window.onload = function(){
+       var socket = io();
+       const textarea = document.querySelector('#review-textarea')
+       const submitbtn = document.querySelector('#submitbtn')
+       const comment_box = document.querySelector('.all_comments')
+      
+        submitbtn.addEventListener('click',(e) => {
+          e.preventDefault()//prevent refresh and hash value on clicking
+          alert('Please, Sign-In to submit your review...');
+        })
+       function appendToDom(data){
+       let lTag= document.createElement('li')
+       lTag.classList.add("comment")
+       if (data.usertype=="developer"){
+        let markup = `
+          <div class="comments">
+             <div class="image-container"><div class="user-image"></div></div>
+             <div class="user-details">
+               <p style="color:white;display:inline;">${data.username}</p>
+               <p style="display:inline;color:green;"><strong>&lt;dev&gt;</strong></p>
+               <hr style="background-color:#C4C1C1;">
+               <div class="user-comments"><p style="color:white;white-space: initial;overflow:hidden;">${data.comment}</p></div>
+               <div class="comment-buttons" style="text-align:right;">
+                 <small class="time"><i class="far fa-clock"></i>${moment(data.time).format('LT')} ${moment(data.date).format('DD/MM/YYYY')}</small>
+                 <button onclick="alert('You need to Sign-In first!')" class="replybtn" ><i class="fas fa-reply"></i><b><i>reply</i></b></button>
+                 <button onclick="alert('You need to Sign-In first!')" class="like"><i class="fas fa-thumbs-up"></i></button>&nbsp;
+                 <button onclick="alert('You need to Sign-In first!')" class="dislike" ><i class="fas fa-thumbs-down"></i></button>
+               </div>
+             </div>
+           </div>
+           `
+         lTag.innerHTML = markup
+         comment_box.prepend(lTag)
+        }
+       else{
+         let markup = `
+          <div class="comments">
+             <div class="image-container"><div class="user-image"></div></div>
+             <div class="user-details">
+               <p style="color:white;display:inline;">${data.username}</p>
+               <hr style="background-color:#C4C1C1;">
+               <div class="user-comments"><p style="color:white;white-space: initial;overflow:hidden;">${data.comment}</p></div>
+               <div class="comment-buttons" style="text-align:right;">
+                 <small class="time"><i class="far fa-clock"></i>${moment(data.time).format('LT')} ${moment(data.date).format('DD/MM/YYYY')}</small>
+                 <button onclick="alert('You need to Sign-In first!')" class="replybtn" ><i class="fas fa-reply"></i><b><i>reply</i></b></button>
+                 <button onclick="alert('You need to Sign-In first!')" class="like"><i class="fas fa-thumbs-up"></i></button>&nbsp;
+                 <button onclick="alert('You need to Sign-In first!')" class="dislike" ><i class="fas fa-thumbs-down"></i></button>
+               </div>
+             </div>
+          </div>
+           `
+         lTag.innerHTML = markup
+         comment_box.prepend(lTag)
+        }
+       }
+      
+
+       socket.on('comment',(data)=>{
+       appendToDom(data)
+       })
+
+       fetchComments();
+       function fetchComments(){
+         fetch('/api/comments')
+           .then(res => res.json())
+           .then(result => {
+             result.forEach((comment) => {
+               comment.time = comment.createdAt
+               appendToDom(comment)
+             })
+             /*result.forEach((comment)=>{
+               appendReply(comment)
+             })*/
+           })
+        }
       }
+    script.
+        function callingForReply(objectId){
+        let object = objectId
+        let username = "#{ user.username }"
+        let usertype = "#{ user.usertype }"
+        var socket = io();
+        const replytextarea = document.querySelector('#reply-textarea')
+        const replysubmitbtn = document.querySelector('#replysubmitbtn')
+        const reply_box = document.querySelector('.all_replies')
+        let replyvalues = replytextarea.value
+         if(!replyvalues){
+           return
+         }
+         else{
+           //const objectId= object
+           const reply= replyvalues
+           postReply(object,reply)
+         }
+         
+        function postReply(object,reply){
+         let replyData ={
+           username: username,
+           usertype: usertype,
+           reply: reply,
+           objectId: object
+           }
+         appendReply(replyData)
+         replytextarea.value=''
+         //broadcast reply
+         broadcastReply(replyData)
+         //sync with mongodb
+         syncWithDb2(replyData)
+        }
+        function appendReply(replyData){
+         let l2Tag= document.createElement('li')
+         l2Tag.classList.add("reply")
+         if(replyData.usertype=="developer"){
+           let markup2 = `
+           <div class="replies">
+             <div class="image-container"><div class="user-image"></div></div>
+             <div class="user-details">
+               <p style="color:white;display:inline;">${replyData.username}</p>
+               <p style="display:inline;color:green;"><strong>&lt;dev&gt;</strong></p><button  class=${username === replyData.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
+               <hr style="background-color:#C4C1C1;">
+               <div class="user-comments"><p style="color:white;white-space: initial;overflow:hidden;">${replyData.reply}</p></div>
+               <div class="comment-buttons" style="text-align:right;">
+                 <small class="time"><i class="far fa-clock"></i>${moment(replyData.time).format('LT')} ${moment(replyData.date).format('DD/MM/YYYY')}</small>
+                 <button class="replybtn" ><i class="fas fa-reply"></i><b><i>reply</i></b></button>
+                 <button class="like"><i class="fas fa-thumbs-up"></i></button>&nbsp;
+                 <button class="dislike" ><i class="fas fa-thumbs-down"></i></button>
+               </div>
+             </div>
+           </div>
+           `
+           l2Tag.innerHTML = markup2
+           reply_box.prepend(l2Tag)
+         }
+         else{
+            let markup2 =`
+             <div class="comments ${data.objectId}">
+             <div class="image-container"><div class="user-image"></div></div>
+             <div class="user-details">
+               <p style="color:white;display:inline;">${replyData.username}</p><button onclick="deleteComment('${data.objectId}')" class=${username === replyData.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
+               <hr style="background-color:#C4C1C1;">
+               <div class="user-comments"><p style="color:white;white-space: initial;overflow:hidden;">${replyData.reply}</p></div>
+               <div class="comment-buttons" style="text-align:right;">
+                 <small class="time"><i class="far fa-clock"></i>${moment(data.time).format('LT')} ${moment(data.date).format('DD/MM/YYYY')}</small>
+                 <button class="replybtn" ><i class="fas fa-reply"></i><b><i>reply</i></b></button>
+                 <button class="like"><i class="fas fa-thumbs-up"></i></button>&nbsp;
+                 <button class="dislike" ><i class="fas fa-thumbs-down"></i></button>
+               </div>
+             </div>
+             </div>           
+            `
+           l2Tag.innerHTML = markup2
+           reply_box.prepend(l2Tag)
+         }
+        }
+        function broadcastReply(replyData){
+         //socket
+         socket.emit('reply',replyData)
+        }
+        socket.on('reply',(replyData)=>{
+          appendReply(replyData)
+        })
+        //API calls
+        function syncWithDb2(replyData){
+         const headers={
+           'Content-Type':'application/json'
+         }
+         
+         fetch('/api/replies',{method: 'Post',body: JSON.stringify(replyData),headers})
+          .then(response => response.json())
+          .then(result => {
+            console.log(result)
+          })
+        }
+        /*fetchReplies();
+        function fetchReplies(){
+         fetch('/api/replies')
+          .then(response => response.json())
+          .then(result =>{
+            result.forEach((reply)=>{
+              reply.objectId = reply._id
+              appendReply(reply.object)
+            })
+          })
+        }*/
+       } 
+
+
+
+
+
+
+    script.
+       function deleteComment(objectId){
+         
+         const headers = {
+           'Content-Type': 'application/json'
+         }
+         const newData = { ID:objectId }
+         fetch('/api/deletecomment',{method:'Post',body: JSON.stringify(newData),headers})
+          .then(response => response.json())
+          .then(result => {
+            console.log(result)
+          })
+       }
+    
+    
+
+      
+      
+      
+
+    
 
 
       
@@ -525,7 +811,9 @@ style
 
      
       
-
-    //-script(src="../static/comments.js")
+    
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 </body>
 </html>
