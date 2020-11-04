@@ -522,6 +522,28 @@ style
            `
          lTag.innerHTML = markup
          comment_box.prepend(lTag)
+
+
+         let l2Tag= document.createElement('li')
+         const reply_box = document.querySelector('.all_replies')
+         l2Tag.classList.add("reply")
+         data.replies.forEach(replyData => {
+           console.log("replyData: ", replyData)
+           let markup2 = `
+           <div class="replies">
+             <div class="image-container"><div class="user-image"></div></div>
+             <div class="user-details">
+               <p style="color:white;display:inline;">${replyData.username}</p>
+               <p style="display:inline;color:green;"><strong>&lt;dev&gt;</strong></p><button  class=${username === replyData.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
+               <hr style="background-color:#C4C1C1;">
+               <div class="user-comments-${replyData.username}"><p style="color:white;white-space: initial;overflow:hidden;">${replyData.reply}</p></div>
+               
+             </div>
+           </div>
+           `
+           l2Tag.innerHTML += markup2
+          });
+           reply_box.prepend(l2Tag)
          
         }
        else{
@@ -575,6 +597,7 @@ style
            .then(res => res.json())
            .then(result => {
              result.forEach((comment) => {
+               console.log("comment: ", comment)
                comment.time = comment.createdAt
                comment.objectId = comment._id
                appendToDom(comment)
@@ -625,6 +648,10 @@ style
            `
          lTag.innerHTML = markup
          comment_box.prepend(lTag)
+
+         
+         
+
         }
        else{
          let markup = `
@@ -669,6 +696,7 @@ style
         }
       }
     script.
+    
         function callingForReply(objectId){
         let object = objectId
         let username = "#{ user.username }"
@@ -755,6 +783,7 @@ style
         })
         //API calls
         function syncWithDb2(replyData){
+          console.log("replyData: ", replyData)
          const headers={
            'Content-Type':'application/json'
          }
@@ -777,11 +806,6 @@ style
           })
         }*/
        } 
-
-
-
-
-
 
     script.
        function deleteComment(objectId){
