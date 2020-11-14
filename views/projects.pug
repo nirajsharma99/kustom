@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+<link href="../static/fontawesome/css/all.css" rel="stylesheet">
+style
+    include ../static/websitecss/projects.css
+
+
+<title>KUSTOM</title>
+</head>
+<body>
+<div class="container1">
+<h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1><div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
+<div class="dropdown1-content">
+<a href="#">Link 1</a>
+<a href="#">Link 2</a>
+<a href="#">Link 3</a>
+</div></div><div class="dropdown"><button class="btn"><i class="fas fa-mobile-alt"></i> DEVICES <i class="fas fa-angle-down"></i></button><div class="dropdown1-content">
+<table>
+<tr>
+    <td><a href="/samsung">SAMSUNG</a></td>
+    <td><a href="#">HTC</a></td>
+    <td><a href="/xiaomi">Xiaomi</a></td>
+    </tr>
+    <tr>
+    <td><a href="#">OPPO</a></td>
+    <td><a href="#">VIVO</a></td>
+    <td><a href="/oneplus">ONE_PLUS</a></td>
+    </tr>
+    <tr>
+    <td><a href="#">RAZOR</a></td>
+    <td><a href="/motorola">MOTOROLA</a></td>
+        <td><a href="/google">GOOGLE</a></td>
+        </tr>
+    </table>
+</div>
+</div>
+<div class="dropdown"><button class="btn"><i class="fab fa-forumbee"></i> FORUMS <i class="fas fa-angle-down"></i></button><div class="dropdown1-content">
+<a href="#">Link 7</a>
+<a href="#">Link 8</a>
+<a href="#">Link 9</a>
+</div>
+</div>
+<div class="dropdown"><button class="btn"><i class="fas fa-coffee"></i> BEST POSTS <i class="fas fa-angle-down"></i></button>
+<div class="dropdown1-content">
+<a href="#">Link 10</a>
+<a href="#">Link 11</a>
+<a href="#">Link 12s</a>
+</div>
+</div>
+<div class="dropdown"><button class="btn"> <i class="fas fa-user-tie"></i> DEVELOPERS</button>
+</div>
+</div>
+
+<div class="main-section">
+<hr style="background-color:#0AC5A8;height:10px;">
+    <div class="left-section">
+        <ul>
+            <li><a href="/dashboard"><i class="fas fa-book-open"></i> Profile</a></li>
+            <li><a href="#"><i class="fas fa-id-card-alt"></i> Contact-Info || <i class="fas fa-link"></i>Source Links</a></li>
+            <li><a href="/dashboard/projects"><i class="fas fa-cube"></i> Projects</a></li>
+            <li><a href="/projects"><i class="fas fa-chart-pie"></i> Statistics</a></li>
+            <li><a href="/projects"><i class="fas fa-scroll"></i> Announcements</a></li>
+        </ul>
+    </div>
+    <div class="right-section">
+        <div class="work">
+            <p style="color:white;font-size:20px;">Works:</p>
+                <hr style="background-color:white">
+                    <table>
+                        <tr>
+                            <th style="color: #0ac5a8;">Project Name</th>
+                            <th style="color: #0ac5a8;">Device</th>
+                            <th style="color: #0ac5a8;">Date</th>
+                            <th style="color: #0ac5a8;"></th>
+
+                        </tr>
+                        <tr>
+                            <td>Havoc OS 3.11</td>
+                            <td>#{user.device}</td>
+                            <td>Date</td>
+                            <td style="color: red;"><i class="fas fa-trash-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Havoc OS 3.11</td>
+                            <td>santoni</td>
+                            <td>Date</td>
+                            <td style="color: red;"><i class="fas fa-trash-alt"></i></td>
+                        </tr>
+                    </table>
+                    <div class="work-buttons">
+                    <a href="/addproject"><button>Add a Project</button></a>
+                    </div>
+        </div>
+    </div>
+</div>
+
+<div class="side-bar">
+<h2><button class="options"><i class="fas fa-bars"></i></button>
+    <button class="search"><i class="fas fa-search"></i></button>
+    <button onclick="document.getElementById('user-popup-wrapper').style.display='block'" class="user"><i class="fas fa-user-circle"></i></button></h2>
+    <div class="social-links">
+    <a href="www.facebook.com"><img src="./static/logo/fb.png"></a>
+    <a href="www.instagram.com"><img src="./static/logo/insta.png"></a>
+    <a href="www.twitter.com"><img src="./static/logo/twitter.png"></a>
+    </div>
+    <div class="useful-links">
+    <a href="#"><img src="./static/logo/share.png"></a>
+    <a href="#"><img src="./static/logo/info.png"></a>
+    </div>
+    </div>
+    <div id="user-popup-wrapper" class="user-popup">
+    <button onclick="document.getElementById('user-popup-wrapper').style.display='none';" class="close"><i class="fas fa-times-circle"></i></button>
+    if(isAuthenticated)  
+        if user.usertype == 'local'    
+            <div class="user-popup-content">
+            <div class="dpcontainer"></div>
+            <div class="usernaming">
+            <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
+            </div>
+            <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
+            <a href="#" class="settings"><i class="fas fa-cogs"></i></i> Settings</a>
+            </div>
+        else if user.usertype == 'developer'
+            <div class="user-popup-content">
+            <div class="dpcontainer"></div>
+            <div class="usernaming">
+            <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
+            </div>
+            <p style="margin-top:0;color:white;font-size:1rem;">User-Type: #{ user.usertype }</p>
+            <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
+            <a href="#" class="settings"><i class="fas fa-cogs"></i> Settings</a><br>
+
+            </div>
+    else
+        <div class="user-popup-content">
+        <p style="font-size:3rem;font-family:acme-regular;color:#0AC5A8;">LOGIN</p>
+        div.col-10.ml-sm-auto.px-4
+        if error != 0
+            div.alert.alert-danger.alert-dismissible.fade.show #{ error }
+        if typeof errors != 'undefined'
+            for error in errors
+                div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
+        if success_msg != 0
+            div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
+        if error_msg != 0
+            div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
+        <form action="/login" method='POST'>
+        <div class="login-data">
+            <input type="email" id="email" name="email" class="email" placeholder="Your @email ">
+            <input type="password" id="password" name="password" placeholder="password">
+            <p align="right"><a href="#" class="forgotpassword">forgot password?</a></p>
+            <a href="/login" ><button type="submit" name="login" class="login">LOGIN</button></a>
+            <a href="/registration" class="register">Register</a><span style="color:#DCDCDC;"> or </span><a href="#" class="loginwithgoogle">Login with google</a>
+        </div>
+        </form>
+        </div>
+</div>
+</div>
+
+
+</body>
+</html>

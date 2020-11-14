@@ -5,12 +5,10 @@
 <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 <link href="../static/fontawesome/css/all.css" rel="stylesheet">
 style
-  include ../static/websitecss/phonebrands.css
-<script src="myscripts.js"></script>
+  include ../static/websitecss/dashboard.css
+
+
 <title>KUSTOM</title>
-
-
-
 </head>
 <body>
 <div class="container1">
@@ -23,7 +21,7 @@ style
 <table>
 <tr>
   <td><a href="/samsung">SAMSUNG</a></td>
-  <td><a href="/htc">HTC</a></td>
+  <td><a href="#">HTC</a></td>
   <td><a href="/xiaomi">Xiaomi</a></td>
   </tr>
   <tr>
@@ -56,77 +54,44 @@ style
 </div>
 </div>
 
-  <div class="slider-container">
-    <span id="slider-image-1"></span>
-    <span id="slider-image-2"></span>
-    <span id="slider-image-3"></span>
-    <div class="image-container">
-    <img src="./static/slider/havoc640x360.jpg" class="slider-image">
-    <img src="./static/slider/lineage640x360.jpg" class="slider-image">
-    <img src="./static/slider/oxygen640x360.jpg" class="slider-image">
-    <img src="./static/slider/evolution640x360.jpg" class="slider-image">
-    <img src="./static/slider/corvus640x360.jpg" class="slider-image">
+<div class="main-section">
+<hr style="background-color:#0AC5A8;height:10px;">
+  <div class="left-section">
+    <ul>
+      <li><a href="/dashboard"><i class="fas fa-book-open"></i> Profile</a></li>
+      <li><a href="#"><i class="fas fa-id-card-alt"></i> Contact-Info || <i class="fas fa-link"></i>Source Links</a></li>
+      <li><a href="/projects"><i class="fas fa-cube"></i> Projects</a></li>
+      <li><a href="/projects"><i class="fas fa-chart-pie"></i> Statistics</a></li>
+      <li><a href="/projects"><i class="fas fa-scroll"></i> Announcements</a></li>
+    </ul>
+  </div>
+  <div class="right-section">
+    <fieldset class="profile-fieldset" >
+      <legend class="profile-legend" ><strong>Profile</strong></legend>
+<div class="user-card">
+  <div class="user-image-section">
+    <img src="./static/garbageimage/me.jpg" >
+  </div>
+  <div class="user-details">
+    <ul>
+      <li>Username: <p>#{user.username}</p> </li>
+      <li>Name : <p>#{user.name}</p></li>
+      <li>Usertype: <p>#{user.usertype}</p></li>
+      <li>Joining Date : <p>#{user.date}</p></li>
+      <li>City : <p>#{user.city}</p></li>
+      <li>Home Country : <p>#{user.homecountry}</p></li>
+      <li>Occupation : <p>#{user.occupation}</p></li>
+      <li>Paypal Donation : <p>#{user.paypaldonation}</p></li>
+      <li>Gpay/Phonepe Link : <p>#{user.gpaylink}</p></li>
+      <li>Devices : <p>#{user.device}</p></li>
 
+    </ul>
+    <a href="/editprofile"><button>Edit profile</button></a>
+  </div>
     </div>
-    <div class="button-container">
-    <a href="#slider-image-1" class="slider-button"></a>
-    <a href="#slider-image-2" class="slider-button"></a>
-    <a href="#slider-image-3" class="slider-button"></a>
-    </div>
-    </div>
-
-<div class="content clearfix">
-  <div class="main-content">
-    <div class="post1">
-      <a  href="#"><img src="./static/devices/bullhead900x900.png" alt="" class="post-image1"></a>
-      <div class="post-preview1">
-        <h4><a class="postlink" href="#">Nexus 5X(bullhead) </a></h4>   
-      </div>
-      </div>
-      <div class="post1">
-      <a  href="#"><img src="./static/devices/sailfish900x900.png" alt="" class="post-image1"></a>
-      <div class="post-preview1">
-        <h4><a class="postlink" href="#">Pixel(sailfish)</a></h4>   
-      </div>
-      </div>
-      <div class="post1">
-      <a  href="#"><img src="./static/devices/marlin900x900.png" alt="" class="post-image1"></a>
-      <div class="post-preview1">
-        <h4><a class="postlink" href="#">Pixel XL(marlin)</a></h4>   
-      </div>
-      </div>
-      <div class="post1">
-      <a  href="/ysl"><img src="./static/devices/slogan900x900.png" alt="" class="post-image1"></a>
-      <div class="post-preview1">
-        <h4><a class="postlink" href="/ysl">Pixel 2XL(slogan)</a></h4>   
-      </div>
-      </div> <div class="post1">
-      <a  href="#"><img src="./static/devices/3xl.png" alt="" class="post-image1"></a>
-      <div class="post-preview1">
-        <h4><a class="postlink" href="#">Pixel 3XL(tissot)</a></h4>   
-      </div>
-      </div> 
+    </fieldset>
   </div>
-
-
-  <div class="side-content">
-  <h5 class="device-title">Devices</h5>
-  <div class="device-list">
-  <a href="/samsung">Samsung</a>
-  <a href="#">HTC</a>
-  <a href="/xiaomi">Xiaomi</a>
-  <a href="#">OPPO</a>
-  <a href="#">VIVO</a>
-  <a href="/oneplus">ONE PLUS</a>
-  <a href="/google">Google</a>
-  <a href="/motorola">Motorola</a>
-  <a href="#">Razor</a>
-  </div>
-  </div>
-  </div>
-
-
-
+</div>
 
 <div class="side-bar">
 <h2><button class="options"><i class="fas fa-bars"></i></button>
@@ -163,7 +128,7 @@ style
       <p style="margin-top:0;color:white;font-size:1rem;">User-Type: #{ user.usertype }</p>
       <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
       <a href="#" class="settings"><i class="fas fa-cogs"></i> Settings</a><br>
-      <a href="/homepage/dashboard" class="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+
       </div>
   else
     <div class="user-popup-content">
@@ -188,41 +153,8 @@ style
     </div>
     </form>
     </div>
-
-
 </div>
-  <div class="footer">
-  <div class="footer-content">
-  <div class="footer-section about">
-  <h1><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1>
-  <p style="color:#DCDCDC;">This is a community where you will find custom rom for your devices. Flash Happiness!!</p>
-  <div class="contact">
-  <span style="color:#DCDCDC;"><i class="fas fa-phone-square-alt"></i> &nbsp; 933-703-5249</span><br>
-  <span style="color:#DCDCDC;"><i class="far fa-paper-plane"></i>&nbsp; thisisniraj2@gmail.com</span>
-  </div>
-  </div>
-  <div class="footer-section links">
-  <h6>Quick Links</h6>
-  <br>
-  <a href="#">Guides</a>
-  <a href="#">ROM</a>
-  <a href="#">Devices</a>
-  <a href="#">News</a>
-  </div>
-  <div class="footer-section subscribe">
-  <h7>Subscribe to KUSTOM</h7>
-  <p style="color: #DCDCDC; font-size:1rem; text-align:left;width:90%;">Receive the freshest Android & development news right in your inbox!</p>
-  <form action="subscribe.html" method="post">
-  <input type="email" name="email" class="contact-input" placeholder="your@email"><br>
-  <button style="margin-left:10px;color:#DCDCDC;background-color:#0AC5A8;padding: 4px 4px;border:none;border-radius:5px;"type="submit" class="submit"><i class="fas fa-smile-beam"></i> Subscribe</button>
-  </form>
-  </div>
-  </div>
-
-  <div class="footer-bottom">
-  <p>&copy; kustomrom.com | Designed by Niraj Sharma</p>
-  </div>
-  </div>
+</div>
 
 
 </body>

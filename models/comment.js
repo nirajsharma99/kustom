@@ -1,16 +1,29 @@
-const mongoose = require('mongoose')
+const { Number, Int32, ObjectID } = require('mongodb');
+const mongoose = require('mongoose');
+var NumberInt = require('mongoose-int32');
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 const commentSchema = new Schema(
   {
     username: { type: String, required: true },
     usertype: { type: String, required: true },
-    comment: { type: String, require: true },
-    replies: { type: [Schema.Types.Mixed], required: false },
+    comment: { type: String, required: true },
+    replies: [
+      {
+        _id: { type: String },
+        reply: { type: String },
+        username: { type: String },
+        usertype: { type: String },
+        date: { type: Date },
+      },
+    ],
+    likeCount: { type: NumberInt, default: 0, required: false },
+    dislikeCount: { type: NumberInt, default: 0, required: false },
+    likedislike: [{ username: { type: String }, status: { type: String } }],
   },
   { timestamps: true }
 );
 
-const Comment = mongoose.model('Comment',commentSchema)
-module.exports = Comment
+const Comment = mongoose.model('Comment', commentSchema);
+module.exports = Comment;
