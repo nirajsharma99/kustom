@@ -83,6 +83,11 @@ style
                 <p style="color:#aaa;font-size:smaller;display:inline-block;">Note*: The file dimensions should be 300x200 pixels.</p>
                 <button class="addtemplatebtn">Add template</button>
             </div>
+
+            <form action="/uploadfile" enctype="multipart/form-data" method="POST">
+            <input type="file" name="myFile" />
+            <input type="submit" value="Upload a file" />
+        </form>
         </fieldset>
 
     </div>

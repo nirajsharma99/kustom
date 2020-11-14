@@ -17,6 +17,18 @@ var objid = require('mongodb').ObjectID;
 const dbConnect = require('./commentdb');
 
 dbConnect();
+
+const { ObjectID } = require("mongodb");
+const store = new MongoDBStore({
+  uri: "mongodb://localhost:27017/user",
+  collection: "mySessions",
+});
+application.use(
+  bodyparser.urlencoded({
+    extended: true,
+  })
+);
+
 application.use(express.json());
 const Comment = require('./models/comment');
 const registration = require('./models/registrationmongo');
@@ -191,48 +203,83 @@ application.post('/api/changelikerdisliker', (req, res) => {
       console.log(err);
     });
 });
-var Storage = multer.diskStorage({
-  destination: './static/uploads',
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + '_' + Date.now() + path.extname(file.originalname)
-    );
+// var Storage = multer.diskStorage({
+//   destination: './static/uploads',
+//   filename: (req, file, cb) => {
+//     cb(
+//       null,
+//       file.fieldname + '_' + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
+// var upload = multer({
+//   storage: Storage,
+// }).single('file');
+
+// var storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     // cb(null, "/Documents/boilerplate-mern-stack/server/uploads/");
+//     cb(null, path.join(__dirname + "/static/uploads"));
+//     // cb(null, "../../uploads");
+//   },
+//   filename: (req, file, cb) => {
+//   console.log("file: ", file);
+
+//     cb(
+//       null,
+//       file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname + "/uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now());
   },
 });
-var upload = multer({
-  storage: Storage,
-}).single('file');
-application.post('/addtemplate', upload, (req, res) => {
-  const template = new ysltemplate({
-    username: req.body.username,
-    joindate: req.body.joindate,
-    projectname: req.body.projectname,
-    androidversion: req.body.androidversion,
-    romversion: req.body.romversion,
-    device: req.body.device,
-    file: req.body.file,
-  });
-  console.log('add template working' + file);
-  /*template.save().then((response) => {
-    res.send(response);
-  });*/
+
+var upload = multer({ storage: storage })
+// upload single file
+
+application.post("/uploadfile", upload.single("myFile"), (req, res, next) => {
+  const file = req.file;
+  console.log("file: ", file);
+  if (!file) {
+    const error = new Error("Please upload a file");
+    error.httpStatusCode = 400;
+    return next(error);
+  }
+
+  res.send(file);
 });
 
-const { ObjectID } = require('mongodb');
-const store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/user',
-  collection: 'mySessions',
-});
-application.use(
-  bodyparser.urlencoded({
-    extended: true,
-  })
-);
 
-application.use('/static', express.static(__dirname + '/static'));
+// application.post('/addtemplate', upload, (req, res) => {
+//     console.log(req.body);
+//   const template = new ysltemplate({
+  
+//     username: req.body.username,
+//     joindate: req.body.joindate,
+//     projectname: req.body.projectname,
+//     androidversion: req.body.androidversion,
+//     romversion: req.body.romversion,
+//     device: req.body.device,
+//     file: req.body.file,
+//   });
+//   console.log('add template working' + file);
+//   /*template.save().then((response) => {
+//     res.send(response);
+//   });*/
+// });
 
-application.use(express.urlencoded({ extended: true }));
+
+
+// application.use('/static', express.static(__dirname + '/static'));
+
+// application.use(express.urlencoded({ extended: true }));
 
 application.use(
   session({
