@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var NumberInt = require('mongoose-int32');
 
 mongoose.createConnection(
   'mongodb://localhost:27017/pages',
@@ -17,11 +18,11 @@ const Schema = mongoose.Schema;
 const ysltemplateSchema = new Schema({
   username: {
     type: String,
-    required: true,
+    //required: true,
   },
-  usertype: {
-    type: String,
-    default: 'local',
+  joindate: {
+    type: Date,
+    default: Date.now,
   },
   date: {
     type: Date,
@@ -29,23 +30,31 @@ const ysltemplateSchema = new Schema({
   },
   projectname: {
     type: String,
-    required: true,
+    //required: true,
   },
   androidversion: {
     type: String,
-    required: true,
+    //required: true,
   },
   romversion: {
     type: String,
-    required: true,
+    //required: true,
   },
   device: {
     type: String,
-    required: true,
+    //required: true,
   },
-  file: {
+  filename: {
     type: String,
-    required: true,
+    //required: true,
+  },
+  downloads: {
+    type: NumberInt,
+    default: 0,
+  },
+  averagerating: {
+    type: NumberInt,
+    default: 0,
   },
 });
 

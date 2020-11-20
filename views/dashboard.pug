@@ -52,6 +52,10 @@ style
 </div>
 <div class="dropdown"><button class="btn"> <i class="fas fa-user-tie"></i> DEVELOPERS</button>
 </div>
+  <div class="search-box">
+    <input type="text" class="search-txt" placeholder="Type to search">
+    <i class="fab fa-searchengin search-btn"></i>
+  </div>
 </div>
 
 <div class="main-section">
@@ -70,23 +74,25 @@ style
       <legend class="profile-legend" ><strong>Profile</strong></legend>
 <div class="user-card">
   <div class="user-image-section">
-    <img src="./static/garbageimage/me.jpg" >
+    <img src="./static/uploads/#{user.filename}" >
   </div>
   <div class="user-details">
     <ul>
-      <li>Username: <p>#{user.username}</p> </li>
-      <li>Name : <p>#{user.name}</p></li>
-      <li>Usertype: <p>#{user.usertype}</p></li>
-      <li>Joining Date : <p>#{user.date}</p></li>
-      <li>City : <p>#{user.city}</p></li>
-      <li>Home Country : <p>#{user.homecountry}</p></li>
-      <li>Occupation : <p>#{user.occupation}</p></li>
-      <li>Paypal Donation : <p>#{user.paypaldonation}</p></li>
-      <li>Gpay/Phonepe Link : <p>#{user.gpaylink}</p></li>
-      <li>Devices : <p>#{user.device}</p></li>
+      <li>Username: <span>#{user.username}</span> </li>
+      <li>Name : <span>#{user.name}</span></li>
+      <li>Usertype: <span>#{user.usertype}</span></li>
+      <li>Joining Date : <span>#{user.date}</span></li>
+      <li>City : <span>#{user.city}</span></li>
+      <li>Home Country : <span>#{user.country}</span></li>
+      <li>Occupation : <span>#{user.occupation}</span></li>
+      <li>Telegram Link : <a href="#{user.telegram}">#{user.telegram}</a></li>
+      <li>Instagram Link : <a href="#{user.telegram}">#{user.telegram}</a></li>
+      <li>Paypal Donation : <span>#{user.paypal}</span></li>
+      <li>Gpay/Phonepe Link : <span>#{user.gpay}</span></li>
+      <li>Devices : <span>#{user.device}</span></li>
 
     </ul>
-    <a href="/editprofile"><button>Edit profile</button></a>
+    <a style="float:right;" href="/editprofile"><button><i class="far fa-edit"></i> Edit profile</button></a>
   </div>
     </div>
     </fieldset>
@@ -112,7 +118,7 @@ style
   if(isAuthenticated)  
     if user.usertype == 'local'    
       <div class="user-popup-content">
-      <div class="dpcontainer"></div>
+      <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
       <div class="usernaming">
       <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
       </div>
@@ -121,7 +127,7 @@ style
       </div>
     else if user.usertype == 'developer'
       <div class="user-popup-content">
-      <div class="dpcontainer"></div>
+      <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
       <div class="usernaming">
       <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
       </div>

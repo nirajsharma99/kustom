@@ -111,6 +111,31 @@ td {
   border: none;
   border-collapse: collapse;
 }
+.search-box {
+  display: inline-block;
+  background: #2f3640;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px;
+  width: 300px;
+}
+.search-btn {
+  color: #0ac5a8;
+  font-size: 30px;
+  float: right;
+}
+.search-txt {
+  display: inline-block;
+  width: 230px;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0px;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 30px;
+}
 /*------------------------------------HEADER---------------------------------*/
 
 /*------------------------------------SIDE BAR---------------------------------*/

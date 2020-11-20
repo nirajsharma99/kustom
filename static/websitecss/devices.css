@@ -113,6 +113,31 @@ td {
   border: none;
   border-collapse: collapse;
 }
+.parent-search-box {
+  display: inline-block;
+  background: #2f3640;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px;
+  width: 300px;
+}
+.parent-search-btn {
+  color: #0ac5a8;
+  font-size: 30px;
+  float: right;
+}
+.parent-search-txt {
+  display: inline-block;
+  width: 230px;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0px;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 30px;
+}
 /*------------------------------------HEADER---------------------------------*/
 
 /*------------------------------------SIDE BAR---------------------------------*/
@@ -326,18 +351,23 @@ p.preview-text {
 .rom .rom-content .info {
   width: 33.5%;
 }
+.info-ul {
+  list-style-type: none;
+}
 .rom .rom-content .info li {
   list-style: none;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  margin-left: 80px;
 }
 .rom .rom-content .info .knowmore {
-  margin-left: 80px;
+  margin: auto;
+  display: block;
   outline: none;
   border: none;
-  color: teal;
+  color: red;
   background-color: transparent;
+  width: 200px;
+}
+.rom .rom-content .info a:hover {
+  text-decoration: none;
 }
 .rom .rom-content .info .knowmore:hover {
   color: #0ac5a8;
@@ -363,6 +393,33 @@ p.preview-text {
 
 .rom .rom-content .rom-section {
   padding: 0px;
+}
+
+.search-box {
+  display: block;
+  background: #2f3640;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px;
+  width: 400px;
+  margin: auto;
+}
+.search-btn {
+  color: #0ac5a8;
+  font-size: 30px;
+  float: right;
+}
+.search-txt {
+  display: inline-block;
+  width: 340px;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0px;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 30px;
 }
 
 .content .side-content {

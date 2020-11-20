@@ -13,12 +13,16 @@ style
 </head>
 <body>
 <div class="container1">
-<h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1><div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
+<h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1>
+<div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
 <div class="dropdown1-content">
 <a href="#">Link 1</a>
 <a href="#">Link 2</a>
 <a href="#">Link 3</a>
-</div></div><div class="dropdown"><button class="btn"><i class="fas fa-mobile-alt"></i> DEVICES <i class="fas fa-angle-down"></i></button><div class="dropdown1-content">
+</div>
+</div>
+<div class="dropdown"><button class="btn"><i class="fas fa-mobile-alt"></i> DEVICES <i class="fas fa-angle-down"></i></button>
+<div class="dropdown1-content">
 <table>
 <tr>
   <td><a href="/samsung">SAMSUNG</a></td>
@@ -38,7 +42,8 @@ style
   </table>
 </div>
 </div>
-<div class="dropdown"><button class="btn"><i class="fab fa-forumbee"></i> FORUMS <i class="fas fa-angle-down"></i></button><div class="dropdown1-content">
+<div class="dropdown"><button class="btn"><i class="fab fa-forumbee"></i> FORUMS <i class="fas fa-angle-down"></i></button>
+<div class="dropdown1-content">
 <a href="#">Link 7</a>
 <a href="#">Link 8</a>
 <a href="#">Link 9</a>
@@ -53,6 +58,10 @@ style
 </div>
 <div class="dropdown"><button class="btn"> <i class="fas fa-user-tie"></i> DEVELOPERS</button>
 </div>
+  <div class="search-box">
+    <input type="text" class="search-txt" placeholder="Type to search">
+    <i class="fab fa-searchengin search-btn"></i>
+  </div>
 </div>
 
 
@@ -198,7 +207,6 @@ style
 
 <div class="side-bar">
 <h2><button class="options"><i class="fas fa-bars"></i></button>
-  <button class="search"><i class="fas fa-search"></i></button>
   <button onclick="document.getElementById('user-popup-wrapper').style.display='block';" class="user"><i class="fas fa-user-circle"></i></button></h2>
   <div class="social-links">
     <a href="www.facebook.com"><img src="./static/logo/fb.png"></a>
@@ -216,7 +224,7 @@ style
     if(isAuthenticated)  
       if user.usertype == 'local'    
         <div class="user-popup-content">
-        <div class="dpcontainer"></div>
+        <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
         <div class="usernaming">
         <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
         </div>
@@ -225,7 +233,7 @@ style
         </div>
       else if user.usertype == 'developer'
         <div class="user-popup-content">
-        <div class="dpcontainer"></div>
+        <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
         <div class="usernaming">
         <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
         </div>

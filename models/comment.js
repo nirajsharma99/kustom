@@ -9,6 +9,7 @@ const commentSchema = new Schema(
     username: { type: String, required: true },
     usertype: { type: String, required: true },
     comment: { type: String, required: true },
+    filename: { type: String, default: 'user.png' },
     replies: [
       {
         _id: { type: String },
@@ -16,6 +17,7 @@ const commentSchema = new Schema(
         username: { type: String },
         usertype: { type: String },
         date: { type: Date },
+        filename: { type: String, default: 'user.png' },
       },
     ],
     likeCount: { type: NumberInt, default: 0, required: false },

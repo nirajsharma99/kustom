@@ -13,14 +13,16 @@
   src: url(./static/Lobster-Regular.ttf);
   font-style: bold;
 }
+/*----------------- FONT -----------------*/
 
 html,
 body {
   height: 100%;
   padding: 0px;
   margin: 0px;
-  background-color: black;
+  background: black;
 }
+/*--------------------------------HEADER---------------------------------------*/
 h1 {
   font-family: acme-regular;
   color: #0ac5a8;
@@ -30,7 +32,8 @@ h1 {
 }
 
 .container1 {
-  background-color: black;
+  background-color: transparent;
+
   height: 80px;
   width: 100%;
   justify-content: left;
@@ -110,7 +113,7 @@ td {
   border: none;
   border-collapse: collapse;
 }
-.search-box {
+.parent-search-box {
   display: inline-block;
   background: #2f3640;
   height: 50px;
@@ -118,12 +121,12 @@ td {
   padding: 10px;
   width: 300px;
 }
-.search-btn {
+.parent-search-btn {
   color: #0ac5a8;
   font-size: 30px;
   float: right;
 }
-.search-txt {
+.parent-search-txt {
   display: inline-block;
   width: 230px;
   border: none;
@@ -135,7 +138,9 @@ td {
   transition: 0.4s;
   line-height: 30px;
 }
+/*------------------------------------HEADER---------------------------------*/
 
+/*------------------------------------SIDE BAR---------------------------------*/
 .side-bar {
   width: 50px;
   height: 100vh;
@@ -301,6 +306,9 @@ button.close:hover {
 .content .main-content {
   width: 69%;
   float: right;
+
+  margin-right: 4%;
+  margin-top: 18px;
 }
 a.postlink {
   text-decoration: none;
@@ -313,42 +321,57 @@ a.postlink:hover {
   color: #0ac5a8;
   transition: 0.35s;
 }
-
 p.preview-text {
   font-size: 12px;
 }
-
-.content .main-content .post1 {
-  width: 30%;
-  height: 200px;
+/*---------------------------------------------------left-side--------------------*/
+.left-side {
   display: inline-block;
-  border-radius: 5px;
-  background-color: transparent;
-  position: relative;
-  color: #dcdcdc;
-  box-sizing: border-box;
-  margin: 30px 20px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  width: 49%;
+  vertical-align: top;
 }
-.content .main-content .post1:hover {
-  border: 1px solid #0ac5a8;
+.right-side {
+  display: inline-block;
+  width: 50%;
 }
-.content .main-content .post1 .post-image1 {
-  width: 150px;
-  height: 150px;
+.right-side li {
+  list-style: none;
+  color: thistle;
+  width: 480px;
+  display: block;
 }
-.content .main-content .post1 .post-preview1 {
+
+.image-section {
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+}
+.image-section img {
   width: 100%;
-  padding: 10px;
-  display: inline-block;
+  height: 100%;
+  border: 2px solid thistle;
+  border-radius: 50%;
 }
-
+.work {
+  display: block;
+  margin: auto;
+  width: 80%;
+  height: 100px;
+  background-color: transparent;
+}
+.work table {
+  width: 100%;
+}
+.work table th,
+.work table td {
+  color: white;
+}
+/*---------------------------------------------------------------------------------*/
 .content .side-content {
   width: 27%;
   float: left;
-  height: 600px;
 }
 h5 {
   position: relative;
@@ -365,25 +388,45 @@ h5:after {
   top: 75%;
   margin: auto;
 }
-.content .side-content .device-title {
+.content .side-content .side-post-title {
   color: #0ac5a8;
 }
 
-.device-list a {
-  display: block;
-  margin-bottom: 10px;
-  margin: 20px;
-  font-size: 1.2em;
+.content .side-content .side-post {
+  width: 100%;
+  height: 180px;
+  display: inline-block;
+  background-color: black;
+  position: relative;
+  color: #dcdcdc;
+  margin: 10px 0px;
+}
+.content .side-content .side-post .side-post-image {
+  width: 75px;
+  height: 75px;
+  float: left;
+  margin-top: 14px;
+}
+.content .side-content .side-post .side-post-preview {
+  width: 75%;
+  margin-top: 0px;
+  padding: 0px;
+  float: right;
+  background-color: black;
+  color: #808080;
+}
+a.sidepostlink {
   text-decoration: none;
   color: #dcdcdc;
-  text-align: center;
-  list-style: none;
-  transition: all 0.3s;
+  font-family: raleway-regular;
+  font-size: 16px;
 }
-.device-list a:hover {
+a.sidepostlink:hover {
   color: #0ac5a8;
-  margin-left: 15px;
-  transition: all 0.3s;
+  transition: 0.35s;
+}
+p.side-preview-text {
+  font-size: 12px;
 }
 
 .slider-container {
@@ -392,10 +435,10 @@ h5:after {
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
+  margin-bottom: 10px;
   overflow: hidden;
   text-align: center;
   border-radius: 5px;
-  background-color: black;
 }
 .image-container {
   width: 3200px;
@@ -406,7 +449,6 @@ h5:after {
   -moz-transition: left 2s;
   -o-transition: left 2s;
   animation: 15s slider infinite linear;
-  background-color: black;
 }
 .image-container:hover {
   animation-play-state: paused;
@@ -483,7 +525,7 @@ h5:after {
 }
 .footer .footer-content .contact-input {
   background: #dcdcdc;
-  color: black;
+  color: #555555;
   margin-bottom: 10px;
   padding: 0.7rem 1.2rem;
   border-radius: 15px;

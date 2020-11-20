@@ -54,6 +54,10 @@ style
 </div>
 <div class="dropdown"><button class="btn"> <i class="fas fa-user-tie"></i> DEVELOPERS</button>
 </div>
+  <div class="search-box">
+    <input type="text" class="search-txt" placeholder="Type to search">
+    <i class="fab fa-searchengin search-btn"></i>
+  </div>
 </div>
 
 
@@ -199,7 +203,7 @@ style
   if(isAuthenticated)  
     if user.usertype == 'local'    
       <div class="user-popup-content">
-      <div class="dpcontainer"></div>
+      <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
       <div class="usernaming">
       <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
       </div>
@@ -208,14 +212,14 @@ style
       </div>
     else if user.usertype == 'developer'
       <div class="user-popup-content">
-      <div class="dpcontainer"></div>
+      <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
       <div class="usernaming">
       <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
       </div>
       <p style="margin-top:0;color:white;font-size:1rem;">User-Type: #{ user.usertype }</p>
       <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
       <a href="#" class="settings"><i class="fas fa-cogs"></i> Settings</a><br>
-      <a href="/homepage/dashboard" class="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="/dashboard" class="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
       </div>
   else
     <div class="user-popup-content">

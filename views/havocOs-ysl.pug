@@ -52,6 +52,10 @@ style
 </div>
 <div class="dropdown"><button class="btn"> <i class="fas fa-user-tie"></i> DEVELOPERS</button>
 </div>
+  <div class="search-box">
+    <input type="text" class="search-txt" placeholder="Type to search">
+    <i class="fab fa-searchengin search-btn"></i>
+  </div>
 </div>
 
 
@@ -64,7 +68,7 @@ style
     <p class="rom-heading">Havoc OS v3.8 [OFFICIAL][10][4.9][YSL]</p>
     </div>
     <div class="dev-name">
-    <p class="dev">By <a style="text-decoration:none; color: #0AC5A8;"href="#">mahajant99</a> ,Updated page on 19-8-2020</p>
+    <p class="dev">By <button style="text-decoration:none; color: #0AC5A8;border:none;outline:none;background:transparent;" onclick="getProfile('niraj');">niraj</button> ,Updated page on 19-8-2020</p>
     </div>
     <div class="rom-image">
     <img src="./static/rom-logo/havoc.png">
@@ -319,7 +323,7 @@ style
   if(isAuthenticated)  
     if user.usertype == 'local'    
       <div class="user-popup-content">
-      <div class="dpcontainer"></div>
+      <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
       <div class="usernaming">
       <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
       </div>
@@ -328,7 +332,7 @@ style
       </div>
     else if user.usertype == 'developer'
       <div class="user-popup-content">
-      <div class="dpcontainer"></div>
+      <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
       <div class="usernaming">
       <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
       </div>
@@ -458,6 +462,7 @@ style
       window.onload = function() {
       let username = "#{ user.username }"
       let usertype = "#{ user.usertype }"
+      let filename = "#{ user.filename }"
       var socket = io();
       const textarea = document.querySelector('#review-textarea')
       const submitbtn = document.querySelector('#submitbtn')
@@ -478,6 +483,7 @@ style
       let data ={
         username: username,
         usertype: usertype,
+        filename: filename,
         comment: comment
       }
       appendToDom(data)
@@ -502,7 +508,7 @@ style
       }
         let markup = `
           <div class="comments ${data.objectId}">
-            <div class="image-container"><div class="user-image"><img src="./static/garbageimage/me.jpg" style="width:100px;height:100px;border-radius:50%;"></div></div>
+            <div class="image-container"><div class="user-image"><img style="width:100px;height:100px;border-radius:50%;" src="./static/uploads/${data.filename}"></div></div>
             <div class="user-details">
               <p style="color:white;display:inline;">${data.username}</p>
               <p class=${data.usertype == "developer" ? 'showusertag':'hideusertag'} ><strong>&lt;dev&gt;</strong></p><button onclick="deleteComment('${data.objectId}')" class=${username === data.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
@@ -543,7 +549,7 @@ style
             //console.log("replyData: ", replyData._id)
             let markup2 = `
             <div class="replies">
-              <div class="reply-image-container"><div class="user-image"><img src="./static/garbageimage/me.jpg" style="width:100px;height:100px;border-radius:50%;"></div></div>
+              <div class="reply-image-container"><div class="user-image"><img style="width:100px;height:100px;border-radius:50%;" src="./static/uploads/${replyData.filename}"></div></div>
               <div class="reply-user-details">
                 <p style="color:white;display:inline;">${replyData.username}</p>
                 <p class=${replyData.usertype == "developer" ? 'showusertag':'hideusertag'} ><strong>&lt;dev&gt;</strong></p><button onclick=deleteReply('${replyData._id}','${data.objectId}') class=${username === replyData.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
@@ -609,6 +615,7 @@ style
         let object = objectId
         let username = "#{ user.username }"
         let usertype = "#{ user.usertype }"
+        let filename = "#{ user.filename }"
         var socket = io();
         const replytext = document.querySelector('#reply-textarea-'+object)
         const replysubmitbtn = document.querySelector('#replysubmitbtn')
@@ -628,6 +635,7 @@ style
           let replyData ={
             username: username,
             usertype: usertype,
+            filename: filename,
             reply: reply,
             objectId: object
             }
@@ -643,7 +651,7 @@ style
         l2Tag.classList.add("reply")
           let markup2 = `
           <div class="replies">
-            <div class="reply-image-container"><div class="user-image"></div></div>
+            <div class="reply-image-container"><div class="user-image"><img style="width:100px;height:100px;border-radius:50%;" src="./static/uploads/${replyData.filename}"></div></div>
             <div class="reply-user-details">
               <p style="color:white;display:inline;">${replyData.username}</p>
               <p class=${replyData.usertype == "developer" ? 'showusertag':'hideusertag'} ><strong>&lt;dev&gt;</strong></p><button class=${username === replyData.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
@@ -701,7 +709,7 @@ style
         }       
           let markup = `
             <div class="comments">
-              <div class="image-container"><div class="user-image"></div></div>
+              <div class="image-container"><div class="user-image"><img style="width:100px;height:100px;border-radius:50%;" src="./static/uploads/${data.filename}"></div></div>
               <div class="user-details">
                 <p style="color:white;display:inline;">${data.username}</p>
                 <p class=${data.usertype == "developer" ? 'showusertag':'hideusertag'} ><strong>&lt;dev&gt;</strong></p>
@@ -733,7 +741,7 @@ style
             //console.log("replyData: ", replyData)
             let markup2 = `
             <div class="replies">
-              <div class="reply-image-container"><div class="user-image"></div></div>
+              <div class="reply-image-container"><div class="user-image"><img style="width:100px;height:100px;border-radius:50%;" src="./static/uploads/${replyData.filename}"></div></div>
               <div class="reply-user-details">
                 <p style="color:white;display:inline;">${replyData.username}</p>
                 <p class=${replyData.usertype == "developer" ? 'showusertag':'hideusertag'} ><strong>&lt;dev&gt;</strong></p><button  class="hidedelete" ><i class="fas fa-trash-alt"></i></button>
@@ -961,6 +969,17 @@ style
           })
         })
         document.location.reload();
+    }
+    function getProfile(user){
+      //console.log(user)
+      //const data ={user:user};
+      const userprofile=user;
+      console.log(userprofile);
+      const headers={
+        'Content-Type' : 'application/json'
+      }
+      fetch(`/api/getprofile?userprofile=${userprofile}`)
+
     }
 
 

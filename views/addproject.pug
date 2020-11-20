@@ -52,6 +52,10 @@ style
 </div>
 <div class="dropdown"><button class="btn"> <i class="fas fa-user-tie"></i> DEVELOPERS</button>
 </div>
+    <div class="search-box">
+        <input type="text" class="search-txt" placeholder="Type to search">
+        <i class="fab fa-searchengin search-btn"></i>
+    </div>
 </div>
 
 <div class="main-section">
@@ -60,7 +64,7 @@ style
         <ul>
             <li><a href="/dashboard"><i class="fas fa-book-open"></i> Profile</a></li>
             <li><a href="#"><i class="fas fa-id-card-alt"></i> Contact-Info || <i class="fas fa-link"></i>Source Links</a></li>
-            <li><a href="/dashboard/projects"><i class="fas fa-cube"></i> Projects</a></li>
+            <li><a href="/projects"><i class="fas fa-cube"></i> Projects</a></li>
             <li><a href="/projects"><i class="fas fa-chart-pie"></i> Statistics</a></li>
             <li><a href="/projects"><i class="fas fa-scroll"></i> Announcements</a></li>
         </ul>
@@ -69,19 +73,26 @@ style
         <fieldset class="page-fieldset">
             <legend class="page-legend"><strong>Add Template</strong></legend>
             <div class="template">
-                <label for="romname">Rom Name:</label>
-                <input type="textarea" id="romname" placeholder="project name..">&nbsp;
-                <label for="androidversion">Android Version:</label>
-                <input type="textarea" id="androidversion" placeholder="version..">&nbsp;<br>
-                <label for="romversion">Rom Version:</label>
-                <input type="textarea" id="romversion" placeholder="version..">&nbsp;
-                <input type="file" name="file" id="real-file" hidden="hidden"/>
-                <button type="button" id="custom-button">CHOOSE A FILE</button>
-                <span id="custom-text">No file chosen,yet. </span><br>
-                <label for="romversion">Device:</label>
-                <input type="textarea" id="fordevice" placeholder="device name..">&nbsp;<br>
-                <p style="color:#aaa;font-size:smaller;display:inline-block;">Note*: The file dimensions should be 300x200 pixels.</p>
-                <button class="addtemplatebtn">Add template</button>
+                <form action="/addtemplate" enctype="multipart/form-data" method="POST"> 
+                    <label for="romname">Rom Name:</label>
+                    <input type="textarea" name="romname" id="romname" placeholder="project name..">&nbsp;
+                    <label for="androidversion">Android Version:</label>
+                    <input type="textarea" name="androidversion" id="androidversion" placeholder="version..">&nbsp;<br>
+                    <label for="romversion">Rom Version:</label>
+                    <input type="textarea" name="romversion" id="romversion" placeholder="version..">&nbsp;
+                    <input type="file" name="myFile" id="real-file" /><br>
+                    <input type="hidden" name="username" id="username"/>
+                    <input type="hidden" name="joiningdate" id="joiningdate"/>
+                    script.
+                        var username=document.getElementById("username");
+                        username.value="#{user.username}";
+                        var date=document.getElementById("joiningdate");
+                        date.value="#{user.date}";
+                    <label for="romversion">Device:</label>
+                    <input type="textarea" name="device" id="fordevice" placeholder="device name..">&nbsp;<br>
+                    <p style="color:#aaa;font-size:smaller;display:inline-block;">Note*: The file dimensions should be 300x200 pixels.</p>
+                    <button type="submit" class="addtemplatebtn">Add template</button>
+                </form>
             </div>
         </fieldset>
 
@@ -106,7 +117,7 @@ style
     if(isAuthenticated)  
         if user.usertype == 'local'    
             <div class="user-popup-content">
-            <div class="dpcontainer"></div>
+            <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
             <div class="usernaming">
             <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
             </div>
@@ -115,7 +126,7 @@ style
             </div>
         else if user.usertype == 'developer'
             <div class="user-popup-content">
-            <div class="dpcontainer"></div>
+            <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
             <div class="usernaming">
             <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
             </div>
@@ -151,7 +162,11 @@ style
 </div>
 
 script.
-    const realFileBtn = document.getElementById("real-file");
+    var username=document.getElementById('username');
+    username.value=${user.username};
+    var date=document.getElementById('joiningdate');
+    date.value=${user.date};
+    /*const realFileBtn = document.getElementById("real-file");
     const customBtn = document.getElementById("custom-button");
     const customTxt = document.getElementById("custom-text");
     customBtn.addEventListener("click", function() {
@@ -211,7 +226,7 @@ script.
             console.log(result)
             })
         }
-    }
+    }*/
 
 
 </body>

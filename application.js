@@ -27,6 +27,7 @@ application.post('/api/comments', (req, res) => {
     username: req.body.username,
     usertype: req.body.usertype,
     comment: req.body.comment,
+    filename: req.body.filename,
   });
   comment.save().then((response) => {
     res.send(response);
@@ -47,6 +48,7 @@ application.post('/api/replies', (req, res) => {
     reply: req.body.reply,
     username: req.body.username,
     usertype: req.body.usertype,
+    filename: req.body.filename,
     date: Date(),
   };
   //console.log(`api working${newreplies.reply}${newreplies.username}${newreplies.usertype}${IDpassed}`)
@@ -191,32 +193,47 @@ application.post('/api/changelikerdisliker', (req, res) => {
       console.log(err);
     });
 });
-var Storage = multer.diskStorage({
-  destination: './static/uploads',
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + '_' + Date.now() + path.extname(file.originalname)
-    );
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname + '/static/uploads'));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + '.jpg');
   },
 });
-var upload = multer({
-  storage: Storage,
-}).single('file');
-application.post('/addtemplate', upload, (req, res) => {
+var upload = multer({ storage: storage });
+application.post('/addtemplate', upload.single('myFile'), (req, res) => {
   const template = new ysltemplate({
     username: req.body.username,
-    joindate: req.body.joindate,
-    projectname: req.body.projectname,
+    joindate: req.body.joiningdate,
+    projectname: req.body.romname,
     androidversion: req.body.androidversion,
     romversion: req.body.romversion,
     device: req.body.device,
-    file: req.body.file,
+    filename: req.file.filename,
   });
-  console.log('add template working' + file);
-  /*template.save().then((response) => {
-    res.send(response);
-  });*/
+  if (req.body.device == 'ysl') {
+    template.save().then((response) => {
+      res.send(response);
+    });
+  }
+});
+
+application.get('/api/ysltemplates', (req, res) => {
+  ysltemplate.find().then(function (templates) {
+    res.send(templates);
+  });
+});
+application.post('/api/deleteproject', (req, res) => {
+  const ID = req.body.objectId;
+  ysltemplate
+    .findOneAndRemove({ _id: objid(ID) })
+    .then(() => {
+      console.log('Project deleted');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 const { ObjectID } = require('mongodb');
@@ -269,12 +286,85 @@ application.use(function (req, res, next) {
       }
       res.redirect('/');
   }*/
+application.post(
+  '/profileEditRequest',
+  upload.single('realFile'),
+  (req, res) => {
+    const objID = req.body.id;
+    const name = req.body.name;
+    const city = req.body.city;
+    const country = req.body.country;
+    const occupation = req.body.occupation;
+    const telegram = req.body.telegram;
+    const instagram = req.body.instagram;
+    const paypal = req.body.paypal;
+    const gpay = req.body.gpay;
+    const device = req.body.devices;
+    //const filename = req.file.filename || null;
+    registration
+      .findByIdAndUpdate(
+        { _id: objID },
+        {
+          name: name,
+          city: city,
+          country: country,
+          occupation: occupation,
+          telegram: telegram,
+          instagram: instagram,
+          paypal: paypal,
+          gpay: gpay,
+          device: device,
+          //filename: filename,
+        }
+      )
+      .then((response) => {
+        req.flash('success_msg', 'User Profile Updated!!)');
+        res.redirect('/editprofile');
+        console.log('User Profile Updated');
+      })
+      .catch((err) => {
+        req.flash('error_msg', 'Please select a file to upload!)');
+        res.redirect('/editprofile');
+        //console.log(err);
+      });
+  }
+);
+application.post(
+  '/profilePictureUpdate',
+  upload.single('myFile'),
+  (req, res) => {
+    const ID = req.body.id;
+    const filename = req.file.filename;
+    registration
+      .findByIdAndUpdate({ _id: objid(ID) }, { filename: filename })
+      .then(() => {
+        req.flash('success_msg', 'Profile Picture Updated!!)');
+        res.redirect('/editprofile');
+        console.log('profile picture updated');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 application.set('view engine', 'pug');
 application.set('views', [
   path.join(__dirname, 'views'),
   path.join(__dirname, '/views/homepage'),
 ]);
+application.get(`/api/getprofile`, (req, res) => {
+  const username = req.query.userprofile;
+  registration
+    .findOne({ username: username })
+    .then((user) => {
+      console.log(user.usertype);
+      res.render('profile.pug');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 application.get('/', (req, res) => {
   res.status(200).render('homepage.pug', (user = req.user));
@@ -294,6 +384,13 @@ application.get('/projects', ensureAuthenticated, (req, res) => {
 
 application.get('/addproject', ensureAuthenticated, (req, res) => {
   res.status(200).render('addproject.pug');
+});
+application.get('/editprofile', ensureAuthenticated, (req, res) => {
+  res.status(200).render('editprofile.pug');
+});
+
+application.get('/profile', (req, res) => {
+  res.status(200).render('profile.pug');
 });
 
 application.get('/xiaomi', (req, res) => {
@@ -315,8 +412,8 @@ application.get('/motorola', (req, res) => {
 application.get('/ysl', (req, res) => {
   res.status(200).render('ysl.pug');
 });
-application.get('/havoc-ysl', (req, res) => {
-  res.status(200).render('havoc-ysl.pug');
+application.get('/havocOs-ysl', (req, res) => {
+  res.status(200).render('havocOs-ysl.pug');
 });
 
 application.get('/registration', (req, res) => {
