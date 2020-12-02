@@ -21,24 +21,20 @@ body {
   height: 100%;
   padding: 0px;
   margin: 0px;
-  background: black;
+  background: black !important;
 }
 /*--------------------------------HEADER---------------------------------------*/
-.container1 h1 {
+h1 {
   font-family: acme-regular;
   color: #0ac5a8;
-  display: inline-block;
-  font-size: 6;
+  font-size: 2.2rem !important;
   margin: 20px;
 }
 
 .container1 {
   background-color: black;
-  height: 80px;
-  width: 100%;
-  justify-content: left;
+  width: 96%;
   align-items: center;
-  min-width: 1090px;
   display: flex;
   position: relative;
 }
@@ -47,7 +43,9 @@ button.btn {
   background-color: transparent;
   color: #dcdcdc;
   border: none;
-  font-size: 20px;
+  width: 100%;
+  display: inline-block;
+  font-size: 1.2rem;
   padding: 25px 10px;
 }
 
@@ -119,16 +117,17 @@ td {
   height: 50px;
   border-radius: 40px;
   padding: 10px;
-  width: 300px;
+  width: 25%;
 }
 .search-btn {
   color: #0ac5a8;
   font-size: 30px;
   float: right;
+  position: absolute;
 }
 .search-txt {
   display: inline-block;
-  width: 230px;
+  width: 88%;
   border: none;
   outline: none;
   background: none;
@@ -137,6 +136,40 @@ td {
   font-size: 16px;
   transition: 0.4s;
   line-height: 30px;
+}
+.search-result-box {
+  display: none;
+  width: 25%;
+  min-height: 500px;
+  margin-top: 25px;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 1;
+  background-color: #1a1a1a;
+}
+#allSearchResults li {
+  list-style: none;
+  padding: 0% !important;
+}
+#allSearchResults {
+  padding: 0px 15px !important;
+}
+a.result-heading {
+  color: white;
+  display: flex;
+}
+a.result-description {
+  color: #666;
+  display: flex;
+  font-size: smaller;
+}
+a:hover.result-heading {
+  text-decoration: none;
+  color: #0ac5a8;
+}
+a:hover.result-description {
+  text-decoration: none;
+  color: #0ac5a8;
 }
 /*------------------------------------HEADER---------------------------------*/
 
@@ -150,14 +183,32 @@ td {
   top: 0;
   opacity: 0.8;
 }
-button.search:hover,
+
 button.user:hover,
 button.options:hover {
   background-color: transparent;
   color: #0ac5a8;
 }
 
-button.search,
+button.user:focus,
+button.options:focus {
+  outline: none;
+}
+
+button.options-responsive {
+  display: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #dcdcdc;
+  margin: 6px;
+  font-size: 2rem;
+}
+button.options-responsive:focus {
+  color: #0ac5a8;
+  outline: none;
+}
+
 button.user,
 button.options {
   background-color: transparent;
@@ -173,7 +224,7 @@ button.options {
   right: 3.5%;
   top: 0;
   width: 30%;
-  height: 80%;
+  min-height: 70%;
   overflow: auto;
   background-color: black;
   border: 1px solid #0ac5a8;
@@ -184,20 +235,42 @@ button.options {
   text-align: center;
   display: block;
   width: 80%;
-  height: 70%;
   margin-left: auto;
   margin-right: auto;
   background-color: transparent;
 }
+
+.social-box {
+  box-sizing: border-box;
+  border-top: 1px solid thistle;
+  border-bottom: 1px solid thistle;
+}
+.social-box li {
+  list-style: none;
+  color: #0ac5a8;
+}
+.social-icons {
+  display: inline-block;
+  font-size: 3rem;
+}
+.icons {
+  display: block;
+  width: 73%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.social-icons i {
+  color: white;
+  letter-spacing: 15px;
+}
+
 .login-data {
   display: block;
+  margin-top: 20%;
+  margin-bottom: 10%;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  height: 70%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 .login-data a,
 .login-data .register a,
@@ -211,7 +284,7 @@ button.options {
 button.login {
   width: 100%;
   padding: 6px 8px;
-  margin: 8px;
+  margin: 8px 0px;
   display: inline-block;
   border: none;
   border-radius: 20px;
@@ -227,11 +300,51 @@ input[type='email'],
 input[type='password'] {
   width: 100%;
   padding: 12px 20px;
-  margin: 8px;
+  margin: 8px 0px;
   display: inline-block;
   box-sizing: border-box;
   font-size: 16px;
 }
+
+.user-popup-responsive {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0%;
+  top: 0;
+  width: 90%;
+  min-height: 70%;
+  overflow: auto;
+  background-color: black;
+  border: 1px solid #0ac5a8;
+}
+
+.dpcontainer {
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #a9a9a9;
+}
+.usernaming {
+  border-top: 0.5px solid white;
+  border-bottom: 1px solid white;
+  height: 30px;
+}
+a.logout,
+a.settings,
+a.dashboard {
+  color: white;
+}
+a.logout:hover,
+a.settings:hover,
+a.dashboard:hover {
+  color: #c0c0c0;
+  text-decoration: none;
+}
+
 button.close {
   color: #dcdcdc;
   background-color: transparent;
@@ -280,6 +393,9 @@ button.close:hover {
   width: 69%;
   float: left;
 }
+.banner {
+  display: inline-block;
+}
 a.postlink {
   text-decoration: none;
   color: #dcdcdc;
@@ -309,7 +425,6 @@ a.user:hover {
   margin: 0px auto;
   margin-top: 10px;
   text-align: left;
-  height: 60px;
   display: block;
   background-color: black;
   position: relative;
@@ -324,7 +439,6 @@ a.user:hover {
   display: block;
   background-color: black;
   position: relative;
-  color: #dcdcdc;
   padding: 10px 20px;
   background-image: url('../static/background1.png');
   background-repeat: no-repeat;
@@ -372,7 +486,6 @@ h5:after {
 }
 .content .sideposts .side-post {
   width: 100%;
-  height: 180px;
   display: inline-block;
   background-color: black;
   position: relative;
@@ -380,14 +493,15 @@ h5:after {
   margin: 10px;
 }
 .content .sideposts .side-post .side-post-image {
-  width: 75px;
-  height: 75px;
+  width: 25%;
+  height: 40%;
   float: left;
   margin-top: 14px;
 }
 .content .sideposts .side-post .side-post-preview {
-  width: 75%;
+  width: 70%;
   margin-top: 0px;
+  margin-right: 3%;
   padding: 0px;
   float: right;
   background-color: black;
@@ -484,8 +598,7 @@ p.side-preview-text {
   border-left-style: hidden;
   border-bottom-style: groove;
   border-color: #0ac5a8;
-  background-color: transparent;
-  color: #0ac5a8;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 .form input {
   display: inline-block;
@@ -525,11 +638,9 @@ p.side-preview-text {
   background: black;
   color: #dcdcdc;
   width: 100%;
-  height: 400px;
 }
 .footer .footer-content {
   border: 1px solid #0ac5a8;
-  height: 350px;
   display: flex;
   width: 96.2%;
 }
@@ -591,3 +702,81 @@ p.side-preview-text {
   left: 0px;
 }
 /*-----------------------------------------FOOTER------------------------------*/
+@media screen and (max-device-width: 500px) {
+  .banner {
+    display: block;
+  }
+  h1 {
+    font-size: 1.5rem !important;
+    display: inline-block;
+  }
+  .container1 {
+    display: inline-block;
+    width: 100%;
+  }
+
+  button.btn {
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    padding: 0px 5px;
+    display: inline-block;
+    align-items: center;
+    line-height: 25px;
+  }
+  .search-box {
+    display: block;
+    width: 70%;
+    margin: auto;
+  }
+  .search-result-box {
+    width: 100%;
+    left: 5px;
+  }
+  button.bestposts {
+    display: none;
+  }
+  .content .main-content {
+    width: 100%;
+    float: none;
+  }
+  .content .sideposts {
+    width: 100%;
+    float: none;
+  }
+
+  .footer {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footer .footer-content {
+    flex-direction: column;
+  }
+  .side-bar {
+    display: none;
+  }
+  button.options-responsive {
+    display: inline-block;
+  }
+  .user-popup-content {
+    width: 80%;
+  }
+  .login-data {
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
+  .form {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1;
+  }
+  ::placeholder {
+    color: white;
+  }
+  .footer .footer-content {
+    width: 95%;
+    margin: auto;
+  }
+}

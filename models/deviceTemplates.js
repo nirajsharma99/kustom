@@ -44,6 +44,18 @@ const ysltemplateSchema = new Schema({
     type: String,
     //required: true,
   },
+  romtype: {
+    type: String,
+    //required: true,
+  },
+  updatetype: {
+    type: String,
+    //required: true,
+  },
+  developerpicture: {
+    type: String,
+    //required: true,
+  },
   filename: {
     type: String,
     //required: true,
@@ -52,10 +64,20 @@ const ysltemplateSchema = new Schema({
     type: NumberInt,
     default: 0,
   },
-  averagerating: {
-    type: NumberInt,
-    default: 0,
-  },
+  raters: [
+    {
+      username: {
+        type: String,
+      },
+      rated: {
+        type: NumberInt,
+      },
+      date: {
+        type: Date,
+        default: Date.now(),
+      },
+    },
+  ],
 });
 
 var ysltemplate = (module.exports = mongoose.model(

@@ -20,7 +20,9 @@ dbConnect();
 application.use(express.json());
 const Comment = require('./models/comment');
 const registration = require('./models/registrationmongo');
-const ysltemplate = require('./models/pages');
+const ysltemplate = require('./models/deviceTemplates');
+const postTemplate = require('./models/postTemplates');
+const searchTag = require('./models/searchTag');
 //routes for comments
 application.post('/api/comments', (req, res) => {
   const comment = new Comment({
@@ -45,6 +47,7 @@ application.post('/api/replies', (req, res) => {
   const IDpassed = req.body.objectId;
   const newreplies = {
     _id: new ObjectID(),
+    comment_id: req.body.objectId,
     reply: req.body.reply,
     username: req.body.username,
     usertype: req.body.usertype,
@@ -210,13 +213,14 @@ application.post('/addtemplate', upload.single('myFile'), (req, res) => {
     androidversion: req.body.androidversion,
     romversion: req.body.romversion,
     device: req.body.device,
+    romtype: req.body.romtype,
+    updatetype: req.body.updatetype,
+    developerpicture: req.body.userimage,
     filename: req.file.filename,
   });
-  if (req.body.device == 'ysl') {
-    template.save().then((response) => {
-      res.send(response);
-    });
-  }
+  template.save().then((response) => {
+    res.send(response);
+  });
 });
 
 application.get('/api/ysltemplates', (req, res) => {
@@ -224,6 +228,36 @@ application.get('/api/ysltemplates', (req, res) => {
     res.send(templates);
   });
 });
+application.get('/api/searchTags', (req, res) => {
+  searchTag.find().then(function (tags) {
+    res.send(tags);
+  });
+});
+
+application.get('/api/posttemplates', (req, res) => {
+  postTemplate.find().then(function (templates) {
+    res.send(templates);
+  });
+});
+
+application.get('/api/users', (req, res) => {
+  registration.find().then(function (users) {
+    res.send(users);
+  });
+});
+
+application.post('/api/deleteuser', (req, res) => {
+  const ID = req.body.objectId;
+  registration
+    .findOneAndRemove({ _id: objid(ID) })
+    .then(() => {
+      console.log('User deleted');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 application.post('/api/deleteproject', (req, res) => {
   const ID = req.body.objectId;
   ysltemplate
@@ -237,6 +271,7 @@ application.post('/api/deleteproject', (req, res) => {
 });
 
 const { ObjectID } = require('mongodb');
+const { fail } = require('assert');
 const store = new MongoDBStore({
   uri: 'mongodb://localhost:27017/user',
   collection: 'mySessions',
@@ -278,14 +313,67 @@ application.use(function (req, res, next) {
   next();
 });
 
-/*function isLoggedIn(req,res,next){
-      if(req.isAuthenticated()){
-          res.locals.username=req.user.username;
-          res.locals.usertype=req.user.usertype;
-          return next();
-      }
-      res.redirect('/');
-  }*/
+application.post('/addPostTemplate', upload.single('myFile'), (req, res) => {
+  const template = new postTemplate({
+    author: req.body.author,
+    date: Date.now(),
+    postindex: req.body.postnumber,
+    heading: req.body.heading,
+    description: req.body.description,
+    filename: req.file.filename,
+    purpose: req.body.purpose,
+  });
+  const index = parseInt(req.body.postnumber);
+  const author = req.body.author;
+  const date = Date.now();
+  const heading = req.body.heading;
+  const description = req.body.description;
+  const filename = req.file.filename;
+  const purpose = req.body.purpose;
+  if (req.body.purpose == 'Add') {
+    template.save().then((response) => {
+      req.flash('success_msg', 'Success, Post Template Added!!)');
+      res.redirect('/manageHomepage');
+    });
+  } else if (req.body.purpose == 'Update') {
+    postTemplate.collection
+      .findOneAndUpdate(
+        { postindex: index },
+        {
+          $set: {
+            author: author,
+            date: date,
+            postindex: index,
+            heading: heading,
+            description: description,
+            filename: filename,
+            purpose: purpose,
+          },
+        }
+      )
+      .then(() => {
+        req.flash('success_msg', 'Success, Post Template Updated!!)');
+        res.redirect('/manageHomepage');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+});
+application.post('/addSearchTag', (req, res) => {
+  const tag = new searchTag({
+    link: req.body.taglink,
+    date: Date.now(),
+    heading: req.body.heading,
+    description: req.body.description,
+  });
+  console.log(req.body.taglink + req.body.heading + req.body.description);
+  tag.save().then((response) => {
+    req.flash('success_msg', 'Success, Search tag Added!!)');
+    res.redirect('/manageSearchTags');
+  });
+});
+
 application.post(
   '/profileEditRequest',
   upload.single('realFile'),
@@ -347,19 +435,37 @@ application.post(
       });
   }
 );
+application.post('/api/starRating', (req, res) => {
+  rate = parseInt(req.body.rating);
+  projectname = req.body.projectname;
+  romversion = req.body.romversion;
+  device = req.body.device;
+  const newrater = { rated: rate, username: req.body.username };
+  console.log(rate + projectname + romversion + device);
+  ysltemplate
+    .update(
+      { projectname: projectname, romversion: romversion, device: device },
+      { $push: { raters: newrater } }
+    )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 application.set('view engine', 'pug');
 application.set('views', [
   path.join(__dirname, 'views'),
   path.join(__dirname, '/views/homepage'),
 ]);
-application.get(`/api/getprofile`, (req, res) => {
+application.get(`/getprofile`, (req, res) => {
   const username = req.query.userprofile;
   registration
     .findOne({ username: username })
-    .then((user) => {
-      console.log(user.usertype);
-      res.render('profile.pug');
+    .then((userInfo) => {
+      res.render('profile.pug', { userInfo: userInfo, user: req.user });
     })
     .catch((err) => {
       console.log(err);
@@ -389,8 +495,59 @@ application.get('/editprofile', ensureAuthenticated, (req, res) => {
   res.status(200).render('editprofile.pug');
 });
 
-application.get('/profile', (req, res) => {
-  res.status(200).render('profile.pug');
+application.get('/adminLogin', (req, res) => {
+  res.status(200).render('adminLogin.pug');
+});
+
+application.get('/manageSearchTags', ensureAuthenticated, (req, res) => {
+  console.log(req.user);
+  if (req.user.usertype == 'admin') {
+    res.render('manageSearchTags.pug', (user = req.user));
+  } else {
+    req.flash(
+      'error_msg',
+      'Authorisaton denied! Only Admin has access to this!'
+    );
+    res.redirect('/adminLogin');
+  }
+});
+application.get('/manageAdmin', ensureAuthenticated, (req, res) => {
+  console.log(req.user);
+  if (req.user.usertype == 'admin') {
+    res.render('manageAdmin.pug', (user = req.user));
+  } else {
+    req.flash(
+      'error_msg',
+      'Authorisaton denied! Only Admin has access to this!'
+    );
+    res.redirect('/adminLogin');
+  }
+});
+
+application.get('/manageProjects', ensureAuthenticated, (req, res) => {
+  console.log(req.user);
+  if (req.user.usertype == 'admin') {
+    res.render('manageProjects.pug', (user = req.user));
+  } else {
+    req.flash(
+      'error_msg',
+      'Authorisaton denied! Only Admin has access to this!'
+    );
+    res.redirect('/adminLogin');
+  }
+});
+
+application.get('/manageHomepage', ensureAuthenticated, (req, res) => {
+  console.log(req.user);
+  if (req.user.usertype == 'admin') {
+    res.render('manageHomepage.pug', (user = req.user));
+  } else {
+    req.flash(
+      'error_msg',
+      'Authorisaton denied! Only Admin has access to this!'
+    );
+    res.redirect('/adminLogin');
+  }
 });
 
 application.get('/xiaomi', (req, res) => {
@@ -448,16 +605,91 @@ io.on('connection', (socket) => {
     data.time = Date();
     socket.broadcast.emit('comment', data);
   });
-});
-
-io.on('connection', (socket) => {
-  console.log(`New reply connection: ${socket.id}`);
-  //recieve event
   socket.on('reply', (replyData) => {
     console.log(replyData);
     //replyData.time = Date();
-    //socket.broadcast.emit('reply', replyData);
+    socket.broadcast.emit('reply', replyData);
   });
+});
+
+/*io.on('connection', (socket) => {
+  console.log(`New reply connection: ${socket.id}`);
+  //recieve event
+  
+});*/
+
+application.post('/adminRegistration', (req, res) => {
+  const { username, email, name, password, cpassword } = req.body;
+  //console.log(req.body.emailId);
+  let errors = [];
+  registration.findOne({ username: req.body.username }).then((user) => {
+    if (user) {
+      errors.push({ msg: 'Username already exist!' });
+      res.render('adminLogin.pug', {
+        errors,
+        username,
+        name,
+        email,
+        password,
+        cpassword,
+      });
+    }
+  });
+  registration.findOne({ email: req.body.emailId }).then((user) => {
+    if (user) {
+      errors.push({ msg: 'Email already exists!' });
+      res.render('adminLogin.pug', {
+        errors,
+        username,
+        name,
+        email,
+        password,
+        cpassword,
+      });
+    } else {
+      const newLocal = 10;
+      var userData = new registration(req.body);
+      req.body.newpassword = bcrypt.hashSync(req.body.newpassword, newLocal);
+      const today = new Date();
+      (userData.username = req.body.username),
+        (userData.name = req.body.name),
+        (userData.email = req.body.emailId),
+        (userData.password = req.body.newpassword),
+        (userData.usertype = 'admin'),
+        (userData.date = today),
+        userData
+          .save()
+          .then(() => {
+            req.flash('success_msg', 'User registered!, try Logging-in :)');
+            res.redirect('/adminLogin');
+          })
+          .catch(() => {
+            req.flash('error_msg', 'Sorry, User not registered! :(');
+            res.redirect('/adminLogin');
+          });
+    }
+  });
+});
+
+application.get('/admin', ensureAuthenticated, (req, res) => {
+  console.log(req.user);
+  if (req.user.usertype == 'admin') {
+    res.render('admin.pug', (user = req.user));
+  } else {
+    req.flash(
+      'error_msg',
+      'Authorisaton denied! Only Admin has access to this!'
+    );
+    res.redirect('/adminLogin');
+  }
+});
+
+application.post('/adminsLogin', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/admin',
+    failureRedirect: '/loginfailure',
+    failureFlash: true,
+  })(req, res, next);
 });
 
 application.post('/registration', (req, res) => {
@@ -568,26 +800,6 @@ application.post('/login', (req, res, next) => {
     failureRedirect: '/loginfailure',
     failureFlash: true,
   })(req, res, next);
-});
-application.get('/profile', (req, res) => {
-  var decoded = jwt.verify(
-    req.headers['authorization'],
-    process.env.SECRET_KEY
-  );
-  registration
-    .findOne({
-      _id: decoded._id,
-    })
-    .then((user) => {
-      if (user) {
-        res.json(user);
-      } else {
-        res.send('User does not exist');
-      }
-    })
-    .catch((err) => {
-      res.send('error:' + err);
-    });
 });
 
 module.exports = application;

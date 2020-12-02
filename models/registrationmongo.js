@@ -45,24 +45,31 @@ var registrationSchema = new mongoose.Schema({
   },
   city: {
     type: String,
+    default: null,
   },
   country: {
     type: String,
+    default: null,
   },
   occupation: {
     type: String,
+    default: null,
   },
   telegram: {
     type: String,
+    default: null,
   },
   instagram: {
     type: String,
+    default: null,
   },
   paypal: {
     type: String,
+    default: null,
   },
   gpay: {
     type: String,
+    default: null,
   },
   filename: {
     type: String,

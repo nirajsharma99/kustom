@@ -7,92 +7,86 @@
 style
   include ../static/websitecss/homepagestyle.css
   include ../static/bootstrap/css/bootstrap.min.css
-<script src="./myscript.js"></script>
+<script src="./static/myscript.js"></script>
 <title>KUSTOM</title>
 
 </head>
 <body>
-<div class="container1">
-<h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1>
-<div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
-<div class="dropdown1-content">
-<a href="#">Link 1</a>
-<a href="#">Link 2</a>
-<a href="#">Link 3</a>
-</div>
-</div>
-<div class="dropdown"><button class="btn"><i class="fas fa-mobile-alt"></i> DEVICES <i class="fas fa-angle-down"></i></button>
-<div class="dropdown1-content">
-<table>
-<tr>
-  <td><a href="/samsung">SAMSUNG</a></td>
-  <td><a href="#">HTC</a></td>
-  <td><a href="/xiaomi">Xiaomi</a></td>
-  </tr>
-  <tr>
-  <td><a href="#">OPPO</a></td>
-  <td><a href="#">VIVO</a></td>
-  <td><a href="/oneplus">ONE_PLUS</a></td>
-  </tr>
-  <tr>
-  <td><a href="#">RAZOR</a></td>
-  <td><a href="/motorola">MOTOROLA</a></td>
-    <td><a href="/google">GOOGLE</a></td>
-    </tr>
-  </table>
-</div>
-</div>
-<div class="dropdown"><button class="btn"><i class="fab fa-forumbee"></i> FORUMS <i class="fas fa-angle-down"></i></button>
-<div class="dropdown1-content">
-<a href="#">Link 7</a>
-<a href="#">Link 8</a>
-<a href="#">Link 9</a>
-</div>
-</div>
-<div class="dropdown"><button class="btn"><i class="fas fa-coffee"></i> BEST POSTS <i class="fas fa-angle-down"></i></button>
-<div class="dropdown1-content">
-<a href="#">Link 10</a>
-<a href="#">Link 11</a>
-<a href="#">Link 12s</a>
-</div>
-</div>
-<div class="dropdown"><button class="btn"> <i class="fas fa-user-tie"></i> DEVELOPERS</button>
-</div>
-  <div class="search-box">
-    <input type="text" class="search-txt" placeholder="Type to search">
-    <i class="fab fa-searchengin search-btn"></i>
+  <div class="container1">
+    <div class="banner">
+      <button onclick="document.getElementById('user-popup-wrapper-responsive').style.display='block';" class="options-responsive"><i class="fas fa-bars"></i></button>
+      <h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1>
+    </div>
+    <div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
+      <div class="dropdown1-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div>
+    <div class="dropdown"><button class="btn"><i class="fas fa-mobile-alt"></i> DEVICES <i class="fas fa-angle-down"></i></button>
+      <div class="dropdown1-content">
+        <table>
+          <tr>
+            <td><a href="/samsung">SAMSUNG</a></td>
+            <td><a href="#">HTC</a></td>
+            <td><a href="/xiaomi">Xiaomi</a></td>
+          </tr>
+          <tr>
+            <td><a href="#">OPPO</a></td>
+            <td><a href="#">VIVO</a></td>
+            <td><a href="/oneplus">ONE_PLUS</a></td>
+          </tr>
+          <tr>
+            <td><a href="#">RAZOR</a></td>
+            <td><a href="/motorola">MOTOROLA</a></td>
+            <td><a href="/google">GOOGLE</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="dropdown"><button class="btn"><i class="fab fa-forumbee"></i> FORUMS <i class="fas fa-angle-down"></i></button>
+      <div class="dropdown1-content">
+        <a href="#">Link 7</a>
+        <a href="#">Link 8</a>
+        <a href="#">Link 9</a>
+      </div>
+    </div>
+    <div class="dropdown"><button class="btn bestposts"><i class="fas fa-coffee"></i> BEST POSTS <i class="fas fa-angle-down"></i></button>
+      <div class="dropdown1-content">
+        <a href="#">Link 10</a>
+        <a href="#">Link 11</a>
+        <a href="#">Link 12s</a>
+      </div>
+    </div>
+    <div class="dropdown"><button class="btn"> <i class="fas fa-user-tie"></i> DEVELOPERS</button>
+    </div>
+    <div class="search-box">
+      <input type="text" class="search-txt" id="search-txt" placeholder="Type to search">
+      <i class="fab fa-searchengin search-btn"></i>
+      <div class="search-result-box">
+        <span style="color:thistle;padding:15px;margin: 10px 0px;">Search Results</span>
+        <hr style="background-color:thistle;margin-top:5px;width:90%;">
+        <ul id="allSearchResults">
+          //-all search results here
+        </ul>
+      </div>
+    </div>
+
   </div>
-</div>
 
 
 
-<div class="content clearfix">
-  <div class="main-content">
-    <div class="post1">
-      <a  href="#"><img src="../static/postimages/p8.jpg" alt="" class="post-image1"></a>
-      <div class="post-preview1">
-        <h4><a class="postlink" href="#">Samsung announces the Galaxy Z Fold 2 with full screen display </a></h4>   
-      </div>
-      </div>
-      <div class="post1">
-      <a  href="#"><img src="../static/postimages/p2.jpg" alt="" class="post-image1"></a>
-      <div class="post-preview1">
-        <h4><a class="postlink" href="#">The AUKEY Omnia 100W is the Ideal Charger for all of your Charging Needs</a></h4>   
-      </div>
-      </div>
-      <div class="post1">
-      <a  href="#"><img src="../static/postimages/p1.jpg" alt="" class="post-image1"></a>
-      <div class="post-preview1">
-        <h4><a class="postlink" href="#">Microsoft Surface Book 3 15-inch Review:The Best LAptop Form Factor!</a></h4>   
-      </div>
-      </div>
-      <div class="post1">
-      <a  href="#"><img src="../static/postimages/p3.jpg" alt="" class="post-image1"></a>
-      <div class="post-preview1">
-        <h4><a class="postlink" href="#">Mi Notebook 14 Horizon Edition Review:The Hottest New Thin and Light Notebook-Literally</a></h4>   
-      </div>
-      </div>
-</div>
+  <div class="content clearfix">
+    <div class="main-content">
+      <div class="post-box-1">
+
+      </div><!----post-box ends here---->
+
+      <div class="post-box-2">
+
+      </div><!----post-box-2 ends here--->
+  </div>
 
 
   <div class="sideposts">
@@ -100,124 +94,148 @@ style
       <span id="slider-image-1"></span>
       <span id="slider-image-2"></span>
       <span id="slider-image-3"></span>
-    <div class="image-container">
-      <img src="./static/slider/havoc.jpg" class="slider-image">
-      <img src="./static/slider/lineage.jpg" class="slider-image">
-      <img src="./static/slider/oxygen.jpg" class="slider-image">
-
+      <div class="image-container">
+        <img src="./static/slider/havoc.jpg" class="slider-image">
+        <img src="./static/slider/lineage.jpg" class="slider-image">
+        <img src="./static/slider/oxygen.jpg" class="slider-image">
+      </div>
+      <div class="button-container">
+        <a href="#slider-image-1" class="slider-button"></a>
+        <a href="#slider-image-2" class="slider-button"></a>
+        <a href="#slider-image-3" class="slider-button"></a>
+      </div>
     </div>
-    <div class="button-container">
-      <a href="#slider-image-1" class="slider-button"></a>
-      <a href="#slider-image-2" class="slider-button"></a>
-      <a href="#slider-image-3" class="slider-button"></a>
-    </div>
-    </div>
-<h5 class="best-post-title">Best posts</h5>
-  <div class="side-post">
-    <a href="#"><img src="./static/postimages/p5.jpg" alt="" class="side-post-image"></a>
-    <div class="side-post-preview">
-      <h4><a class="sidepostlink" href="#">India bans Xiaomi’s Mi Browser Pro, and QQ International app</a></h4> 
-      <p class="side-preview-text">
-      The Government of India recently had banned and blocked access to 59 apps with Chinese connections like TikTok, Xiaomi’s Mi Community, Mi Video Call, Xender, Shareit, Cam Scanner and even...
-      </p>
-    </div>
-  </div>
-  <div class="side-post">
-    <a href="#"><img src="./static/postimages/p9.jpg" alt="" class="side-post-image"></a>
-    <div class="side-post-preview">
-      <h4><a class="sidepostlink" href="#">Motorola One Fusion+ Review – A harmonious blend of the right mid-range features.</a></h4> 
-      <p class="side-preview-text">
-        For the last couple of years, Motorola has given its undivided attention to its portfolio of budget and mid-range smartphones. With a shift away from its flagship Moto Z line,…
-      </p>
-    </div>
-    </div>
-  <div class="side-post">
-    <a href="#"><img src="./static/postimages/p10.jpg" alt="" class="side-post-image"></a>
-    <div class="side-post-preview">
-      <h4><a class="sidepostlink" href="#">OnePlus Nord Review: Great Performance at a Great Price</a></h4> 
-      <p class="side-preview-text">
-        Every OnePlus smartphone since the 2014 OnePlus One has featured a flagship Qualcomm Snapdragon 800 series chipset. The use of Qualcomm's latest silicon has been integral to OnePlus' marketing, as…
-      </p>
-  </div>
-  </div>
+    <h5 class="best-post-title">Best posts</h5>
     <div class="side-post">
-    <a href="#"><img src="./static/postimages/p5.jpg" alt="" class="side-post-image"></a>
-    <div class="side-post-preview">
-      <h4><a class="sidepostlink" href="#">India bans Xiaomi’s Mi Browser Pro, and QQ International app</a></h4> 
-      <p class="side-preview-text">
-      The Government of India recently had banned and blocked access to 59 apps with Chinese connections like TikTok, Xiaomi’s Mi Community, Mi Video Call, Xender, Shareit, Cam Scanner and even...
-      </p>
-    </div>
-    </div>
-    <div class="side-post">
-    <a href="#"><img src="./static/postimages/p9.jpg" alt="" class="side-post-image"></a>
-    <div class="side-post-preview">
-      <h4><a class="sidepostlink" href="#">Motorola One Fusion+ Review – A harmonious blend of the right mid-range features.</a></h4> 
-      <p class="side-preview-text">
-        For the last couple of years, Motorola has given its undivided attention to its portfolio of budget and mid-range smartphones. With a shift away from its flagship Moto Z line,…
-      </p>
-    </div>
-    </div>
-</div>
-
-
-<div class="content clearfix">
-  <div class="main-content">
-    <h3 class="recent-post-title">Recent posts</h3>
-    <div class="post">
-      <a href="#"><img src="./static/postimages/p5.jpg" alt="" class="post-image"></a>
-      <div class="post-preview">
-        <h4><a class="postlink" href="#">India bans Xiaomi’s Mi Browser Pro, and QQ International app</a></h4>
-        <i class="far fa-user"> <a class="user" rel="author" href="#">Niraj Sharma &nbsp;</a></i>
-        <i class="fa fa-calendar"> Aug 3,2020</i>
-        <p class="preview-text">
+      <a href="#"><img src="./static/postimages/p5.jpg" alt="" class="side-post-image"></a>
+      <div class="side-post-preview">
+        <h4><a class="sidepostlink" href="#">India bans Xiaomi’s Mi Browser Pro, and QQ International app</a></h4> 
+        <p class="side-preview-text">
         The Government of India recently had banned and blocked access to 59 apps with Chinese connections like TikTok, Xiaomi’s Mi Community, Mi Video Call, Xender, Shareit, Cam Scanner and even...
         </p>
       </div>
     </div>
-
-      <div class="post">
-        <a href="#"><img src="./static/postimages/p6.jpg"" alt="" class="post-image"></a>
-          <div class="post-preview">
-            <h4><a class="postlink" href="#">Xiaomi Mi TV Stick challenges the Amazon Fire TV Stick in India with a launch price of ₹2,799 ($37)</a></h4>
-            <i class="far fa-user"> <a class="user" rel="author" href="#">Niraj Sharma &nbsp;</a></i>
-            <i class="fa fa-calendar"> Aug 3,2020</i>
-            <p class="preview-text">
-              Xiaomi has shaken the smartphone and smart TV market in India, and the company is not planning to stop just there. With the launch of the Mi Box 4K, Xiaomi...
-            </p>
-          </div>
+    <div class="side-post">
+      <a href="#"><img src="./static/postimages/p9.jpg" alt="" class="side-post-image"></a>
+      <div class="side-post-preview">
+        <h4><a class="sidepostlink" href="#">Motorola One Fusion+ Review – A harmonious blend of the right mid-range features.</a></h4> 
+        <p class="side-preview-text">
+          For the last couple of years, Motorola has given its undivided attention to its portfolio of budget and mid-range smartphones. With a shift away from its flagship Moto Z line,…
+        </p>
       </div>
-
-      <div class="post">
-        <a href="#"><img src="./static/postimages/p7.jpg" alt="" class="post-image"></a>
-          <div class="post-preview">
-            <h4><a class="postlink" href="#">The final OxygenOS 11 developer preview arrives August 10th as OnePlus preps for Android 11</a></h4>
-            <i class="far fa-user"> <a class="user" rel="author" href="#">Niraj Sharma &nbsp;</a></i>
-            <i class="fa fa-calendar"> Aug 3,2020</i>
-            <p class="preview-text">
-            At the end of July, OnePlus CEO Pete Lau teased an always-on display feature coming to OxygenOS 11, its Android software based on Android 11. Now, OnePlus has provided a...
-            </p>
-          </div>
+    </div>
+    <div class="side-post">
+      <a href="#"><img src="./static/postimages/p10.jpg" alt="" class="side-post-image"></a>
+      <div class="side-post-preview">
+        <h4><a class="sidepostlink" href="#">OnePlus Nord Review: Great Performance at a Great Price</a></h4> 
+        <p class="side-preview-text">
+          Every OnePlus smartphone since the 2014 OnePlus One has featured a flagship Qualcomm Snapdragon 800 series chipset. The use of Qualcomm's latest silicon has been integral to OnePlus' marketing, as…
+        </p>
       </div>
+    </div>
+    <div class="side-post">
+      <a href="#"><img src="./static/postimages/p5.jpg" alt="" class="side-post-image"></a>
+      <div class="side-post-preview">
+        <h4><a class="sidepostlink" href="#">India bans Xiaomi’s Mi Browser Pro, and QQ International app</a></h4> 
+        <p class="side-preview-text">
+        The Government of India recently had banned and blocked access to 59 apps with Chinese connections like TikTok, Xiaomi’s Mi Community, Mi Video Call, Xender, Shareit, Cam Scanner and even...
+        </p>
+      </div>
+    </div>
+    <div class="side-post">
+      <a href="#"><img src="./static/postimages/p9.jpg" alt="" class="side-post-image"></a>
+      <div class="side-post-preview">
+        <h4><a class="sidepostlink" href="#">Motorola One Fusion+ Review – A harmonious blend of the right mid-range features.</a></h4> 
+        <p class="side-preview-text">
+          For the last couple of years, Motorola has given its undivided attention to its portfolio of budget and mid-range smartphones. With a shift away from its flagship Moto Z line,…
+        </p>
+      </div>
+    </div>
   </div>
-</div>
-</div>
 
 
 
-<div class="side-bar">
-<h2><button class="options"><i class="fas fa-bars"></i></button>
-  <button onclick="document.getElementById('user-popup-wrapper').style.display='block';" class="user"><i class="fas fa-user-circle"></i></button></h2>
-  <div class="social-links">
-    <a href="www.facebook.com"><img src="./static/logo/fb.png"></a>
-    <a href="www.instagram.com"><img src="./static/logo/insta.png"></a>
-    <a href="www.twitter.com"><img src="./static/logo/twitter.png"></a>
+
+
+  <div class="side-bar">
+    <h2><button class="options"><i class="fas fa-bars"></i></button>
+    <button onclick="document.getElementById('user-popup-wrapper').style.display='block';" class="user"><i class="fas fa-user-circle"></i></button></h2>
+    <div class="social-links">
+      <a href="www.facebook.com"><img src="./static/logo/fb.png"></a>
+      <a href="www.instagram.com"><img src="./static/logo/insta.png"></a>
+      <a href="www.twitter.com"><img src="./static/logo/twitter.png"></a>
+    </div>
+    <div class="useful-links">
+      <a href="#"><img src="./static/logo/share.png"></a>
+      <a href="#"><img src="./static/logo/info.png"></a>
+    </div>
   </div>
-  <div class="useful-links">
-    <a href="#"><img src="./static/logo/share.png"></a>
-    <a href="#"><img src="./static/logo/info.png"></a>
+
+  <div id="user-popup-wrapper-responsive" class="user-popup-responsive">
+    <button onclick="document.getElementById('user-popup-wrapper-responsive').style.display='none';" class="close"><i class="fas fa-times-circle"></i></button>
+    if(isAuthenticated)  
+      if user.usertype == 'local'    
+        <div class="user-popup-content">
+          <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
+          <div class="usernaming">
+            <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
+          </div>
+          <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
+          <a href="#" class="settings"><i class="fas fa-cogs"></i></i> Settings</a>
+        </div>
+      else if user.usertype == 'developer'
+        <div class="user-popup-content">
+          <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
+          <div class="usernaming">
+            <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
+          </div>
+          <p style="margin-top:0;color:white;font-size:1rem;">User-Type: #{ user.usertype }</p>
+          <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
+          <a href="#" class="settings"><i class="fas fa-cogs"></i> Settings</a><br>
+          <a href="/dashboard" class="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </div>
+    else
+      <div class="user-popup-content">
+
+        div.col-10.ml-sm-auto.px-4
+          if error != 0
+            div.alert.alert-danger.alert-dismissible.fade.show #{ error }
+          if typeof errors != 'undefined'
+            for error in errors
+              div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
+          if success_msg != 0
+            div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
+          if error_msg != 0
+            div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
+        <form action="/login" method='POST'>
+          <div class="login-data">
+            <span style="color:thistle;font-size:large;"><i class="far fa-user"></i> Hello!, Sign in</span>
+            <input type="email" name="email" class="email" placeholder="Your @email ">
+            <input type="password" name="password" placeholder="password">
+            <p align="right"><a href="#" class="forgotpassword">forgot password?</a></p>
+            <a href="/login" ><button type="submit" name="login" class="login">LOGIN</button></a>
+            <a href="/registration" class="register">Register</a><span style="color:#DCDCDC;"> or </span><a href="#" class="loginwithgoogle">Login with google</a>
+          </div>
+        </form>
+      </div>
+    <div class="social-box">
+    <span style="color:thistle;font-size:small;">RESOURCES</span>
+      <ul>
+        <li><a>Contact Us</a></li>
+        <li><a>About Us</a></li>
+        <li><a>Tip Us</a></li>
+      </ul>
+    </div>
+    <div class="social-box">
+      <span style="color:thistle;font-size:small;">SOCIAL</span>
+      <div class="icons">
+        <a class="social-icons"><i class="fab fa-facebook-square"></i></a>
+        <a class="social-icons"><i class="fab fa-telegram"></i></a>
+        <a class="social-icons"><i class="fab fa-twitter-square"></i></a>
+        <a class="social-icons"><i class="fas fa-share-alt-square"></i></a>
+      </div>
+    </div>
   </div>
-</div>
 
   <div id="user-popup-wrapper" class="user-popup">
     <button onclick="document.getElementById('user-popup-wrapper').style.display='none';" class="close"><i class="fas fa-times-circle"></i></button>
@@ -226,10 +244,10 @@ style
         <div class="user-popup-content">
         <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
         <div class="usernaming">
-        <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
+          <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
         </div>
-        <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
-        <a href="#" class="settings"><i class="fas fa-cogs"></i></i> Settings</a>
+          <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
+          <a href="#" class="settings"><i class="fas fa-cogs"></i></i> Settings</a>
         </div>
       else if user.usertype == 'developer'
         <div class="user-popup-content">
@@ -246,27 +264,27 @@ style
       <div class="user-popup-content">
 
       div.col-10.ml-sm-auto.px-4
-      if error != 0
-        div.alert.alert-danger.alert-dismissible.fade.show #{ error }
-      if typeof errors != 'undefined'
-        for error in errors
-          div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
-      if success_msg != 0
-        div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
-      if error_msg != 0
-        div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
+        if error != 0
+          div.alert.alert-danger.alert-dismissible.fade.show #{ error }
+        if typeof errors != 'undefined'
+          for error in errors
+            div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
+        if success_msg != 0
+          div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
+        if error_msg != 0
+          div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
       <form action="/login" method='POST'>
-      <div class="login-data">
-        <input type="email" id="email" name="email" class="email" placeholder="Your @email ">
-        <input type="password" id="password" name="password" placeholder="password">
-        <p align="right"><a href="#" class="forgotpassword">forgot password?</a></p>
-        <a href="/login" ><button type="submit" name="login" class="login">LOGIN</button></a>
-        <a href="/registration" class="register">Register</a><span style="color:#DCDCDC;"> or </span><a href="#" class="loginwithgoogle">Login with google</a>
-      </div>
+        <div class="login-data">
+          <input type="email" id="email" name="email" class="email" placeholder="Your @email ">
+          <input type="password" id="password" name="password" placeholder="password">
+          <p align="right"><a href="#" class="forgotpassword">forgot password?</a></p>
+          <a href="/login" ><button type="submit" name="login" class="login">LOGIN</button></a>
+          <a href="/registration" class="register">Register</a><span style="color:#DCDCDC;"> or </span><a href="#" class="loginwithgoogle">Login with google</a>
+        </div>
       </form>
       </div>
 
-  </div>
+    </div>
   </div>
 
   <div class="footer">
@@ -294,14 +312,108 @@ style
           <button style="margin-left:10px;color:#DCDCDC;background-color:#0AC5A8;padding: 4px 4px;border:none;border-radius:5px;"type="submit" class="submit"><i class="fas fa-smile-beam"></i> Subscribe</button>
         </form>
       </div>
-      </div>
-
-
-      <div class="footer-bottom">
-        <p>&copy; kustomrom.com | Designed by Niraj Sharma</p>
-      </div>
     </div>
+    <div class="footer-bottom">
+      <p>&copy; kustomrom.com | Designed by Niraj Sharma</p>
+    </div>
+  </div>
 
+
+script.
+  window.onload=function(){
+    const postbox1 = document.querySelector('.post-box-1');
+    const postbox2 = document.querySelector('.post-box-2');
+    function appendPost1(data){
+      divTag=document.createElement('div');
+      divTag.classList.add('post1')
+      let markup=`
+        <a  href="#"><img src="../static/uploads/${data.filename}" alt="" class="post-image1"></a>
+        <div class="post-preview1">
+        <a class="postlink" href="#">${data.heading}</a>   
+        </div>     
+        `;
+      divTag.innerHTML+=markup;
+      postbox1.append(divTag);
+    }
+    function appendPost2(data){
+      divTag=document.createElement('div');
+      divTag.classList.add('post')
+      let markup=`
+        <a href="#"><img src="./static/uploads/${data.filename}" alt="" class="post-image"></a>
+        <div class="post-preview">
+        <a class="postlink" href="#">${data.heading}</a><br>
+        <i class="far fa-user"> <a class="user" rel="author" href="#">${data.author} &nbsp;</a></i>
+        <i class="fa fa-calendar"> Aug 3,2020</i>
+        <p class="preview-text">${data.description}</p>
+        </div>     
+        `;
+      divTag.innerHTML+=markup;
+      postbox1.append(divTag);
+    }
+    fetchPostBox1();
+    function fetchPostBox1(){
+      fetch('/api/postTemplates')
+        .then(res => res.json())
+        .then(result => {
+          for(i=0;i<=3;i++){
+            appendPost1(result[i]);
+          }
+          for(i=4;i<15;i++){
+            appendPost2(result[i]);
+          }
+        })
+      }
+  }
+  const resultList = document.getElementById('allSearchResults');
+  const searchBar = document.getElementById('search-txt');
+  let tags=[];
+  searchBar.addEventListener('keyup',(e)=>{
+    document.querySelector('.search-result-box').style.display='block';
+    //console.log(e);
+    const searchString = e.target.value.toLowerCase();
+    const filteredTags = tags.filter(key=>{
+      return(
+        key.heading.toLowerCase().includes(searchString) || 
+        key.description.toLowerCase().includes(searchString)
+      );
+    });
+    //console.log(filteredTags);
+    displayTags(filteredTags);
+  });
+  fetchTags();
+    function fetchTags(){
+      fetch('/api/searchTags')
+        .then(res => res.json())
+        .then(result => {
+          tags=result;
+        })
+    }
+  function displayTags(tags){
+    //console.log(searchBar.value.length)
+    if(tags.length==0){
+      const htmlString=  `
+        <li class="searchresults">
+          <span style="color:thistle;">No Results</span>
+        </li>
+        `;
+      resultList.innerHTML=htmlString;
+    }
+    else if(searchBar.value.length==0){
+      document.querySelector('.search-result-box').style.display='none';
+    }
+    else{
+      const htmlString= tags
+      .map((data)=>{
+        return `
+          <li class="searchresults">
+            <a class="result-heading" href=${data.link}>${data.heading}[${data.date}]</a>
+            <a class="result-description" href=${data.link}>${data.description}</a>
+          </li>
+        `;
+      })
+      resultList.innerHTML=htmlString;
+    }
+  }
 
 </body>
 </html>

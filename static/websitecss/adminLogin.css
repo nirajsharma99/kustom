@@ -1,0 +1,128 @@
+@font-face {
+  font-family: acme-regular;
+  src: url(../static/acme-regular.ttf);
+  font-style: bold;
+}
+@font-face {
+  font-family: raleway-regular;
+  src: url(../static/Raleway.ttf);
+  font-style: bold;
+}
+@font-face {
+  font-family: Lobster-Regular;
+  src: url(../static/Lobster-Regular.ttf);
+  font-style: bold;
+}
+/*----------------- FONT -----------------*/
+
+html,
+body {
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  overflow-x: hidden;
+  background-color: black;
+}
+.parent {
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+}
+.container {
+  width: 30vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.container a {
+  color: #0ac5a8;
+  text-decoration: none;
+  display: block;
+  margin-left: 12vw;
+  font-size: smaller;
+}
+.container a:hover {
+  color: teal;
+}
+.textbox {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border-top-style: groove;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  border-color: #0ac5a8;
+  background-color: transparent;
+  color: #0ac5a8;
+  width: 300px;
+  height: 50px;
+  line-height: 50px;
+  margin: 5px 5px;
+}
+button.submitbtn {
+  width: 300px;
+  height: 40px;
+  padding: 5px 5px;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  background-color: #0ac5a8;
+}
+button.submitbtn:hover {
+  background-color: teal;
+}
+.addAdmin {
+  right: -30vw;
+  width: 30vw;
+  height: 100vh;
+  background-color: #0ac5a8;
+  position: absolute;
+  text-align: center;
+  -webkit-animation: slide 0.5s forwards;
+  -webkit-animation-delay: 2s;
+  animation: slide 0.5s forwards;
+  animation-delay: 0.5s;
+}
+@-webkit-keyframes slide {
+  100% {
+    right: 0;
+  }
+}
+
+@keyframes slide {
+  100% {
+    right: 0;
+  }
+}
+.child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.textbox2 {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  background-color: black;
+  color: #0ac5a8;
+  width: 300px;
+  height: 50px;
+  line-height: 50px;
+  margin: 5px 5px;
+}
+button.submitbtn2 {
+  border-radius: 20px;
+  border: 1px solid black;
+  background-color: cyan;
+  width: 300px;
+  height: 50px;
+}
+button.submitbtn2:hover {
+  background-color: teal;
+}

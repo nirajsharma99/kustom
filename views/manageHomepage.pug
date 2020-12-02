@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 <link href="../static/fontawesome/css/all.css" rel="stylesheet">
 style
-    include ../static/websitecss/addproject.css
+    include ../static/websitecss/manageHomepage.css
 
 
 <title>KUSTOM</title>
@@ -64,7 +64,7 @@ style
             <span style="color:thistle;padding:15px;margin: 10px 0px;">Search Results</span>
             <hr style="background-color:thistle;margin-top:5px;width:90%;">
             <ul id="allSearchResults">
-            //-all search results here
+                //-all search results here
             </ul>
         </div>
     </div>
@@ -74,62 +74,54 @@ style
 <hr style="background-color:#0AC5A8;height:10px;">
     <div class="left-section">
         <ul>
-            <li><a href="/dashboard"><i class="fas fa-book-open"></i> Profile</a></li>
-            <li><a href="#"><i class="fas fa-id-card-alt"></i> Contact-Info || <i class="fas fa-link"></i>Source Links</a></li>
-            <li><a href="/projects"><i class="fas fa-cube"></i> Projects</a></li>
-            <li><a href="/projects"><i class="fas fa-chart-pie"></i> Statistics</a></li>
-            <li><a href="/projects"><i class="fas fa-scroll"></i> Announcements</a></li>
+            <li><a style="background-color:#078471;" href="/admin"><i class="fas fa-users-cog"></i> Manage Users</a></li>
+            <li><a href="/manageAdmin"><i class="fas fa-user-shield"></i> Manage Admins</a></li>
+            <li><a href="/manageProjects"><i class="fas fa-cube"></i> Manage Projects</a></li>
+            <li><a href="#"><i class="far fa-file"></i> Manage Pages</a></li>
+            <li><a href="/manageHomepage"><i class="fas fa-caravan"></i> Homepage</a></li>
+            <li><a href="#"><i class="fas fa-scroll"></i> Announcements</a></li>
         </ul>
     </div>
-    <div class="right-section">
-        <fieldset class="page-fieldset">
-            <legend class="page-legend"><strong>Add Template</strong></legend>
-            <div class="template">
-                <form action="/addtemplate" enctype="multipart/form-data" method="POST"> 
-                    <label for="romname">Rom Name:</label>
-                    <input type="textarea" name="romname" id="romname" placeholder="project name..">
-                    <label for="androidversion">Android Version:</label>
-                    <input type="textarea" name="androidversion" id="androidversion" placeholder="version.."><br>
-                    <label for="romversion">Rom Version:</label>
-                    <input type="textarea" name="romversion" id="romversion" placeholder="version.."><br>
-                    <label for="picture">Template Picture: </label>
-                    <input type="file" name="myFile" id="real-file" /><br>
-                    <input type="hidden" name="username" id="username"/>
-                    <input type="hidden" name="joiningdate" id="joiningdate"/>
-                    <input type="hidden" name="userimage" id="userimage"/>
-                    script.
-                        var username=document.getElementById("username");
-                        username.value="#{user.username}";
-                        var date=document.getElementById("joiningdate");
-                        date.value="#{user.date}";
-                        var image=document.getElementById("userimage");
-                        image.value="#{user.filename}";
-                    <label for="romversion">Device:</label>
-                    <input type="textarea" name="device" id="fordevice" placeholder="device name.."><br>
-                    <label for="romtype" >Rom-Type: </label>
-                    <select name="romtype" id="romtype" required>
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="aosp">AOSP</option>
-                        <option value="port">PORT</option>
-                    </select><br>
-                    <label for="updatetype" >Update-Type: </label>
-                    <select name="updatetype" id="updatetype" required>
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="official">OFFICIAL</option>
-                        <option value="unofficial">UNOFFICIAL</option>
-                    </select><br>
-
-                    <p style="color:#aaa;font-size:smaller;display:inline-block;">Note*: The file dimensions should be 300x200 pixels.</p>
-                    <button type="submit" class="addtemplatebtn">Add template</button>
-                </form>
-            </div>
+    <div class="right-section">  
+        <fieldset class="post-box-1-fieldset">
+            div.col-10.ml-sm-auto.px-4
+            if typeof errors != 'undefined'
+                for error in errors
+                    div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
+            if success_msg != 0
+                div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
+            if error_msg != 0
+                div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
+            <legend class="post-box-1-legend"><strong>Post-Box</strong></legend>
+                <fieldset class="post1-fieldset">
+                    <legend class="post1-legend">Add Post</legend>
+                        <form action="/addPostTemplate" method="POST" enctype="multipart/form-data">
+                            <label for="postnumber">Post Index:</label>
+                            <input type="number" class="postnumber" name="postnumber" required><br>
+                            <label for="topic">Heading:</label><br>
+                            <textarea class="heading" name="heading" placeholder="(max 10 words)" required></textarea><br>
+                            <label for="description">Description:</label><br>
+                            <textarea class="description" name="description" placeholder="Short Description(max 50 words)" required></textarea><br>
+                            <label for="author">Author: </label>
+                            <input type="textarea" class="author" name="author" required><br>
+                            <label for="thumbnail">Thumbnail:</label>
+                            <input type="file" name="myFile" required>
+                            <label for="purpose">Purpose: </label>
+                            <select name="purpose" id="purpose" required>
+                                <option disabled selected value> -- select an option -- </option>
+                                <option value="Add">Add</option>
+                                <option value="Update">Update</option>
+                            </select>
+                            <button class="submitbtn" type="submit">Add Post</button>
+                        </form>
+                    </legend>
+                </fieldset>
         </fieldset>
-
     </div>
+</div>
 
 <div class="side-bar">
     <h2><button class="options"><i class="fas fa-bars"></i></button>
-    <button class="search"><i class="fas fa-search"></i></button>
     <button onclick="document.getElementById('user-popup-wrapper').style.display='block'" class="user"><i class="fas fa-user-circle"></i></button></h2>
     <div class="social-links">
         <a href="www.facebook.com"><img src="./static/logo/fb.png"></a>
@@ -144,31 +136,7 @@ style
 
     <div id="user-popup-wrapper" class="user-popup">
     <button onclick="document.getElementById('user-popup-wrapper').style.display='none';" class="close"><i class="fas fa-times-circle"></i></button>
-    if(isAuthenticated)  
-        if user.usertype == 'local'    
-            <div class="user-popup-content">
-            <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
-            <div class="usernaming">
-            <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
-            </div>
-            <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
-            <a href="#" class="settings"><i class="fas fa-cogs"></i></i> Settings</a>
-            </div>
-        else if user.usertype == 'developer'
-            <div class="user-popup-content">
-            <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
-            <div class="usernaming">
-            <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
-            </div>
-            <p style="margin-top:0;color:white;font-size:1rem;">User-Type: #{ user.usertype }</p>
-            <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
-            <a href="#" class="settings"><i class="fas fa-cogs"></i> Settings</a><br>
-
-            </div>
-    else
-        <div class="user-popup-content">
-        <p style="font-size:3rem;font-family:acme-regular;color:#0AC5A8;">LOGIN</p>
-        div.col-10.ml-sm-auto.px-4
+    div.col-10.ml-sm-auto.px-4
         if error != 0
             div.alert.alert-danger.alert-dismissible.fade.show #{ error }
         if typeof errors != 'undefined'
@@ -178,19 +146,18 @@ style
             div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
         if error_msg != 0
             div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
-        <form action="/login" method='POST'>
-        <div class="login-data">
-            <input type="email" id="email" name="email" class="email" placeholder="Your @email ">
-            <input type="password" id="password" name="password" placeholder="password">
-            <p align="right"><a href="#" class="forgotpassword">forgot password?</a></p>
-            <a href="/login" ><button type="submit" name="login" class="login">LOGIN</button></a>
-            <a href="/registration" class="register">Register</a><span style="color:#DCDCDC;"> or </span><a href="#" class="loginwithgoogle">Login with google</a>
+    if(isAuthenticated)  
+        <div class="user-popup-content">
+            <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
+            <div class="usernaming">
+                <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
+            </div>
+            <p style="margin-top:0;color:white;font-size:1rem;">User-Type: <span style="color:red;">admin</span></p>
+            <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
         </div>
-        </form>
-        </div>
-</div>
-</div>
 
+    </div>
+    </div>
 script.
     const resultList = document.getElementById('allSearchResults');
     const searchBar = document.getElementById('search-txt');

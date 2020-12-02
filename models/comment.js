@@ -13,6 +13,7 @@ const commentSchema = new Schema(
     replies: [
       {
         _id: { type: String },
+        comment_id: { type: String },
         reply: { type: String },
         username: { type: String },
         usertype: { type: String },

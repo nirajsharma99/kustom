@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+<link href="../static/fontawesome/css/all.css" rel="stylesheet">
+style
+    include ../static/websitecss/adminLogin.css
+
+
+<title>KUSTOM</title>
+</head>
+<body>
+    <div class="parent">
+        <div class="container">
+        <i style="color:#0ac5a8;" class="fab fa-android fa-8x"></i>
+            div.col-10.ml-sm-auto.px-4
+            if error != 0
+                div.alert.alert-danger.alert-dismissible.fade.show #{ error }
+            if typeof errors != 'undefined'
+                for error in errors
+                    div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
+            if success_msg != 0
+                div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
+            if error_msg != 0
+                div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
+            <form action="/adminsLogin" method="POST">
+            <input type="textarea" class="textbox" name="email" id="email" placeholder="Email-ID here.." required><br>
+            <input type="password" class="textbox" name="password" id="password" placeholder="Enter password" required><br>
+            <a href="#">forgot password</a>
+            <button class="submitbtn" type="submit">Login</button>
+            </form>
+        </div>
+        <div class="addAdmin" style="display:none;">
+            <div class="child">
+                <i style="color:black;" class="fab fa-android fa-8x"></i>
+                <form action="/adminRegistration" method="POST" >
+                <input type="textarea" class="textbox2" name="username" id="username" placeholder="Enter Username" required><br>
+                <input type="textarea" class="textbox2" name="name" id="name" placeholder="Enter your full Name" required><br>
+                <input type="textarea" class="textbox2" name="emailId" id="emailId" placeholder="Email-ID here.." required><br>
+                <input type="password" class="textbox2" name="newpassword" id="newpassword" placeholder="Enter password" required><br>
+                <input type="password" class="textbox2" name="confirmpassword" id="confirmpassword" placeholder="Confirm password" required><br>
+                <button type=submit class="submitbtn2">Send Request</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    script.
+        function doc_keyUp(e) {
+        // this would test for whichever key is 192 , the shiftKey and the ctrl key at the same time
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 192) {
+            var x = document.querySelector('.addAdmin');
+            if(x.style.display=='none')
+            {
+                x.style.display='block';
+            }else{
+                x.style.display='none';
+            }
+            }
+        }
+        // register the handler 
+        document.addEventListener('keyup', doc_keyUp, false);
+</body>
+</html>

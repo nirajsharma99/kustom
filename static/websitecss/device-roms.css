@@ -1,4 +1,3 @@
-/*----------------- FONT -----------------*/
 @font-face {
   font-family: acme-regular;
   src: url(./static/acme-regular.ttf);
@@ -111,7 +110,7 @@ td {
   border: none;
   border-collapse: collapse;
 }
-.search-box {
+.parent-search-box {
   display: inline-block;
   background: #2f3640;
   height: 50px;
@@ -119,13 +118,13 @@ td {
   padding: 10px;
   width: 25%;
 }
-.search-btn {
+.parent-search-btn {
   color: #0ac5a8;
   font-size: 30px;
   float: right;
   position: absolute;
 }
-.search-txt {
+.parent-search-txt {
   display: inline-block;
   width: 88%;
   border: none;
@@ -217,18 +216,6 @@ button.options {
   color: #dcdcdc;
   margin: 6px;
 }
-.user-popup {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  right: 3.5%;
-  top: 0;
-  width: 30%;
-  min-height: 70%;
-  overflow: auto;
-  background-color: black;
-  border: 1px solid #0ac5a8;
-}
 .user-popup-content {
   justify-content: center;
   align-items: center;
@@ -237,20 +224,9 @@ button.options {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
-  background-color: transparent;
-}
-.user-popup-responsive {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0%;
-  top: 0;
-  width: 90%;
-  min-height: 70%;
-  overflow: auto;
   background-color: black;
-  border: 1px solid #0ac5a8;
 }
+
 .social-box {
   box-sizing: border-box;
   border-top: 1px solid thistle;
@@ -291,6 +267,7 @@ button.options {
 }
 .login-data a:hover {
   color: #dcdcdc;
+  cursor: pointer;
 }
 button.login {
   width: 100%;
@@ -306,6 +283,7 @@ button.login {
 }
 button.login:hover {
   background-color: #078471;
+  cursor: pointer;
 }
 input[type='email'],
 input[type='password'] {
@@ -315,6 +293,32 @@ input[type='password'] {
   display: inline-block;
   box-sizing: border-box;
   font-size: 16px;
+}
+
+.user-popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  right: 3.5%;
+  top: 0;
+  width: 30%;
+  min-height: 70%;
+  overflow: auto;
+  background-color: black;
+  border: 1px solid #0ac5a8;
+}
+
+.user-popup-responsive {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0%;
+  top: 0;
+  width: 90%;
+  min-height: 70%;
+  overflow: auto;
+  background-color: black;
+  border: 1px solid #0ac5a8;
 }
 
 .dpcontainer {
@@ -351,6 +355,7 @@ button.close {
 button.close:hover {
   color: #0ac5a8;
 }
+
 .social-links {
   width: 50px;
   text-align: center;
@@ -370,7 +375,6 @@ button.close:hover {
   margin: 5px auto;
   cursor: pointer;
 }
-/*----------------------------------------SIDE BAR----------------------------------------*/
 
 .content {
   width: 100%;
@@ -384,10 +388,10 @@ button.close:hover {
   clear: both;
 }
 
-/*----------------------------------MAIN POSTS2-----------------------------*/
 .content .main-content {
   width: 69%;
-  float: left;
+  float: right;
+  margin-right: 4%;
 }
 a.postlink {
   text-decoration: none;
@@ -395,60 +399,114 @@ a.postlink {
   font-family: raleway-regular;
   font-size: 20px;
 }
-a.user {
-  text-decoration: none;
-  color: #dcdcdc;
-  font-family: raleway-regular;
-  font-size: 14px;
+.banner {
+  display: inline-block;
 }
 a.postlink:hover {
   color: #0ac5a8;
   transition: 0.35s;
 }
-a.user:hover {
+p.preview-text {
+  font-size: 12px;
+}
+
+.rom {
+  background: black;
+  color: #dcdcdc;
+  width: 100%;
+  display: block;
+  margin: 20px 0px;
+}
+.rom .rom-content {
+  border: 1px solid whitesmoke;
+  display: flex;
+  width: 100%;
+}
+.rom .rom-content .image {
+  width: 33%;
+  height: 198px;
+}
+
+.rom-images {
+  width: 100%;
+  height: 100%;
+}
+.rom .rom-content .info {
+  width: 33.5%;
+}
+.info-ul {
+  list-style-type: none;
+}
+.rom .rom-content .info li {
+  list-style: none;
+}
+.rom .rom-content .info .knowmore {
+  margin: auto;
+  display: block;
+  outline: none;
+  border: none;
+  color: red;
+  background-color: transparent;
+  width: 100%;
+}
+.rom .rom-content .info a:hover {
+  text-decoration: none;
+}
+.rom .rom-content .info .knowmore:hover {
   color: #0ac5a8;
 }
-
-/*---------------------------------------------MAIN POSTS2-----------------------------*/
-
-/*------------------------------------------MAIN POSTS------------------------------*/
-.content .main-content .box1 {
-  width: 95%;
-  margin: 0px auto;
-  text-align: left;
-  height: 40px;
-  display: block;
-  background-color: black;
-  position: relative;
-  color: #dcdcdc;
-  box-sizing: border-box;
+.rom-fieldset {
+  border: 1px #0ac5a8 solid;
 }
-.content .main-content .box2 {
-  width: 95%;
-  margin: 0px auto;
-  text-align: left;
-  display: block;
-  background-color: black;
-  position: relative;
-  color: #dcdcdc;
-  box-sizing: border-box;
-  padding: 0px 10px;
+.rom-legend {
+  font-size: 14px;
+  background-color: #0ac5a8;
+  color: black;
+  width: 80px;
 }
-.content .main-content .box3 {
-  width: 95%;
-  margin: 0px auto;
+.rom .rom-content .devinfo {
   text-align: center;
-  display: block;
-  background-color: black;
-  position: relative;
-  color: #dcdcdc;
-  padding: 10px 20px;
+  width: 33%;
+}
+.rom .rom-content .devinfo .dev-image {
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
 }
 
-/*------------------------------------------MAIN POSTS------------------------------*/
+.rom .rom-content .rom-section {
+  padding: 0px;
+}
 
-/*------------------------------------------SIDE POSTS------------------------------*/
-.content .sideposts {
+.search-box {
+  display: block;
+  background: #2f3640;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px;
+  width: 40%;
+  margin: auto;
+}
+.search-btn {
+  color: #0ac5a8;
+  font-size: 30px;
+  float: right;
+  position: absolute;
+}
+.search-txt {
+  display: inline-block;
+  width: 90%;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0px;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 30px;
+}
+
+.content .side-content {
   width: 27%;
   float: left;
 }
@@ -467,24 +525,25 @@ h5:after {
   top: 75%;
   margin: auto;
 }
-.content .sideposts .best-post-title {
+.content .side-content .side-post-title {
   color: #0ac5a8;
 }
-.content .sideposts .side-post {
+
+.content .side-content .side-post {
   width: 100%;
   display: inline-block;
   background-color: black;
   position: relative;
   color: #dcdcdc;
-  margin: 10px;
+  margin: 10px 0px;
 }
-.content .sideposts .side-post .side-post-image {
+.content .side-content .side-post .side-post-image {
   width: 75px;
   height: 75px;
   float: left;
   margin-top: 14px;
 }
-.content .sideposts .side-post .side-post-preview {
+.content .side-content .side-post .side-post-preview {
   width: 75%;
   margin-top: 0px;
   padding: 0px;
@@ -505,38 +564,46 @@ a.sidepostlink:hover {
 p.side-preview-text {
   font-size: 12px;
 }
-/*-------------------------------SLIDER------------------------------*/
-.content .sideposts .slider-container {
-  width: 370px;
-  height: 250px;
+
+.slider-container {
+  width: 640px;
+  height: 360px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
   overflow: hidden;
   text-align: center;
   border-radius: 5px;
 }
 .image-container {
-  width: 1110px;
-  height: 250px;
+  width: 3200px;
+  height: 360px;
   position: relative;
   transition: left 2s;
   -webkit-transition: left 2s;
   -moz-transition: left 2s;
   -o-transition: left 2s;
-  animation: 10s slider infinite linear;
+  animation: 15s slider infinite linear;
+}
+.image-container:hover {
+  animation-play-state: paused;
 }
 @keyframes slider {
   0% {
     left: 0px;
   }
-  25% {
-    left: 0px;
+  20% {
+    left: -640px;
+  }
+  40% {
+    left: -1280px;
   }
   60% {
-    left: -370px;
+    left: -1920px;
   }
   80% {
-    left: -740px;
+    left: -2560px;
   }
 }
 
@@ -556,19 +623,7 @@ p.side-preview-text {
   border-radius: 5px;
   background-color: #555555;
 }
-#slider-image-1:target ~ .image-container {
-  left: 0px;
-}
-#slider-image-2:target ~ .image-container {
-  left: -370px;
-}
-#slider-image-3:target ~ .image-container {
-  left: -740px;
-}
-/*-------------------------------SLIDER------------------------------*/
-/*------------------------------------------SIDE POSTS------------------------------*/
 
-/*-----------------------------------------FOOTER------------------------------*/
 .footer {
   background: black;
   color: #dcdcdc;
@@ -628,7 +683,6 @@ p.side-preview-text {
   position: absolute;
   left: 0px;
 }
-/*-----------------------------------------FOOTER------------------------------*/
 @media screen and (max-device-width: 500px) {
   .banner {
     display: block;
@@ -651,10 +705,13 @@ p.side-preview-text {
     align-items: center;
     line-height: 25px;
   }
-  .search-box {
+  .parent-search-box {
     display: block;
     width: 70%;
     margin: auto;
+  }
+  .search-box {
+    width: 100%;
   }
   .search-result-box {
     width: 100%;
@@ -667,14 +724,36 @@ p.side-preview-text {
     width: 100%;
     float: none;
   }
-  .content .main-content .box3 p {
-    width: 100% !important;
+  .content .side-content {
+    width: 100%;
   }
-  .content .main-content .box3 i {
-    font-size: 5rem !important;
+
+  .main-content ul,
+  .rom li {
+    padding: 0;
   }
-  .content .sideposts {
-    display: none;
+  .rom {
+    width: 100%;
+  }
+  .rom .rom-content .image {
+    width: 33%;
+    height: 30%;
+  }
+  .rom .rom-content .info li {
+    font-size: 12px;
+  }
+  .rom-legend {
+    font-size: 10px;
+  }
+  .rom .rom-content .devinfo p {
+    font-size: 8px;
+  }
+  .rom .rom-content .info .knowmore {
+    width: 100%;
+    font-size: 14px;
+  }
+  a.postlink {
+    font-size: 13px;
   }
   .footer {
     display: block;
@@ -683,8 +762,6 @@ p.side-preview-text {
   }
   .footer .footer-content {
     flex-direction: column;
-    width: 95%;
-    margin: auto;
   }
   .side-bar {
     display: none;
@@ -698,5 +775,42 @@ p.side-preview-text {
   .login-data {
     margin-top: 10%;
     margin-bottom: 10%;
+  }
+
+  ::placeholder {
+    color: white;
+  }
+  .slider-container {
+    width: 320px;
+    height: 200px;
+  }
+  .image-container {
+    width: 1600px;
+    height: 200px;
+  }
+  .slider-image {
+    width: 320px;
+    height: 200px;
+  }
+  @keyframes slider {
+    0% {
+      left: 0px;
+    }
+    20% {
+      left: -320px;
+    }
+    40% {
+      left: -640px;
+    }
+    60% {
+      left: -960px;
+    }
+    80% {
+      left: -1280px;
+    }
+  }
+  .footer .footer-content {
+    width: 95%;
+    margin: auto;
   }
 }
