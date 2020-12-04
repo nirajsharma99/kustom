@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 <link href="../static/fontawesome/css/all.css" rel="stylesheet">
+<script src="/socket.io/socket.io.js"></script>
 style
   include ../static/websitecss/rom-page.css
 
@@ -489,11 +490,11 @@ style
   if(isAuthenticated)
     //-----------------------------comment box------------------------------------------------------------------
     script.
-      window.onload = function() {
       let username = "#{ user.username }"
       let usertype = "#{ user.usertype }"
       let filename = "#{ user.filename }"
       var socket = io();
+      window.onload = function() {
       const textarea = document.querySelector('#review-textarea')
       const submitbtn = document.querySelector('#submitbtn')
       const comment_box = document.querySelector('.all_comments')
@@ -642,44 +643,10 @@ style
 
 
       }
-      function callingForReply(objectId){
 
-        let object = objectId
-        let username = "#{ user.username }"
-        let usertype = "#{ user.usertype }"
-        let filename = "#{ user.filename }"
-        var socket = io();
-        const replytext = document.querySelector('#reply-textarea-'+object)
-        const replysubmitbtn = document.querySelector('#replysubmitbtn')
-        const reply_box = document.querySelector('#all_replies-'+object)
-        const replyvalues = replytext.value
-
-          if(!replyvalues){
-            return
-          }
-          else{
-            //const objectId= object
-            const reply= replyvalues
-            //console.log('reply button working')
-            postReply(reply)
-          }
-        function postReply(reply){
-          let replyData ={
-            username: username,
-            usertype: usertype,
-            filename: filename,
-            reply: reply,
-            objectId: object
-            }
-          appendReply(replyData)
-          //appendReply(replyData)
-          replytext.value=''
-          broadcastReply(replyData)
-          //sync with mongodb
-          syncWithDb2(replyData)
-          //document.location.reload()
-        }
-      function appendReply(replyData){
+      socket.on('reply',(replyData)=>{
+        const reply_box = document.querySelector('#all_replies-'+replyData.objectId);
+        console.log(replyData.objectId)
         let l2Tag= document.createElement('li')
         l2Tag.classList.add("reply")
           let markup2 = `
@@ -699,19 +666,45 @@ style
           </div>
           `
           l2Tag.innerHTML += markup2
-          reply_box.append(l2Tag)  
-      }
-      function broadcastReply(replyData){
-      //socket
-        socket.emit('reply',replyData)
-      }
-
-
-      socket.on('reply',(replyData)=>{
-      appendReply(replyData)
+          reply_box.append(l2Tag)
       })
+      function callingForReply(objectId){
+        let object = objectId
+        var socket = io();
+        const replytext = document.querySelector('#reply-textarea-'+object)
+        const replysubmitbtn = document.querySelector('#replysubmitbtn')
+        const reply_box = document.querySelector('#all_replies-'+object)
+        const replyvalues = replytext.value
+          if(!replyvalues){
+            return
+          }
+          else{
+            //const objectId= object
+            const reply= replyvalues
+            //console.log('reply button working')
+            postReply(reply)
+          }
+        function postReply(reply){
+          let replyData ={
+            username: username,
+            usertype: usertype,
+            filename: filename,
+            reply: reply,
+            objectId: object
+            }
 
-      //API calls
+          replytext.value=''
+          broadcastReply(replyData)
+          //sync with mongodb
+          syncWithDb2(replyData)
+          //document.location.reload()
+        }
+
+        function broadcastReply(replyData){
+          //socket
+          socket.emit('reply',replyData)
+        }
+        //API calls
         function syncWithDb2(replyData){
           //console.log("replyData: ", replyData)
           const headers={
@@ -724,7 +717,7 @@ style
               console.log(result)
             })
         }
-          }
+      }
 
 
       //if User is not authenticated (just show comments)-------------------------------------------------

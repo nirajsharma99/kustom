@@ -22,7 +22,7 @@ body {
   background: black !important;
 }
 .banner {
-  display: inline-block;
+  display: flex;
 }
 h1 {
   font-family: acme-regular;
@@ -43,7 +43,7 @@ button.btn {
   background-color: transparent;
   color: #dcdcdc;
   border: none;
-  width: 100%;
+
   display: inline-block;
   font-size: 1.2rem;
   padding: 25px 10px;
@@ -113,22 +113,24 @@ td {
 }
 
 .search-box {
-  display: inline-block;
+  display: flex;
   background: #2f3640;
   height: 50px;
   border-radius: 40px;
   padding: 10px;
   width: 25%;
+  min-width: 200px;
 }
 .search-btn {
   color: #0ac5a8;
   font-size: 30px;
+  flex: 0.1;
   float: right;
-  position: absolute;
 }
 .search-txt {
   display: inline-block;
   width: 88%;
+  flex: 0.9;
   border: none;
   outline: none;
   background: none;
@@ -664,7 +666,6 @@ p.side-preview-text {
     line-height: 25px;
   }
   .search-box {
-    display: block;
     width: 70%;
     margin: auto;
   }

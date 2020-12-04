@@ -83,8 +83,8 @@ application.post('/api/deletereply', (req, res) => {
   //console.log('deletereply api working'+replyIndex+objectId);
   Comment.collection
     .updateOne(
-      { _id: objid(objectId), 'replies._id': objid(replyId) },
-      { $unset: { replies: replyId } }
+      { _id: objid(objectId) },
+      { $pull: { replies: { _id: objid(replyId) } } }
     )
     .then(() => {
       console.log('Reply deleted');

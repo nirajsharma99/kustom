@@ -82,48 +82,146 @@ style
         </ul>
     </div>
     <div class="right-section">
+
+        <div class="progress-bars">
+            <div class="step">
+                <p>Add Template</p>
+                <div class="bullet">
+                    <span>1</span>
+                </div>
+                <div class="check fas fa-check-circle"></div>
+            </div>
+            <div class="step">
+                <p>Add Page</p>
+                <div class="bullet">
+                    <span>2</span>
+                </div>
+                <div class="check fas fa-check-circle"></div>
+            </div>
+        </div>
+        <form action="/addtemplate" enctype="multipart/form-data" method="POST"> 
         <fieldset class="page-fieldset">
             <legend class="page-legend"><strong>Add Template</strong></legend>
             <div class="template">
-                <form action="/addtemplate" enctype="multipart/form-data" method="POST"> 
-                    <label for="romname">Rom Name:</label>
-                    <input type="textarea" name="romname" id="romname" placeholder="project name..">
-                    <label for="androidversion">Android Version:</label>
-                    <input type="textarea" name="androidversion" id="androidversion" placeholder="version.."><br>
-                    <label for="romversion">Rom Version:</label>
-                    <input type="textarea" name="romversion" id="romversion" placeholder="version.."><br>
-                    <label for="picture">Template Picture: </label>
-                    <input type="file" name="myFile" id="real-file" /><br>
-                    <input type="hidden" name="username" id="username"/>
-                    <input type="hidden" name="joiningdate" id="joiningdate"/>
-                    <input type="hidden" name="userimage" id="userimage"/>
-                    script.
-                        var username=document.getElementById("username");
-                        username.value="#{user.username}";
-                        var date=document.getElementById("joiningdate");
-                        date.value="#{user.date}";
-                        var image=document.getElementById("userimage");
-                        image.value="#{user.filename}";
-                    <label for="romversion">Device:</label>
-                    <input type="textarea" name="device" id="fordevice" placeholder="device name.."><br>
-                    <label for="romtype" >Rom-Type: </label>
-                    <select name="romtype" id="romtype" required>
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="aosp">AOSP</option>
-                        <option value="port">PORT</option>
-                    </select><br>
-                    <label for="updatetype" >Update-Type: </label>
-                    <select name="updatetype" id="updatetype" required>
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="official">OFFICIAL</option>
-                        <option value="unofficial">UNOFFICIAL</option>
-                    </select><br>
+                <label for="romname">Rom Name:</label>
+                <input type="textarea" name="romname" id="romname" placeholder="project name..">
+                <label for="androidversion">Android Version:</label>
+                <input type="textarea" name="androidversion" id="androidversion" placeholder="version.."><br>
+                <label for="romversion">Rom Version:</label>
+                <input type="textarea" name="romversion" id="romversion" placeholder="version.."><br>
+                <label for="picture">Template Picture: </label>
+                <input type="file" name="myFile" /><br>
+                <input type="hidden" name="username" id="username"/>
+                <input type="hidden" name="joiningdate" id="joiningdate"/>
+                <input type="hidden" name="userimage" id="userimage"/>
+                script.
+                    var username=document.getElementById("username");
+                    username.value="#{user.username}";
+                    var date=document.getElementById("joiningdate");
+                    date.value="#{user.date}";
+                    var image=document.getElementById("userimage");
+                    image.value="#{user.filename}";
+                <label for="romversion">Device:</label>
+                <input type="textarea" name="device" id="fordevice" placeholder="device name.."><br>
+                <label for="romtype" >Rom-Type: </label>
+                <select name="romtype" id="romtype" required>
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="aosp">AOSP</option>
+                    <option value="port">PORT</option>
+                </select><br>
+                <label for="updatetype" >Update-Type: </label>
+                <select name="updatetype" id="updatetype" required>
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="official">OFFICIAL</option>
+                    <option value="unofficial">UNOFFICIAL</option>
+                </select><br>
 
-                    <p style="color:#aaa;font-size:smaller;display:inline-block;">Note*: The file dimensions should be 300x200 pixels.</p>
-                    <button type="submit" class="addtemplatebtn">Add template</button>
-                </form>
+                <p style="color:#aaa;font-size:smaller;display:inline-block;">Note*: The file dimensions should be 300x200 pixels.</p>
+                <button type="button" class="next">Next</button>
+
             </div>
         </fieldset>
+        <fieldset class="page2-fieldset">
+            <legend class="page2-legend"><strong>Add Page</strong></legend>
+            <div class="template">
+                <label for="picture">1. Rom Picture: </label>
+                <input type="file" name="file1" /><br>
+                <label for="picture">2. About Picture: </label>
+                <input type="file" name="file2" /><br>
+                <label for="about">3. About Content:</label><br>
+                <textarea name="aboutContent" class="content" placeholder="About your project.."></textarea><br>
+                <label for="picture">4. Feature Picture: </label>
+                <input type="file" name="file3" /><br>
+                <label for="feature">5. Feature Content:</label><br>
+                <textarea name="featureContent" class="content" placeholder="Features/Changelogs here.."></textarea><br>
+                <label for="picture">6. Screenshots (6 required): </label><br>
+                    <ul>
+                        <li><input type="file" name="file4" multiple/></li><br>
+                    </ul>
+                <label for="picture">7. Links Picture: </label>
+                <input type="file" name="file5" /><br>
+                    <ul>
+                        <li><label for="rom">ROM:</label>
+                        <input type="textarea" name="romlink" class="links" placeholder="ROM link"><br></li>
+                        <li><label for="recovery">Recovery:</label>
+                        <input type="textarea" name="recoverylink" class="links" placeholder="recovery link"><br></li>
+                        <li><label for="gapps">GApps:</label>
+                        <input type="textarea" name="gappslink" class="links" placeholder="gapps link"><br></li>
+                        <li><label for="magisk">Magisk:</label>
+                        <input type="textarea" name="magisklink" class="links" placeholder="magisk link"><br></li>
+                        <li><label for="telegram">Telegram Support Group:</label>
+                        <input type="textarea" name="telegramlink" class="links" placeholder="telegram link"><br></li>
+                        <li><label for="telegramchannel">Telegram Announcements Channel:</label>
+                        <input type="textarea" name="telegramChannel" class="links" placeholder="telegram channel link"><br></li>
+                    </ul>
+                <label for="picture">8. Installation Picture: </label>
+                <input type="file" name="file6" /><br>
+                <label for="steps">9. Installation Guide: </label><br>
+                    <ul>
+                        <li><label for="steps">Step1: </label><br>
+                        <textarea name="step1" class="steps" placeholder="step1"></textarea></li><br>
+                        <li><label for="steps">Step2: </label><br>
+                        <textarea name="step2" class="steps" placeholder="step2"></textarea></li><br>
+                        <li><label for="steps">Step3: </label><br>
+                        <textarea name="step3" class="steps" placeholder="step3"></textarea></li><br>
+                        <li><label for="steps">Step4: </label><br>
+                        <textarea name="step4" class="steps" placeholder="step4"></textarea></li><br>
+                    </ul>
+                <label for="picture">10. Team Picture: </label>
+                <input type="file" name="file7" /><br>
+                <label for="picture">11. Team content: </label>
+                    <ul>
+                        <li><label for="name"> Founder and Lead Developer: </label>
+                        <input type="textarea" name="leadDeveloper" class="naming" placeholder="enter name here"></li><br>
+                        <li><label for="name"> Support team: </label>
+                        <input type="textarea" name="supportTeam" class="naming" placeholder="enter name here"></li><br>
+                    </ul>
+                <label for="picture">12. Source Picture: </label>
+                <input type="file" name="file8" /><br>
+                <label for="picture">13. Source Content: </label>
+                    <ul>
+                        <li><label for="sourceLink">Source Link 1: </label>
+                        <input type="textarea" name="sourceLink1" class="links" placeholder="link1"></li><br>
+                        <li><label for="sourceLink">Source Link 2: </label>
+                        <input type="textarea" name="sourceLink2" class="links" placeholder="link1"></li><br>
+                    </ul>
+                <label for="payment">14. Payment Links: </label>
+                    <ul>
+                        <li><label for="paypal">Paypal Link: </label>
+                        <input type="textarea" name="paypalLink" class="links" placeholder="link here"></li><br>
+                        <li><label for="upi">UPI Link: </label>
+                        <input type="textarea" name="upiLink" class="links" placeholder="link here"></li><br>
+                        <li><label for="paypal">Maintainer Paypal Link: </label>
+                        <input type="textarea" name="maintainerPaypal" class="links" placeholder="link here"></li><br>
+                        <li><label for="upi">Maintainer UPI: </label>
+                        <input type="textarea" name="maintainerUpi" class="links" placeholder="link here"></li><br>
+                    </ul>
+            </div>
+            <button type="button" class="prev">Prev</button>
+            <button type="submit" class="addprojectbtn">Add template</button>
+
+        </fieldset>
+        </form>
 
     </div>
 
@@ -242,6 +340,32 @@ script.
             resultList.innerHTML=htmlString;
         }
     }
+    const next = document.querySelector('.next');
+    const prev = document.querySelector('.prev');
+    const page1 = document.querySelector('.page-fieldset');
+    const page2 = document.querySelector('.page2-fieldset');
+    const progressText = document.querySelectorAll('.step p');
+    const progressCheck = document.querySelectorAll('.step .check');
+    const bullet = document.querySelectorAll('.step .bullet');
+    let max= 2;
+    let current =1;
+
+    next.addEventListener('click',()=>{
+        page2.style.display="block";
+        page1.style.display="none";
+        bullet[current - 1].classList.add('active');
+        progressText[current - 1].classList.add('active');
+        progressCheck[current - 1].classList.add('active');
+        current+=1;
+    })
+    prev.addEventListener('click',()=>{
+        page1.style.display="block";
+        page2.style.display="none";
+        bullet[current - 2].classList.remove('active');
+        progressText[current - 2].classList.remove('active');
+        progressCheck[current - 2].classList.remove('active');
+        current-=1;
+    })
 
 
 </body>

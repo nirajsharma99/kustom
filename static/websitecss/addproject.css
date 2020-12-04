@@ -30,7 +30,6 @@ h1 {
 }
 .container1 {
   background-color: black;
-  height: 80px;
   width: 100%;
   justify-content: left;
   align-items: center;
@@ -200,11 +199,89 @@ a:hover.result-description {
   flex: 8;
   height: 100%;
 }
-#romtype,
-#updatetype {
-  background-color: black;
+.progress-bars {
+  display: flex;
+  margin: 40px 0;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.progress-bars .step {
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+.progress-bars .step p {
+  font-size: 18px;
+  font-weight: 500;
+  color: thistle;
+  margin-bottom: 8px;
+  transition: 0.3s;
+}
+.progress-bars .step p.active {
+  color: #0ac5a8;
+}
+.progress-bars .step .bullet {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  border: 2px solid white;
+  display: inline-block;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.progress-bars .step .bullet.active {
+  border-color: turquoise;
+  background-color: turquoise;
+}
+.progress-bars .step:last-child .bullet:before,
+.progress-bars .step:last-child .bullet:after {
+  display: none;
+}
+.progress-bars .step .bullet:before,
+.progress-bars .step .bullet:after {
+  position: absolute;
+  content: '';
+  bottom: 11px;
+  right: -13.6rem;
+  height: 3px;
+  width: 13.6rem;
+  background: white;
+}
+.progress-bars .step .bullet.active:after {
+  background: turquoise;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: afterLine 0.3s linear forwards;
+}
+@keyframes afterLine {
+  100% {
+    transform: scaleX(1);
+  }
+}
+.progress-bars .step .bullet span {
   color: white;
-  border: 1px solid #0ac5a8;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 25px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.progress-bars .step .bullet.active span {
+  display: none;
+}
+.progress-bars .step .check {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.progress-bars .step .check.active {
+  display: block;
+  color: white;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -399,9 +476,23 @@ button.close:hover {
   width: 95%;
   margin-left: 10px;
 }
+.page2-fieldset {
+  color: white;
+  border: 1px #0ac5a8 solid;
+  border-radius: 20px;
+  width: 95%;
+  margin-left: 10px;
+  display: none;
+}
 .page-legend {
   color: #0ac5a8;
   width: 150px;
+  margin-left: 30px;
+  font-size: 20px;
+}
+.page2-legend {
+  color: #0ac5a8;
+  width: 100px;
   margin-left: 30px;
   font-size: 20px;
 }
@@ -439,16 +530,67 @@ button.close:hover {
   color: #0ac5a8;
   width: 100px;
 }
+#romtype,
+#updatetype {
+  background-color: black;
+  color: white;
+  border: 1px solid #0ac5a8;
+}
+.content {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border-top-style: groove;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  border-color: #0ac5a8;
+  background-color: transparent;
+  color: #0ac5a8;
+  width: 70%;
+  grid-auto-rows: auto;
+  grid-auto-columns: auto;
+  margin-left: 20px;
+}
+.links,
+.steps,
+.naming {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border-top-style: groove;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  border-color: #0ac5a8;
+  background-color: transparent;
+  color: #0ac5a8;
+  width: 50%;
+  grid-auto-rows: auto;
+  grid-auto-columns: auto;
+}
 
-.right-section .template .addtemplatebtn {
+.right-section .template .next,
+.addprojectbtn {
   width: 200px;
   float: right;
   padding: 5px;
   border-radius: 10px;
   background-color: #078471;
   color: whitesmoke;
+  margin: 0px 100px;
 }
-.right-section .template .addtemplatebtn:hover {
+.prev {
+  width: 200px;
+  float: left;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #078471;
+  color: whitesmoke;
+  margin: 0px 100px;
+}
+.right-section .template .next:hover,
+.addprojectbtn:hover {
   background-color: transparent;
 }
 #custom-button {
