@@ -96,7 +96,7 @@ style
       <form action="/devregistration" method="POST">
         <input type="textarea" name="username" class="username" placeholder="Enter a username.." required>
         <input type="email" name="email" class="email" id="email" placeholder="Enter your Email-ID" required>
-        <input type="email" name="cemail" class="cemail" id="cemail" onblur="confirmEmail()" placeholder="Confirm Email-ID" required>
+        <input type="email" name="cemail" class="cemail" id="cemail" onkeyup="confirmEmail()" placeholder="Confirm Email-ID" required>
         <i style="color:red;font-size:2rem;display:none;margin-left:10px;"id="wrongemail" class="fas fa-times"></i>
         <i style="color:green;font-size:2rem;display:none;margin-left:10px;"id="rightemail"class="fas fa-check"></i>
         <input type="textarea" name="device" class="device"  id="device"  placeholder="Devices you have worked on,keep space between multiple entries." required>
@@ -353,8 +353,8 @@ style
       </div>
   </div>
 
-  script.
-    const resultList = document.getElementById('allSearchResults');
+script.
+  const resultList = document.getElementById('allSearchResults');
   const searchBar = document.getElementById('search-txt');
   let tags=[];
   searchBar.addEventListener('keyup',(e)=>{
@@ -405,6 +405,6 @@ style
     }
   }
 
-  script(src="../static/myscript.js")
+<script src="../static/myscript.js"></script>
 </body>
 </html>

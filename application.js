@@ -23,7 +23,76 @@ const registration = require('./models/registrationmongo');
 const ysltemplate = require('./models/deviceTemplates');
 const postTemplate = require('./models/postTemplates');
 const searchTag = require('./models/searchTag');
-//routes for comments
+//----------------------view engine-----------------
+application.set('view engine', 'pug');
+application.set('views', [
+  path.join(__dirname, 'views'),
+  path.join(__dirname, '/views/homepage'),
+]);
+//--------------------------------------------------
+
+//-------------------------------------------------------------------------
+application.use(
+  bodyparser.urlencoded({
+    extended: true,
+  })
+);
+const store = new MongoDBStore({
+  uri: 'mongodb://localhost:27017/user',
+  collection: 'mySessions',
+});
+
+application.use('/static', express.static(__dirname + '/static'));
+
+application.use(express.urlencoded({ extended: true }));
+
+application.use(
+  session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+    //cookie: {secure: false },
+    store: store,
+  })
+);
+
+application.use(passport.initialize());
+application.use(passport.session());
+
+application.use(function (req, res, next) {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  next();
+});
+
+application.use(flash());
+// Global variables
+application.use(function (req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+//-------------------------------------------------------------------------
+
+//----------------------multer--------------------------------
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname + '/static/uploads'));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname + '-' + Date.now() + '.jpg');
+  },
+});
+var upload = multer({ storage: storage });
+//----------------------------------------------------------------
+
+//-------------------------------routes for comments-------------------------------------------------------------------
+application.get('/api/comments', (req, res) => {
+  Comment.find().then(function (comments) {
+    res.send(comments);
+  });
+});
+
 application.post('/api/comments', (req, res) => {
   const comment = new Comment({
     username: req.body.username,
@@ -33,12 +102,6 @@ application.post('/api/comments', (req, res) => {
   });
   comment.save().then((response) => {
     res.send(response);
-  });
-});
-
-application.get('/api/comments', (req, res) => {
-  Comment.find().then(function (comments) {
-    res.send(comments);
   });
 });
 
@@ -196,68 +259,52 @@ application.post('/api/changelikerdisliker', (req, res) => {
       console.log(err);
     });
 });
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname + '/static/uploads'));
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + '.jpg');
-  },
-});
-var upload = multer({ storage: storage });
-application.post('/addtemplate', upload.single('myFile'), (req, res) => {
-  const template = new ysltemplate({
-    username: req.body.username,
-    joindate: req.body.joiningdate,
-    projectname: req.body.romname,
-    androidversion: req.body.androidversion,
-    romversion: req.body.romversion,
-    device: req.body.device,
-    romtype: req.body.romtype,
-    updatetype: req.body.updatetype,
-    developerpicture: req.body.userimage,
-    filename: req.file.filename,
-  });
-  template.save().then((response) => {
-    res.send(response);
-  });
-});
+//--------------------------------------------comment section ends-----------------------------------------------------------------------------
 
+//----------------------------------------------------------projects/templates-------------------------------------------
 application.get('/api/ysltemplates', (req, res) => {
   ysltemplate.find().then(function (templates) {
     res.send(templates);
   });
 });
-application.get('/api/searchTags', (req, res) => {
-  searchTag.find().then(function (tags) {
-    res.send(tags);
-  });
-});
-
-application.get('/api/posttemplates', (req, res) => {
-  postTemplate.find().then(function (templates) {
-    res.send(templates);
-  });
-});
-
-application.get('/api/users', (req, res) => {
-  registration.find().then(function (users) {
-    res.send(users);
-  });
-});
-
-application.post('/api/deleteuser', (req, res) => {
-  const ID = req.body.objectId;
-  registration
-    .findOneAndRemove({ _id: objid(ID) })
-    .then(() => {
-      console.log('User deleted');
-    })
-    .catch((err) => {
-      console.log(err);
+application.post(
+  '/addtemplate',
+  upload.fields([
+    { name: 'myFile' },
+    /*{ name: 'rompic' },
+    { name: 'aboutpic' },
+    { name: 'featurepic' },
+    { name: 'screenshots', maxCount: 6 },
+    { name: 'linkpic' },
+    { name: 'installationpic' },
+    { name: 'teampic' },
+    { name: 'sourcepic' },*/
+  ]),
+  (req, res) => {
+    //console.log(req.files.screenshots);
+    /*var x = [];
+    for (i = 0; i < 6; i++) {
+      x[i] = req.files.screenshots[i].filename;
+    }
+    console.log(x);*/
+    const template = new ysltemplate({
+      username: req.body.username,
+      joindate: req.body.joiningdate,
+      projectname: req.body.romname,
+      androidversion: req.body.androidversion,
+      romversion: req.body.romversion,
+      device: req.body.device,
+      romtype: req.body.romtype,
+      updatetype: req.body.updatetype,
+      developerpicture: req.body.userimage,
+      filename: req.files.myFile[0].filename,
+      content: req.body.contentpass,
     });
-});
-
+    template.save().then((response) => {
+      res.send(response);
+    });
+  }
+);
 application.post('/api/deleteproject', (req, res) => {
   const ID = req.body.objectId;
   ysltemplate
@@ -269,96 +316,181 @@ application.post('/api/deleteproject', (req, res) => {
       console.log(err);
     });
 });
+//----star rating----
+application.post('/api/starRating', (req, res) => {
+  rate = parseInt(req.body.rating);
+  projectname = req.body.projectname;
+  romversion = req.body.romversion;
+  device = req.body.device;
+  const newrater = { rated: rate, username: req.body.username };
+  console.log(rate + projectname + romversion + device);
+  ysltemplate
+    .update(
+      { projectname: projectname, romversion: romversion, device: device },
+      { $push: { raters: newrater } }
+    )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//----------------------------------------------- projects/templates ends here----------------------------------------------------
+
+//------------------------------------------------manage users------------------------------------------------------
+application.get('/api/users', (req, res) => {
+  registration.find().then(function (users) {
+    res.send(users);
+  });
+});
+application.get(`/getprofile`, (req, res) => {
+  const username = req.query.userprofile;
+  registration
+    .findOne({ username: username })
+    .then((userInfo) => {
+      res.render('profile.pug', { userInfo: userInfo, user: req.user });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+application.post('/api/deleteuser', (req, res) => {
+  const ID = req.body.objectId;
+  registration
+    .findOneAndRemove({ _id: objid(ID) })
+    .then(() => {
+      console.log('User deleted');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+application.post('/api/deleteAccount', (req, res) => {
+  const user = req.query.user;
+  const pass = req.body.password;
+  console.log(user + '' + pass);
+  registration.findOne({ username: user }).then((data) => {
+    var decide = new Boolean();
+    decide = bcrypt.compareSync(pass, data.password);
+    if (Boolean(decide) === true) {
+      registration.findOneAndRemove({ username: user }).then(() => {
+        res.redirect('/manageHomepage');
+        req.flash('success_msg', 'Account deleted!!');
+      });
+    } else if (Boolean(decide) === false) {
+      req.flash('error_msg', 'Wrong password!!');
+      res.redirect('back');
+    }
+  });
+});
+
+//---------------------------------------------manage user ends here--------------------------------------------------------
 
 const { ObjectID } = require('mongodb');
 const { fail } = require('assert');
-const store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/user',
-  collection: 'mySessions',
-});
-application.use(
-  bodyparser.urlencoded({
-    extended: true,
-  })
-);
+const { stringify } = require('querystring');
 
-application.use('/static', express.static(__dirname + '/static'));
-
-application.use(express.urlencoded({ extended: true }));
-
-application.use(
-  session({
-    secret: 'secret',
-    resave: false,
-    saveUninitialized: true,
-    //cookie: {secure: false },
-    store: store,
-  })
-);
-
-application.use(passport.initialize());
-application.use(passport.session());
-
-application.use(function (req, res, next) {
-  res.locals.isAuthenticated = req.isAuthenticated();
-  next();
-});
-
-application.use(flash());
-// Global variables
-application.use(function (req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  next();
-});
-
-application.post('/addPostTemplate', upload.single('myFile'), (req, res) => {
-  const template = new postTemplate({
-    author: req.body.author,
-    date: Date.now(),
-    postindex: req.body.postnumber,
-    heading: req.body.heading,
-    description: req.body.description,
-    filename: req.file.filename,
-    purpose: req.body.purpose,
-  });
-  const index = parseInt(req.body.postnumber);
-  const author = req.body.author;
-  const date = Date.now();
-  const heading = req.body.heading;
-  const description = req.body.description;
-  const filename = req.file.filename;
-  const purpose = req.body.purpose;
-  if (req.body.purpose == 'Add') {
-    template.save().then((response) => {
-      req.flash('success_msg', 'Success, Post Template Added!!)');
-      res.redirect('/manageHomepage');
+//----------------------------------------------------POSTS---------------------------------------------------------------
+application.get(`/posts`, (req, res) => {
+  const post = req.query.post;
+  postTemplate
+    .findOne({ postname: post })
+    .then((postInfo) => {
+      res.render('posts.pug', { postInfo: postInfo, user: req.user });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  } else if (req.body.purpose == 'Update') {
-    postTemplate.collection
-      .findOneAndUpdate(
-        { postindex: index },
-        {
-          $set: {
-            author: author,
-            date: date,
-            postindex: index,
-            heading: heading,
-            description: description,
-            filename: filename,
-            purpose: purpose,
-          },
-        }
-      )
-      .then(() => {
-        req.flash('success_msg', 'Success, Post Template Updated!!)');
+});
+application.get('/api/posttemplates', (req, res) => {
+  postTemplate.find().then(function (templates) {
+    res.send(templates);
+  });
+});
+application.post(
+  '/addPostTemplate',
+  upload.fields([
+    { name: 'myFile' },
+    { name: 'myFile2' },
+    { name: 'authorpic' },
+  ]),
+  (req, res) => {
+    var postname = req.body.postname;
+    postname = postname.replace(/ /g, '-');
+    const template = new postTemplate({
+      author: req.body.author,
+      authorportfolio: req.body.authorPortfolio,
+      date: Date.now(),
+      postindex: req.body.postnumber,
+      heading: req.body.heading,
+      postname: postname,
+      description: req.body.description,
+      thumbnailfilename: req.files.myFile[0].filename,
+      postpicfilename: req.files.myFile2[0].filename,
+      authorpicfilename: req.files.authorpic[0].filename,
+      purpose: req.body.purpose,
+      content: req.body.contentpass,
+      authortwitter: req.body.authorTwitter,
+      authorinstagram: req.body.authorInstagram,
+    });
+    const index = parseInt(req.body.postnumber);
+    const author = req.body.author;
+    const authorportfolio = req.body.authorPortfolio;
+    const heading = req.body.heading;
+    const description = req.body.description;
+    const thumbnailfilename = req.files.myFile[0].filename;
+    const postpicfilename = req.files.myFile2[0].filename;
+    const authorpicfilename = req.files.authorpic[0].filename;
+    const purpose = req.body.purpose;
+    const content = req.body.contentpass;
+    const authortwitter = req.body.authorTwitter;
+    const authorinstagram = req.body.authorInstagram;
+    if (req.body.purpose == 'Add') {
+      template.save().then((response) => {
+        req.flash('success_msg', 'Success, Post Template Added!!)');
         res.redirect('/manageHomepage');
-      })
-      .catch((err) => {
-        console.log(err);
       });
+    } else if (req.body.purpose == 'Update') {
+      postTemplate.collection
+        .findOneAndUpdate(
+          { postindex: index },
+          {
+            $set: {
+              author: author,
+              authorportfolio: authorportfolio,
+              authortwitter: authortwitter,
+              authorinstagram: authorinstagram,
+              postindex: index,
+              heading: heading,
+              postname: postname,
+              description: description,
+              thumbnailfilename: thumbnailfilename,
+              postpicfilename: postpicfilename,
+              authorpicfilename: authorpicfilename,
+              purpose: purpose,
+              content: content,
+            },
+          }
+        )
+        .then(() => {
+          req.flash('success_msg', 'Success, Post Template Updated!!)');
+          res.redirect('/manageHomepage');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
+);
+//-----------------------------------------------------posts ends--------------------------------------------------------
+
+//------------------------------------------------------------------searchTag---------------------------------------------------------------
+application.get('/api/searchTags', (req, res) => {
+  searchTag.find().then(function (tags) {
+    res.send(tags);
+  });
 });
 application.post('/addSearchTag', (req, res) => {
   const tag = new searchTag({
@@ -373,7 +505,33 @@ application.post('/addSearchTag', (req, res) => {
     res.redirect('/manageSearchTags');
   });
 });
+//-----------------------------------------------------------------------searchTag ends here--------------------------------------
 
+//-------------------------------------------------------------------update requests-------------------------------------------------
+application.post('/changepassword', (req, res) => {
+  const user = req.query.user;
+  const oldPassword = req.body.oldpassword;
+  var newPassword = req.body.password;
+  registration.findOne({ username: user }).then((data) => {
+    var decide = new Boolean(true);
+    decide = bcrypt.compareSync(oldPassword, data.password);
+    if (Boolean(decide) === false) {
+      req.flash('error_msg', 'Existing password incorrect!!)');
+      res.redirect('back');
+    } else if (Boolean(decide) === true) {
+      newPassword = bcrypt.hashSync(newPassword, 10);
+      registration
+        .findOneAndUpdate({ username: user }, { password: newPassword })
+        .then(() => {
+          req.flash('success_msg', 'Success, password changed!!)');
+          res.redirect('back');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
+});
 application.post(
   '/profileEditRequest',
   upload.single('realFile'),
@@ -435,43 +593,10 @@ application.post(
       });
   }
 );
-application.post('/api/starRating', (req, res) => {
-  rate = parseInt(req.body.rating);
-  projectname = req.body.projectname;
-  romversion = req.body.romversion;
-  device = req.body.device;
-  const newrater = { rated: rate, username: req.body.username };
-  console.log(rate + projectname + romversion + device);
-  ysltemplate
-    .update(
-      { projectname: projectname, romversion: romversion, device: device },
-      { $push: { raters: newrater } }
-    )
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
 
-application.set('view engine', 'pug');
-application.set('views', [
-  path.join(__dirname, 'views'),
-  path.join(__dirname, '/views/homepage'),
-]);
-application.get(`/getprofile`, (req, res) => {
-  const username = req.query.userprofile;
-  registration
-    .findOne({ username: username })
-    .then((userInfo) => {
-      res.render('profile.pug', { userInfo: userInfo, user: req.user });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+//-------------------------------------------update request ends here------------------------------------------------
 
+//-------------------------------------------------get request for pages-------------------------------------------------
 application.get('/', (req, res) => {
   res.status(200).render('homepage.pug', (user = req.user));
 });
@@ -487,6 +612,9 @@ application.get('/dashboard', ensureAuthenticated, (req, res) => {
 application.get('/projects', ensureAuthenticated, (req, res) => {
   res.status(200).render('projects.pug');
 });
+application.get('/security', ensureAuthenticated, (req, res) => {
+  res.status(200).render('security.pug');
+});
 
 application.get('/addproject', ensureAuthenticated, (req, res) => {
   res.status(200).render('addproject.pug');
@@ -500,7 +628,6 @@ application.get('/adminLogin', (req, res) => {
 });
 
 application.get('/manageSearchTags', ensureAuthenticated, (req, res) => {
-  console.log(req.user);
   if (req.user.usertype == 'admin') {
     res.render('manageSearchTags.pug', (user = req.user));
   } else {
@@ -512,7 +639,6 @@ application.get('/manageSearchTags', ensureAuthenticated, (req, res) => {
   }
 });
 application.get('/manageAdmin', ensureAuthenticated, (req, res) => {
-  console.log(req.user);
   if (req.user.usertype == 'admin') {
     res.render('manageAdmin.pug', (user = req.user));
   } else {
@@ -525,7 +651,6 @@ application.get('/manageAdmin', ensureAuthenticated, (req, res) => {
 });
 
 application.get('/manageProjects', ensureAuthenticated, (req, res) => {
-  console.log(req.user);
   if (req.user.usertype == 'admin') {
     res.render('manageProjects.pug', (user = req.user));
   } else {
@@ -538,7 +663,6 @@ application.get('/manageProjects', ensureAuthenticated, (req, res) => {
 });
 
 application.get('/manageHomepage', ensureAuthenticated, (req, res) => {
-  console.log(req.user);
   if (req.user.usertype == 'admin') {
     res.render('manageHomepage.pug', (user = req.user));
   } else {
@@ -584,19 +708,22 @@ application.get('/devregistration', (req, res) => {
 application.get('/loginfailure', (req, res) => {
   res.status(200).render('loginfailure.pug');
 });
+application.get('/posts', (req, res) => {
+  res.status(200).render('posts.pug');
+});
 
 application.get('/logout', (req, res) => {
   req.logOut();
   req.session.destroy();
-  res.redirect('back');
+  res.redirect('/');
 });
-
+//------------------------------------------------------------------------------------------------------------------------
 const server = application.listen('3000', () => {
   console.log('server started');
 });
 
+//------------------------------------------------------------SOCKET----------------------------------------------------------
 let io = require('socket.io')(server);
-
 io.on('connection', (socket) => {
   console.log(`New Connection: ${socket.id}`);
   // Recieve event
@@ -611,13 +738,9 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('reply', replyData);
   });
 });
+//------------------------------------------------------socket ends here-----------------------------------------------------------
 
-/*io.on('connection', (socket) => {
-  console.log(`New reply connection: ${socket.id}`);
-  //recieve event
-  
-});*/
-
+//-----------------------------------------------------admin----------------------------------------------------------------
 application.post('/adminRegistration', (req, res) => {
   const { username, email, name, password, cpassword } = req.body;
   //console.log(req.body.emailId);
@@ -672,7 +795,6 @@ application.post('/adminRegistration', (req, res) => {
 });
 
 application.get('/admin', ensureAuthenticated, (req, res) => {
-  console.log(req.user);
   if (req.user.usertype == 'admin') {
     res.render('admin.pug', (user = req.user));
   } else {
@@ -691,7 +813,9 @@ application.post('/adminsLogin', (req, res, next) => {
     failureFlash: true,
   })(req, res, next);
 });
+//------------------------------------------------------------admin ends--------------------------------------------------
 
+//------------------------------------------------------------user registration------------------------------------------------
 application.post('/registration', (req, res) => {
   const { username, email, password, cpassword } = req.body;
   let errors = [];
@@ -792,8 +916,9 @@ application.post('/devregistration', (req, res) => {
     }
   });
 });
+//---------------------------------------------------user registration ends--------------------------------------------
 
-// Login
+//--------------------Login---------------------------------------------
 application.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: 'back',

@@ -20,6 +20,10 @@ const postTemplateSchema = new Schema({
     type: String,
     //required: true,
   },
+  authorportfolio: {
+    type: String,
+    //required: true,
+  },
   date: {
     type: Date,
     default: Date.now,
@@ -32,16 +36,40 @@ const postTemplateSchema = new Schema({
     type: String,
     //required: true,
   },
+  postname: {
+    type: String,
+    //required: true,
+  },
   description: {
     type: String,
     //required: true,
   },
 
-  filename: {
+  thumbnailfilename: {
+    type: String,
+    //required: true,
+  },
+  postpicfilename: {
+    type: String,
+    //required: true,
+  },
+  authorpicfilename: {
     type: String,
     //required: true,
   },
   purpose: {
+    type: String,
+    //required: true,
+  },
+  content: {
+    type: String,
+    //required: true,
+  },
+  authortwitter: {
+    type: String,
+    //required: true,
+  },
+  authorinstagram: {
     type: String,
     //required: true,
   },

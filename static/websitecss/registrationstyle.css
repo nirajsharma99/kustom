@@ -293,6 +293,7 @@ input[type='password'] {
   display: inline-block;
   box-sizing: border-box;
   font-size: 16px;
+  color: white;
 }
 
 .user-popup {
@@ -597,6 +598,7 @@ p.side-preview-text {
   border-left-style: hidden;
   border-bottom-style: groove;
   border-color: #0ac5a8;
+  color: white;
   background-color: rgba(0, 0, 0, 0.6);
 }
 .form input {

@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 <link href="../static/fontawesome/css/all.css" rel="stylesheet" type="text/css">
+<script src="../static/myscript.js"></script>
 style
   include ../static/websitecss/registrationstyle.css
   include ../static/bootstrap/css/bootstrap.min.css
@@ -98,11 +99,11 @@ style
           <form action="/registration" method="POST">
             <input type="textarea" name="username" class="username" placeholder="Enter a username.." required>
             <input type="email" name="email" class="email" id="email" placeholder="Enter your Email-ID" required>
-            <input type="email" name="cemail" class="cemail" id="cemail" onblur="confirmEmail()" placeholder="Confirm Email-ID" required>
+            <input type="email" name="cemail" class="cemail" id="cemail" onkeyup="confirmEmail()" placeholder="Confirm Email-ID" required>
             <i style="color:red;font-size:2rem;display:none;margin-left:10px;"id="wrongemail" class="fas fa-times"></i>
             <i style="color:green;font-size:2rem;display:none;margin-left:10px;"id="rightemail"class="fas fa-check"></i>
             <input type="password" name="password" class="password" id="password" placeholder="Enter password"required>
-            <input type="password" name="cpassword" class="cpassword" id="cpassword" onblur="confirmPassword()" placeholder="Confirm password" required>
+            <input type="password" name="cpassword" class="cpassword" id="cpassword" onkeyup="confirmPassword()" placeholder="Confirm password" required>
             <i style="color:red;font-size:2rem;display:none;margin-left:10px;"id="wrongpassword" class="fas fa-times"></i>
             <i style="color:green;font-size:2rem;display:none;margin-left:10px;"id="rightpassword"class="fas fa-check"></i>
             <div class="submit">
@@ -203,7 +204,7 @@ style
           <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
           <a href="#" class="settings"><i class="fas fa-cogs"></i></i> Settings</a>
         </div>
-      else if user.usertype == 'developer'
+      else if (user.usertype == 'developer')
         <div class="user-popup-content">
           <div class="dpcontainer"><img style="width:150px;height:150px;border-radius:50%;" src="./static/uploads/#{user.filename}" ></div>
           <div class="usernaming">

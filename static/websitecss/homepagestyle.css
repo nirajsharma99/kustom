@@ -16,11 +16,79 @@
 
 html,
 body {
+  width: 100%;
   height: 100%;
   padding: 0px;
   margin: 0px;
   background: black !important;
 }
+/*--------------------------------------------preLoader--------------------------------*/
+.loader-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.loader {
+  color: #0ac5a8;
+  font-size: 9rem;
+}
+.loader2 {
+  color: black;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  z-index: 201;
+  margin-right: 4.9rem;
+  margin-top: 0.8rem;
+  font-size: x-large;
+  animation: spin 1.2s infinite;
+}
+.loader3 {
+  color: black;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  z-index: 201;
+  margin-left: 4.9rem;
+  margin-top: 0.8rem;
+  font-size: x-large;
+  animation: spin 1.2s infinite;
+}
+/*.loader4 {
+  color: gold;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6rem;
+  animation: blink 1s ease-in infinite;
+  z-index: 201;
+}
+@keyframes blink {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}*/
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/*-------------------------------------preLoader---------------------------------------*/
 .banner {
   display: flex;
 }
@@ -33,7 +101,7 @@ h1 {
 
 .container1 {
   background-color: black;
-  width: 96%;
+  width: 100%;
   align-items: center;
   display: flex;
   position: relative;
@@ -43,7 +111,6 @@ button.btn {
   background-color: transparent;
   color: #dcdcdc;
   border: none;
-
   display: inline-block;
   font-size: 1.2rem;
   padding: 25px 10px;
@@ -61,6 +128,32 @@ button.btn {
   width: 100%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+}
+.dropdown .newsdropdown {
+  width: 100%;
+}
+ul.news {
+  list-style: none;
+  padding: 0 !important;
+}
+li.newspost {
+  width: 400px !important;
+  display: flex;
+  margin: 5px 0px !important;
+  background-color: #555555 !important;
+}
+.news-image {
+  flex: 0.1;
+  float: left;
+  height: 50px !important;
+}
+.news-image img {
+  width: 50px;
+  height: 50px;
+}
+.news-preview {
+  flex: 0.9;
+  background: transparent;
 }
 
 .dropdown1-content a {
@@ -234,6 +327,24 @@ button.options {
   list-style: none;
   color: #0ac5a8;
 }
+.social-box-2 {
+  box-sizing: border-box;
+  border-top: 1px solid thistle;
+  border-bottom: 1px solid thistle;
+}
+.social-box-2 li {
+  list-style: none;
+  color: white;
+}
+a.options-here {
+  color: white !important;
+  display: block;
+  text-align: center;
+}
+a.options-here:hover {
+  color: #0ac5a8 !important;
+  text-decoration: none;
+}
 .social-icons {
   display: inline-block;
   font-size: 3rem;
@@ -247,6 +358,9 @@ button.options {
 .social-icons i {
   color: white;
   letter-spacing: 15px;
+}
+.social-icons i:hover {
+  color: #0ac5a8;
 }
 .login-data {
   display: block;
@@ -371,7 +485,27 @@ button.close:hover {
   margin: 5px auto;
   cursor: pointer;
 }
-
+.options-container {
+  display: none;
+  width: 30%;
+  position: absolute;
+  right: 3.5%;
+  top: 0%;
+  background-color: black;
+  border: 1px solid #0ac5a8;
+}
+.options-links {
+  margin: 30px 10px;
+}
+.options-links li {
+  text-align: center;
+  padding: 5px;
+  list-style: none;
+}
+.options-links a {
+  color: #0ac5a8;
+}
+/*---------------------------------------------------------------------------------*/
 .content {
   width: 100%;
   margin: 0px auto 0px;
@@ -643,7 +777,7 @@ p.side-preview-text {
   left: 0px;
 }
 
-@media screen and (max-device-width: 500px) {
+@media screen and (max-device-width: 760px) {
   .banner {
     display: block;
   }
@@ -659,7 +793,7 @@ p.side-preview-text {
   button.btn {
     width: 100%;
     height: 35px;
-    font-size: 15px;
+    font-size: 15px !important;
     padding: 0px 5px;
     display: inline-block;
     align-items: center;
@@ -673,8 +807,10 @@ p.side-preview-text {
     width: 100%;
     left: 5px;
   }
+
+  /*------------------------------*/
   button.bestposts {
-    display: none;
+    display: none !important;
   }
   .content .main-content {
     width: 100%;
@@ -714,6 +850,7 @@ p.side-preview-text {
     height: 50%;
     float: left;
   }
+
   .content .main-content .post .post-preview {
     width: 63%;
     padding: 0px;
@@ -745,5 +882,16 @@ p.side-preview-text {
   .footer .footer-content {
     width: 95%;
     margin: auto;
+  }
+}
+@media screen and (max-device-width: 1480px) {
+  button.btn {
+    width: 100%;
+    height: 35px;
+    font-size: 1rem;
+    padding: 0px 5px;
+    display: inline-block;
+    align-items: center;
+    line-height: 25px;
   }
 }

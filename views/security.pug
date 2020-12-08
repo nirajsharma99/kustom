@@ -4,22 +4,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 <link href="../static/fontawesome/css/all.css" rel="stylesheet">
-<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/decoupled-document/ckeditor.js"></script>
+<script src="../static/myscript.js"></script>
 style
-    include ../static/websitecss/addproject.css
+    include ../static/websitecss/admin.css
 
 
 <title>KUSTOM</title>
 </head>
 <body>
 <div class="container1">
-    <h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1>
-    <div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
-        <div class="dropdown1-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
+    <h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1><div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
+    <div class="dropdown1-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+    </div>
     </div>
     <div class="dropdown"><button class="btn"><i class="fas fa-mobile-alt"></i> DEVICES <i class="fas fa-angle-down"></i></button>
         <div class="dropdown1-content">
@@ -65,78 +64,76 @@ style
             <span style="color:thistle;padding:15px;margin: 10px 0px;">Search Results</span>
             <hr style="background-color:thistle;margin-top:5px;width:90%;">
             <ul id="allSearchResults">
-            //-all search results here
+                //-all search results here
             </ul>
         </div>
     </div>
 </div>
 
 <div class="main-section">
-<hr style="background-color:#0AC5A8;height:10px;">
-    <div class="left-section">
-        <ul>
-            <li><a href="/dashboard"><i class="fas fa-book-open"></i> Profile</a></li>
-            <li><a href="#"><i class="fas fa-id-card-alt"></i> Contact-Info || <i class="fas fa-link"></i>Source Links</a></li>
-            <li><a style="background-color:#078471;border-left: 5px solid #39ff14;" href="/projects"><i class="fas fa-cube"></i> Projects</a></li>
-            <li><a href="/projects"><i class="fas fa-chart-pie"></i> Statistics</a></li>
-            <li><a href="/projects"><i class="fas fa-scroll"></i> Announcements</a></li>
-            <li><a href="/security"><i class="fas fa-user-lock"></i> Password and Security</a></li>
-        </ul>
-    </div>
-    <div class="right-section">
-        <form action="/addtemplate" enctype="multipart/form-data" method="POST"> 
-        <fieldset class="page-fieldset">
-            <legend class="page-legend"><strong>Add Project</strong></legend>
-            <div class="template">
-                <label for="romname">Rom Name:</label>
-                <input type="textarea" name="romname" id="romname" placeholder="project name..">
-                <label for="androidversion">Android Version:</label>
-                <input type="textarea" name="androidversion" id="androidversion" placeholder="version.."><br>
-                <label for="romversion">Rom Version:</label>
-                <input type="textarea" name="romversion" id="romversion" placeholder="version.."><br>
-                <label for="picture">Template Picture: </label>
-                <input type="file" name="myFile" /><br>
-                <input type="hidden" name="username" id="username"/>
-                <input type="hidden" name="joiningdate" id="joiningdate"/>
-                <input type="hidden" name="userimage" id="userimage"/>
-                script.
-                    var username=document.getElementById("username");
-                    username.value="#{user.username}";
-                    var date=document.getElementById("joiningdate");
-                    date.value="#{user.date}";
-                    var image=document.getElementById("userimage");
-                    image.value="#{user.filename}";
-                <label for="romversion">Device:</label>
-                <input type="textarea" name="device" id="fordevice" placeholder="device name.."><br>
-                <label for="romtype" >Rom-Type: </label>
-                <select name="romtype" id="romtype" required>
-                    <option disabled selected value> -- select an option -- </option>
-                    <option value="aosp">AOSP</option>
-                    <option value="port">PORT</option>
-                </select><br>
-                <label for="updatetype" >Update-Type: </label>
-                <select name="updatetype" id="updatetype" required>
-                    <option disabled selected value> -- select an option -- </option>
-                    <option value="official">OFFICIAL</option>
-                    <option value="unofficial">UNOFFICIAL</option>
-                </select><br>
-                <div class="document-editor">
-                    <div class="document-editor__toolbar"></div>
-                    <div class="document-editor__editable-container">
-                        <div name="content" class="document-editor__editable">
-                            <p></p>
+    <hr style="background-color:#0AC5A8;height:10px;">
+        <div class="left-section">
+            <ul>
+                <li><a href="/dashboard"><i class="fas fa-book-open"></i> Profile</a></li>
+                <li><a href="#"><i class="fas fa-id-card-alt"></i> Contact-Info || <i class="fas fa-link"></i>Source Links</a></li>
+                <li><a href="/dashboard/projects"><i class="fas fa-cube"></i> Projects</a></li>
+                <li><a href="/projects"><i class="fas fa-chart-pie"></i> Statistics</a></li>
+                <li><a href="/projects"><i class="fas fa-scroll"></i> Announcements</a></li>
+                <li><a style="background-color:#078471;border-left: 5px solid #39ff14;" href="/security"><i class="fas fa-user-lock"></i> Password and Security</a></li>
+            </ul>
+        </div>
+        <div class="right-section">
+            <div class="security-container">
+                div.col-10.ml-sm-auto.px-4
+                if typeof errors != 'undefined'
+                    for error in errors
+                        div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
+                if success_msg != 0
+                    div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
+                if error_msg != 0
+                    div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
+                <form action="/changepassword?user=#{user.username}" method="post">
+                    <span style="color: thistle;font-weight:1000;padding:10px;">Change Password</span>
+                    <div class="pass-container">
+                        <div class="pass-label">
+                            <span>Your Existing password</span>
+                        </div>
+                        <div class="pass-input">
+                            <input name="oldpassword" type="password">
                         </div>
                     </div>
-                </div><br>
-
-                <p style="color:#aaa;font-size:smaller;display:inline-block;">Note*: The file dimensions should be 300x200 pixels.</p>
-                <button type="submit" class="addprojectbtn">Add project</button>
-
+                    <div class="pass-container">
+                        <div class="pass-label">
+                            <span>New password</span>
+                        </div>
+                        <div class="pass-input">
+                            <input id="password" name="password" type="password">
+                        </div>  
+                    </div>
+                    <div class="pass-container">
+                        <div class="pass-label">
+                            <span>Confirm New password</span>
+                        </div>
+                        <div class="pass-input">
+                            <input id="cpassword" name="cpassword" onkeyup="confirmPassword()" type="password">
+                            <i style="color:red;font-size:3rem;display:none;"id="wrongpassword" class="fas fa-times"></i>
+                            <i style="color:green;font-size:3rem;display:none;"id="rightpassword"class="fas fa-check"></i>
+                        </div>  
+                    </div>
+                    <button class="save" onSubmit="return validate();" type="submit">Save</button>
+                </form>
+                <div class="delete-account">
+                    <form action="/api/deleteAccount?user=#{user.username}" method="post">
+                        <span style="color: thistle;font-weight:1000;margin:10px;">Delete Account</span><br>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" style="width:50%">
+                        <button type="submit" class="delete-user">Delete</button>
+                    </form>
+                </div>
             </div>
-        </fieldset>
-        </form>
+        </div>
+</div>
 
-    </div>
 
 <div class="side-bar">
     <h2><button class="options"><i class="fas fa-bars"></i></button>
@@ -211,31 +208,31 @@ script.
         //console.log(e);
         const searchString = e.target.value.toLowerCase();
         const filteredTags = tags.filter(key=>{
-            return(
-                key.heading.toLowerCase().includes(searchString) || 
-                key.description.toLowerCase().includes(searchString)
-            );
+        return(
+            key.heading.toLowerCase().includes(searchString) || 
+            key.description.toLowerCase().includes(searchString)
+        );
         });
         //console.log(filteredTags);
         displayTags(filteredTags);
     });
     fetchTags();
         function fetchTags(){
-            fetch('/api/searchTags')
-                .then(res => res.json())
-                .then(result => {
-                    tags=result;
-                })
+        fetch('/api/searchTags')
+            .then(res => res.json())
+            .then(result => {
+            tags=result;
+            })
         }
     function displayTags(tags){
         //console.log(searchBar.value.length)
         if(tags.length==0){
-            const htmlString=  `
-                <li class="searchresults">
-                    <span style="color:thistle;">No Results</span>
-                </li>
-                `;
-            resultList.innerHTML=htmlString;
+        const htmlString=  `
+            <li class="searchresults">
+                <span style="color:thistle;">No Results</span>
+            </li>
+            `;
+        resultList.innerHTML=htmlString;
         }
         else if(searchBar.value.length==0){
             document.querySelector('.search-result-box').style.display='none';
@@ -243,33 +240,16 @@ script.
         else{
             const htmlString= tags
             .map((data)=>{
-                return `
-                    <li class="searchresults">
-                        <a class="result-heading" href=${data.link}>${data.heading}[${data.date}]</a>
-                        <a class="result-description" href=${data.link}>${data.description}</a>
-                    </li>
+            return `
+                <li class="searchresults">
+                    <a class="result-heading" href=${data.link}>${data.heading}[${data.date}]</a>
+                    <a class="result-description" href=${data.link}>${data.description}</a>
+                </li>
                 `;
             })
-            resultList.innerHTML=htmlString;
+        resultList.innerHTML=htmlString;
         }
     }
-
-    DecoupledEditor
-    .create( document.querySelector( '.document-editor__editable' ))
-    .then( editor => {
-        const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
-        toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-    })
-    .catch( err => {
-        console.error( err );
-    });
-    var submit = document.querySelector('.addprojectbtn');
-    var content = document.querySelector('#content-pass');
-    submit.addEventListener('click',()=>{
-    var x = document.querySelector('.document-editor__editable').innerHTML;
-    content.value=JSON.stringify(x);
-    console.log(x);
-    })
 
 
 </body>

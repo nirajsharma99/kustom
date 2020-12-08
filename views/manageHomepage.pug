@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 <link href="../static/fontawesome/css/all.css" rel="stylesheet">
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/decoupled-document/ckeditor.js"></script>
 style
     include ../static/websitecss/manageHomepage.css
 
@@ -83,39 +84,63 @@ style
         </ul>
     </div>
     <div class="right-section">  
-        <fieldset class="post-box-1-fieldset">
-            div.col-10.ml-sm-auto.px-4
-            if typeof errors != 'undefined'
-                for error in errors
-                    div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
-            if success_msg != 0
-                div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
-            if error_msg != 0
-                div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
-            <legend class="post-box-1-legend"><strong>Post-Box</strong></legend>
-                <fieldset class="post1-fieldset">
-                    <legend class="post1-legend">Add Post</legend>
-                        <form action="/addPostTemplate" method="POST" enctype="multipart/form-data">
-                            <label for="postnumber">Post Index:</label>
-                            <input type="number" class="postnumber" name="postnumber" required><br>
-                            <label for="topic">Heading:</label><br>
-                            <textarea class="heading" name="heading" placeholder="(max 10 words)" required></textarea><br>
-                            <label for="description">Description:</label><br>
-                            <textarea class="description" name="description" placeholder="Short Description(max 50 words)" required></textarea><br>
-                            <label for="author">Author: </label>
-                            <input type="textarea" class="author" name="author" required><br>
-                            <label for="thumbnail">Thumbnail:</label>
-                            <input type="file" name="myFile" required>
-                            <label for="purpose">Purpose: </label>
-                            <select name="purpose" id="purpose" required>
-                                <option disabled selected value> -- select an option -- </option>
-                                <option value="Add">Add</option>
-                                <option value="Update">Update</option>
-                            </select>
-                            <button class="submitbtn" type="submit">Add Post</button>
-                        </form>
-                    </legend>
-                </fieldset>
+
+        <fieldset class="post1-fieldset">
+            <legend class="post1-legend">Add Post</legend>
+                div.col-10.ml-sm-auto.px-4
+                if typeof errors != 'undefined'
+                    for error in errors
+                        div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
+                if success_msg != 0
+                    div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
+                if error_msg != 0
+                    div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
+                <form action="/addPostTemplate" method="POST" enctype="multipart/form-data">
+                    <div class="author-data" style="border:1px solid white;padding:10px;margin:10px 0px;">
+                        <img style="float:right;width:150px;height:150px;padding:10px;" id="output"/>
+                        <label for="author-pic">Author-pic:</label>
+                        <input type="file" accept="image/x-png,image/gif,image/jpeg" name="authorpic" onchange="loadFile(event)"/><br>
+                        <label for="author">Author: </label>
+                        <input type="textarea" class="author" name="author" ><br>
+                        <label for="author-portfolio">Author-portfolio:</label><br>
+                        <textarea class="heading" name="authorPortfolio" placeholder="(max 20 words)" ></textarea><br>
+                        <label for="twitter">Twitter:</label>
+                        <input type="textarea" class="taglink" name="authorTwitter" ><br>
+                        <label for="twitter">Instagram:</label>
+                        <input type="textarea" class="taglink" name="authorInstagram" ><br>
+                    </div>
+                    <label for="postnumber">Post Index:</label>
+                    <input type="number" class="postnumber" name="postnumber" ><br>
+                    <label for="topic">Heading:</label><br>
+                    <textarea class="heading" name="heading" placeholder="(max 20 words)" ></textarea><br>
+                    <label for="topic">Post name:</label><br>
+                    <textarea class="heading" id="postname" name="postname" placeholder="(max 10 words)" ></textarea><br>
+                    <label for="description">Description:</label><br>
+                    <textarea class="description" name="description" placeholder="Short Description(max 50 words)" ></textarea><br>
+
+                    <label for="thumbnail">Thumbnail:</label>
+                    <input type="file" name="myFile" >
+                    <label for="purpose">Purpose: </label>
+                    <select name="purpose" id="purpose" >
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Add">Add</option>
+                        <option value="Update">Update</option>
+                    </select><br>
+                    <label for="thumbnail">Post Picture:</label>
+                    <input type="file" name="myFile2" ><br>
+                    <input type="hidden" name="contentpass" id="content-pass"/>
+                    <label for="content">Content: </label><br>
+                    <div class="document-editor">
+                        <div class="document-editor__toolbar"></div>
+                        <div class="document-editor__editable-container">
+                            <div name="content" class="document-editor__editable">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="submitbtn" type="submit">Add Post</button>
+                </form>
+            </legend>
         </fieldset>
     </div>
 </div>
@@ -209,6 +234,33 @@ script.
             resultList.innerHTML=htmlString;
         }
     }
+    DecoupledEditor
+    .create( document.querySelector( '.document-editor__editable' ))
+    .then( editor => {
+        const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
+        toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+    })
+    .catch( err => {
+        console.error( err );
+    });
+    var submit = document.querySelector('.submitbtn');
+    var content = document.querySelector('#content-pass');
+    submit.addEventListener('click',()=>{
+    var x = document.querySelector('.document-editor__editable').innerHTML;
+    content.value=JSON.stringify(x);
+    console.log(x);
+    })
+    var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src) // free memory
+    }
+    }
+
+
+
+
 
 
 </body>

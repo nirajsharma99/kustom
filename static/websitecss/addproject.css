@@ -199,90 +199,6 @@ a:hover.result-description {
   flex: 8;
   height: 100%;
 }
-.progress-bars {
-  display: flex;
-  margin: 40px 0;
-  width: 40%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.progress-bars .step {
-  position: relative;
-  text-align: center;
-  width: 100%;
-}
-.progress-bars .step p {
-  font-size: 18px;
-  font-weight: 500;
-  color: thistle;
-  margin-bottom: 8px;
-  transition: 0.3s;
-}
-.progress-bars .step p.active {
-  color: #0ac5a8;
-}
-.progress-bars .step .bullet {
-  position: relative;
-  height: 30px;
-  width: 30px;
-  border: 2px solid white;
-  display: inline-block;
-  border-radius: 50%;
-  transition: 0.3s;
-}
-.progress-bars .step .bullet.active {
-  border-color: turquoise;
-  background-color: turquoise;
-}
-.progress-bars .step:last-child .bullet:before,
-.progress-bars .step:last-child .bullet:after {
-  display: none;
-}
-.progress-bars .step .bullet:before,
-.progress-bars .step .bullet:after {
-  position: absolute;
-  content: '';
-  bottom: 11px;
-  right: -13.6rem;
-  height: 3px;
-  width: 13.6rem;
-  background: white;
-}
-.progress-bars .step .bullet.active:after {
-  background: turquoise;
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: afterLine 0.3s linear forwards;
-}
-@keyframes afterLine {
-  100% {
-    transform: scaleX(1);
-  }
-}
-.progress-bars .step .bullet span {
-  color: white;
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 25px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.progress-bars .step .bullet.active span {
-  display: none;
-}
-.progress-bars .step .check {
-  position: absolute;
-  left: 50%;
-  top: 70%;
-  font-size: 15px;
-  transform: translate(-50%, -50%);
-  display: none;
-}
-.progress-bars .step .check.active {
-  display: block;
-  color: white;
-}
 
 /*-----------------------------------------------------------------------------*/
 /*------------------------------------SIDE BAR---------------------------------*/
@@ -609,4 +525,7 @@ button.close:hover {
   margin-left: 10px;
   font-family: sans-serif;
   color: #aaa;
+}
+.document-editor__editable {
+  border: 1px solid #0ac5a8 !important;
 }

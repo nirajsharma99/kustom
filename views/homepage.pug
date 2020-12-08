@@ -12,16 +12,21 @@ style
 
 </head>
 <body>
+  <div class="loader-container">
+    //-<i class="fa fa-bolt loader4" aria-hidden="true"></i>
+    <i class="fab fa-android loader"></i>
+    <i class="fas fa-cog loader2"></i>
+    <i class="fas fa-cog loader3"></i>
+  </div>
   <div class="container1">
     <div class="banner">
       <button onclick="document.getElementById('user-popup-wrapper-responsive').style.display='block';" class="options-responsive"><i class="fas fa-bars"></i></button>
       <h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1>
     </div>
-    <div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
+    <div class="dropdown newsdropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
       <div class="dropdown1-content">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
+        <ul class="news">
+        </ul>
       </div>
     </div>
     <div class="dropdown"><button class="btn"><i class="fas fa-mobile-alt"></i> DEVICES <i class="fas fa-angle-down"></i></button>
@@ -155,10 +160,29 @@ style
 
 
 
-
+  <div class="options-container">
+    <button onclick="document.querySelector('.options-container').style.display='none';" class="close"><i class="fas fa-times-circle"></i></button>
+    <div class="options-links">
+      <div class="social-box-2">
+        <span style="color:thistle;font-size:small;">RESOURCES</span>
+          <a class="options-here" href="#">Contact Us</a>
+          <a class="options-here" href="#">About Us</a>
+          <a style="font-weight:1000;" class="options-here" href="#">Tip Us</a>
+      </div>
+      <div class="social-box-2">
+        <span style="color:thistle;font-size:small;">SOCIAL</span>
+        <div class="icons">
+          <a href="#" class="social-icons"><i class="fab fa-facebook-square"></i></a>
+          <a href="#" class="social-icons"><i class="fab fa-telegram"></i></a>
+          <a href="#" class="social-icons"><i class="fab fa-twitter-square"></i></a>
+          <a href="#" class="social-icons"><i class="fas fa-share-alt-square"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="side-bar">
-    <h2><button class="options"><i class="fas fa-bars"></i></button>
+    <h2><button onclick="options();" class="options"><i class="fas fa-bars"></i></button>
     <button onclick="document.getElementById('user-popup-wrapper').style.display='block';" class="user"><i class="fas fa-user-circle"></i></button></h2>
     <div class="social-links">
       <a href="www.facebook.com"><img src="./static/logo/fb.png"></a>
@@ -323,11 +347,12 @@ script.
   window.onload=function(){
     const postbox1 = document.querySelector('.post-box-1');
     const postbox2 = document.querySelector('.post-box-2');
+    const news = document.querySelector('.news');
     function appendPost1(data){
       divTag=document.createElement('div');
       divTag.classList.add('post1')
       let markup=`
-        <a  href="#"><img src="../static/uploads/${data.filename}" alt="" class="post-image1"></a>
+        <a  href="/posts?post=${data.postname}"><img src="../static/uploads/${data.thumbnailfilename}" alt="" class="post-image1"></a>
         <div class="post-preview1">
         <a class="postlink" href="#">${data.heading}</a>   
         </div>     
@@ -350,6 +375,18 @@ script.
       divTag.innerHTML+=markup;
       postbox1.append(divTag);
     }
+    function appendPost3(data){
+      liTag=document.createElement('li');
+      liTag.classList.add('newspost')
+      let markup=`
+        <a href="#"><img style="width:50px;height:50px;" src="./static/uploads/${data.thumbnailfilename}" alt="" class="news-image"></a>
+        <div class="news-preview">
+          <a style="font-size: 14px;" class="newslink" href="#">${data.heading}</a><br>
+        </div>     
+        `;
+      liTag.innerHTML+=markup;
+      news.append(liTag);
+    }
     fetchPostBox1();
     function fetchPostBox1(){
       fetch('/api/postTemplates')
@@ -357,6 +394,7 @@ script.
         .then(result => {
           for(i=0;i<=3;i++){
             appendPost1(result[i]);
+            appendPost3(result[i]);
           }
           for(i=4;i<15;i++){
             appendPost2(result[i]);
@@ -414,6 +452,19 @@ script.
       resultList.innerHTML=htmlString;
     }
   }
+  function options(){
+    const option = document.querySelector('.options-container');
+    if(option.style.display=='block'){
+      option.style.display='none';
+    }
+    else{
+      option.style.display='block';
+    }
+  }
+  setTimeout(()=>{
+    const preloader = document.querySelector('.loader-container');
+    preloader.style.display='none';
+  },3000);
 
 </body>
 </html>
