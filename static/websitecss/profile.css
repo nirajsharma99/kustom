@@ -455,6 +455,15 @@ a.dashboard:hover {
   color: #c0c0c0;
   text-decoration: none;
 }
+a.user-options {
+  color: thistle;
+  display: block;
+  border-bottom: 1px solid rgba(216, 191, 216, 0.4);
+}
+a.user-options:hover {
+  color: #0ac5a8;
+  text-decoration: none;
+}
 button.close {
   color: #dcdcdc;
   background-color: transparent;
@@ -500,8 +509,115 @@ button.close:hover {
 .content .main-content {
   width: 69%;
   float: right;
+  display: flex;
   margin-right: 4%;
   margin-top: 18px;
+}
+.left-section {
+  flex: 0.1;
+  margin-bottom: 50px;
+}
+.left-section ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  color: aliceblue;
+}
+.left-section ul li a {
+  padding: 18px;
+  display: block;
+  border-bottom: 1px solid lightseagreen;
+  text-decoration: none;
+  color: white;
+}
+.left-section ul li a:hover {
+  background-color: #078471;
+  color: whitesmoke;
+}
+.right-section {
+  flex: 0.9;
+}
+.security-container {
+  width: 80%;
+  margin: auto;
+  margin-top: 10%;
+}
+.pass-container {
+  display: flex;
+  margin: auto;
+  background-color: #2d3036;
+  border-radius: 10px;
+  margin: 5px 0px;
+}
+.pass-container .pass-label {
+  flex: 0.5;
+  padding: 0 !important;
+  text-align: right;
+  background-color: #2d3036;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.pass-label span {
+  color: white;
+  padding: 10px;
+}
+.pass-container .pass-input {
+  flex: 0.5;
+  background-color: black;
+}
+.pass-input input[type='password'] {
+  width: 90%;
+  border: none;
+  background-color: #2d3036;
+  border-radius: 10px;
+  color: white;
+}
+.pass-input input[type='password']:focus {
+  outline: none;
+}
+button.save {
+  float: right;
+  display: block;
+  width: 25%;
+  padding: 5px;
+  color: black;
+  background-color: #0ac5a8;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+button:hover.save {
+  background-color: #078471;
+}
+.delete-account {
+  margin-top: 40px;
+}
+.delete-account label {
+  width: 80px;
+  text-align: right;
+  color: white;
+}
+.delete-account input[type='password'] {
+  width: 90%;
+  border: none;
+  background-color: #2d3036;
+  border-radius: 10px;
+  color: white;
+}
+.delete-account input[type='password']:focus {
+  outline: none;
+}
+button.delete-user {
+  width: 25%;
+  padding: 5px;
+  color: black;
+  background-color: #b31b1b;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+button.delete-user:hover {
+  background-color: #ff0800;
 }
 .banner {
   display: inline-block;
@@ -827,9 +943,23 @@ p.side-preview-text {
   .content .main-content {
     width: 100%;
     float: none;
+    display: block;
   }
   .content .side-content {
     width: 100%;
+  }
+  .left-section ul {
+    display: flex;
+  }
+  .left-section {
+    flex: 1;
+  }
+  .left-section ul li a {
+    display: inline-block;
+  }
+
+  .right-section {
+    flex: none;
   }
   .left-side {
     width: 30%;

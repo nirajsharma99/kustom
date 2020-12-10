@@ -210,8 +210,10 @@ style
                     <div class="usernaming">
                         <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
                     </div>
-                    <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
-                    <a href="#" class="settings"><i class="fas fa-cogs"></i></i> Settings</a>
+                    <a href="/accountdetails" class="user-options"> Account details</a>
+                    <a href="/usersecurity" class="user-options"> Password and Security</a>
+                    <a href="#" class="user-options"><i class="fas fa-cogs"></i> Settings</a>
+                    <a href="/logout" class="user-options"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
                 </div>
             else if user.usertype == 'developer'
                 <div class="user-popup-content">
@@ -276,8 +278,10 @@ style
                 <div class="usernaming">
                     <p style="margin-top:0;color:white;font-size:1rem;">#{ user.username }</p>
                 </div>
-                    <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
-                    <a href="#" class="settings"><i class="fas fa-cogs"></i></i> Settings</a>
+                    <a href="/accountdetails" class="user-options"> Account details</a>
+                    <a href="/usersecurity" class="user-options"> Password and Security</a>
+                    <a href="#" class="user-options"><i class="fas fa-cogs"></i> Settings</a>
+                    <a href="/logout" class="user-options"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
                 </div>
             else if user.usertype == 'developer'
                 <div class="user-popup-content">

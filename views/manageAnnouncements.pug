@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 <link href="../static/fontawesome/css/all.css" rel="stylesheet">
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/decoupled-document/ckeditor.js"></script>
 style
     include ../static/websitecss/admin.css
 
@@ -76,30 +77,56 @@ style
             <ul>
                 <li><a href="/admin"><i class="fas fa-users-cog"></i> Manage Users</a></li>
                 <li><a href="/manageAdmin"><i class="fas fa-user-shield"></i> Manage Admins</a></li>
-                <li><a style="background-color:#078471;border-left: 5px solid #39ff14;" href="/manageProjects"><i class="fas fa-cube"></i> Manage Projects</a></li>
+                <li><a href="/manageProjects"><i class="fas fa-cube"></i> Manage Projects</a></li>
                 <li><a href="#"><i class="far fa-file"></i> Manage Pages</a></li>
                 <li><a href="/manageHomepage"><i class="fas fa-caravan"></i> Homepage</a></li>
-                <li><a href="/manageAnnouncements"><i class="fas fa-scroll"></i> Announcements</a></li>
+                <li><a style="background-color:#078471;border-left: 5px solid #39ff14;"  href="/manageAnnouncements"><i class="fas fa-scroll"></i> Announcements</a></li>
                 <li><a href="/manageSearchTags"><i class="fas fa-search-plus"></i> Search Tags</a></li>
             </ul>
         </div>
         <div class="right-section">
-            <div class="userData">
-                <span style="color:white;font-size:20px;"><strong>Templates</strong></span>
-                    <hr style="background-color:white;margin-top:0;">
-                        <table class="alltemplates">
-                            <tr>
-                                <th style="color: #0ac5a8;">Username</th>
-                                <th style="color: #0ac5a8;">Project Name</th>
-                                <th style="color: #0ac5a8;">Version</th>
-                                <th style="color: #0ac5a8;">Android</th>
-                                <th style="color: #0ac5a8;">Device</th>
-                                <th style="color: #0ac5a8;">Date</th>
-                                <th style="color: #0ac5a8;">Downloads</th>
-                                <th style="color: #0ac5a8;">Avg. Rating</th>
-                                <th style="color: #0ac5a8;"></th>
-                            </tr>
-                        </table>
+            <div class="announcements">
+                <div class="make-announcement">
+                    <span>Make announcements</span>
+                    <hr>
+                    div.col-10.ml-sm-auto.px-4
+                    if typeof errors != 'undefined'
+                        for error in errors
+                            div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
+                    if success_msg != 0
+                        div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
+                    if error_msg != 0
+                        div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
+                    <form action="/makeAnnouncement?admin=#{user.username}" method="post">
+                        <label for="to">To</label>
+                        <input type="textarea" name="to"><br>
+                        <label for="heading">Heading</label>
+                        <input type="textarea" name="heading" style="width:400px" placeholder="max 10 words">
+                        <input type="hidden" name="contentpass" id="content-pass"/><br>
+                        <label for="content">Content: </label><br>
+                        <div class="document-editor">
+                            <div class="document-editor__toolbar"></div>
+                            <div class="document-editor__editable-container">
+                                <div name="content" class="document-editor__editable">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="submitbtn" type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="all-announcements">
+                    <span>Announcements</span>
+                    <hr>
+                    <table class="allannouncements">
+                        <tr>
+                            <th style="color: #0ac5a8;">To</th>
+                            <th style="color: #0ac5a8;">By</th>
+                            <th style="color: #0ac5a8;">Content</th>
+                            <th style="color: #0ac5a8;"></th>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -143,18 +170,13 @@ style
 </div>
 script.
     window.onload = function(){
-        const lists = document.querySelector(".alltemplates");
-        function appendList(data,average){
+        const lists = document.querySelector(".allannouncements");
+        function appendList(data){
             trTag=document.createElement('tr');
             let markup=`
-                <td>${data.username}</td>
-                <td>${data.projectname}</td>
-                <td>${data.romversion}</td>
-                <td>${data.androidversion}</td>
-                <td>${data.device}</td>
-                <td>${data.date}</td>
-                <td>${data.downloads}</td>
-                <td>${isNaN(average)?0:average}</td>
+                <td>${data.to}</td>
+                <td>${data.author}</td>
+                <td>${data.content}</td>
                 <td><button onclick="deleteProjects('${data._id}')" class="deleteProject"><i class="fas fa-trash-alt"></i></button></td>      
             `;
             trTag.innerHTML+=markup;
@@ -163,19 +185,11 @@ script.
 
         fetchUsers();
             function fetchUsers(){
-                fetch('/api/ysltemplates')
+                fetch('/api/getannouncements')
                     .then(res => res.json())
                     .then(result => {
                         for(i=0;i<result.length;i++){
-                            var average=0,count=0,sum=0;
-                                result[i].raters.forEach(info=>{
-                                    if(info.rated>0){
-                                        count+=1;
-                                    }
-                                    sum+=info.rated;
-                                })
-                                average=Math.round(sum/count);
-                            appendList(result[i],average);
+                            appendList(result[i]);
                         }
                     })
             }
@@ -185,13 +199,28 @@ script.
             'Content-Type':'application/json'
         }
         const data={objectId:id};
-        fetch('/api/deleteproject',{method: "post", body: JSON.stringify(data),headers})
+        fetch('/api/deleteannouncement',{method: "post", body: JSON.stringify(data),headers})
         .then(response => response.json())
         .then(result => {
             console.log(result)
         })
-        document.location.reload();
     }
+    DecoupledEditor
+    .create( document.querySelector( '.document-editor__editable' ))
+    .then( editor => {
+        const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
+        toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+    })
+    .catch( err => {
+        console.error( err );
+    });
+    var submit = document.querySelector('.submitbtn');
+    var content = document.querySelector('#content-pass');
+    submit.addEventListener('click',()=>{
+    var x = document.querySelector('.document-editor__editable').innerHTML;
+    content.value=JSON.stringify(x);
+    console.log(x);
+    })
 
     const resultList = document.getElementById('allSearchResults');
     const searchBar = document.getElementById('search-txt');

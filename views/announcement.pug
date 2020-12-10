@@ -4,21 +4,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 <link href="../static/fontawesome/css/all.css" rel="stylesheet">
-<script src="../static/myscript.js"></script>
 style
-    include ../static/websitecss/admin.css
+    include ../static/websitecss/dashboard.css
 
 
 <title>KUSTOM</title>
 </head>
 <body>
 <div class="container1">
-    <h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1><div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
-    <div class="dropdown1-content">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
+    <div class="banner"><h1 align=left><i class="fab fa-android fa-2x"></i>KUSTOMROM<font color="#DCDCDC">.com</font></h1>
     </div>
+    <div class="dropdown"><button class="btn"><i class="fas fa-rss-square"></i> NEWS <i class="fas fa-angle-down"></i></span></button></h1>
+        <div class="dropdown1-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
     </div>
     <div class="dropdown"><button class="btn"><i class="fas fa-mobile-alt"></i> DEVICES <i class="fas fa-angle-down"></i></button>
         <div class="dropdown1-content">
@@ -71,83 +72,47 @@ style
 </div>
 
 <div class="main-section">
-    <hr style="background-color:#0AC5A8;height:10px;">
-        <div class="left-section">
-            <ul>
-                <li><a href="/dashboard"><i class="fas fa-book-open"></i> Profile</a></li>
-                <li><a href="#"><i class="fas fa-id-card-alt"></i> Contact-Info || <i class="fas fa-link"></i>Source Links</a></li>
-                <li><a href="/dashboard/projects"><i class="fas fa-cube"></i> Projects</a></li>
-                <li><a href="/projects"><i class="fas fa-chart-pie"></i> Statistics</a></li>
-                <li><a href="/announcement"><i class="fas fa-scroll"></i> Announcements</a></li>
-                <li><a style="background-color:#078471;border-left: 5px solid #39ff14;" href="/security"><i class="fas fa-user-lock"></i> Password and Security</a></li>
-            </ul>
-        </div>
-        <div class="right-section">
-            <div class="security-container">
-                div.col-10.ml-sm-auto.px-4
-                if typeof errors != 'undefined'
-                    for error in errors
-                        div.alert.alert-danger.alert-dismissible.fade.show #{ error.msg }
-                if success_msg != 0
-                    div.alert.alert-success.alert-dismissible.fade.show #{ success_msg }
-                if error_msg != 0
-                    div.alert.alert-danger.alert-dismissible.fade.show #{ error_msg }
-                <form action="/changepassword?user=#{user.username}" method="post">
-                    <span style="color: thistle;font-weight:1000;padding:10px;">Change Password</span>
-                    <div class="pass-container">
-                        <div class="pass-label">
-                            <span>Your Existing password</span>
-                        </div>
-                        <div class="pass-input">
-                            <input name="oldpassword" type="password">
-                        </div>
-                    </div>
-                    <div class="pass-container">
-                        <div class="pass-label">
-                            <span>New password</span>
-                        </div>
-                        <div class="pass-input">
-                            <input id="password" name="password" type="password">
-                        </div>  
-                    </div>
-                    <div class="pass-container">
-                        <div class="pass-label">
-                            <span>Confirm New password</span>
-                        </div>
-                        <div class="pass-input">
-                            <input id="cpassword" name="cpassword" onkeyup="confirmPassword()" type="password">
-                            <i style="color:red;font-size:3rem;display:none;"id="wrongpassword" class="fas fa-times"></i>
-                            <i style="color:green;font-size:3rem;display:none;"id="rightpassword"class="fas fa-check"></i>
-                        </div>  
-                    </div>
-                    <button class="save" onSubmit="return validate();" type="submit">Save</button>
-                </form>
-                <div class="delete-account">
-                    <form action="/api/deleteAccount?user=#{user.username}" method="post">
-                        <span style="color: thistle;font-weight:1000;margin:10px;">Delete Account</span><br>
-                        <label for="password">Password</label>
-                        <input type="password" name="password" style="width:50%">
-                        <button type="submit" class="delete-user">Delete</button>
-                    </form>
-                </div>
+<hr style="background-color:#0AC5A8;height:10px;">
+    <div class="left-section">
+        <ul>
+            <li><a href="/dashboard"><i class="fas fa-book-open"></i> Profile</a></li>
+            <li><a href="#"><i class="fas fa-id-card-alt"></i> Contact-Info || <i class="fas fa-link"></i>Source Links</a></li>
+            <li><a href="/projects"><i class="fas fa-cube"></i> Projects</a></li>
+            <li><a href="/statistics"><i class="fas fa-chart-pie"></i> Statistics</a></li>
+            <li><a style="background-color:#078471;border-left: 5px solid #39ff14;" href="/announcement"><i class="fas fa-scroll"></i> Announcements</a></li>
+            <li><a href="/security"><i class="fas fa-user-lock"></i> Password and Security</a></li>
+        </ul>
+    </div>
+    <div class="right-section">
+        <div class="announcements">
+            <div class="all-announcements">
+                <span class="span-2">Announcements</span>
+                <hr>
+                <table class="allannouncements">
+                    <tr>
+                        <th style="color: #0ac5a8;">Type</th>
+                        <th style="color: #0ac5a8;">By</th>
+                        <th style="color: #0ac5a8;">Content</th>
+                    </tr>
+                </table>
             </div>
         </div>
+    </div>
 </div>
-
 
 <div class="side-bar">
     <h2><button class="options"><i class="fas fa-bars"></i></button>
     <button class="search"><i class="fas fa-search"></i></button>
     <button onclick="document.getElementById('user-popup-wrapper').style.display='block'" class="user"><i class="fas fa-user-circle"></i></button></h2>
-    <div class="social-links">
-        <a href="www.facebook.com"><img src="./static/logo/fb.png"></a>
-        <a href="www.instagram.com"><img src="./static/logo/insta.png"></a>
-        <a href="www.twitter.com"><img src="./static/logo/twitter.png"></a>
-    </div>
-    <div class="useful-links">
-        <a href="#"><img src="./static/logo/share.png"></a>
-        <a href="#"><img src="./static/logo/info.png"></a>
-    </div>
+        <div class="social-links">
+            <a href="www.facebook.com"><img src="./static/logo/fb.png"></a>
+            <a href="www.instagram.com"><img src="./static/logo/insta.png"></a>
+            <a href="www.twitter.com"><img src="./static/logo/twitter.png"></a>
+        </div>
+        <div class="useful-links">
+            <a href="#"><img src="./static/logo/share.png"></a>
+            <a href="#"><img src="./static/logo/info.png"></a>
+        </div>
 </div>
 
     <div id="user-popup-wrapper" class="user-popup">
@@ -171,7 +136,6 @@ style
             <p style="margin-top:0;color:white;font-size:1rem;">User-Type: #{ user.usertype }</p>
             <a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Log Out</a><br>
             <a href="#" class="settings"><i class="fas fa-cogs"></i> Settings</a><br>
-
             </div>
     else
         <div class="user-popup-content">
@@ -200,6 +164,40 @@ style
 </div>
 
 script.
+    window.onload = function(){
+        const username = "#{user.username}";
+        const lists = document.querySelector(".allannouncements");
+        function appendList(data,type){
+            trTag=document.createElement('tr');
+            let markup=`
+                <td>${type}</td>
+                <td>${data.author}</td>
+                <td>${data.content}</td>    
+            `;
+            trTag.innerHTML+=markup;
+            lists.append(trTag);
+        }
+
+        fetchUsers();
+            function fetchUsers(){
+                fetch('/api/getannouncements')
+                    .then(res => res.json())
+                    .then(result => {
+                        for(i=0;i<result.length;i++){
+                            if(result[i].to=='all'){
+                                var type='all';
+                                appendList(result[i],type);
+                            }
+                            else if(result[i].to==username){
+                                var type='private';
+                                appendList(result[i],type);
+                            }
+                        }
+                    })
+            }
+    }
+
+
     const resultList = document.getElementById('allSearchResults');
     const searchBar = document.getElementById('search-txt');
     let tags=[];
@@ -208,31 +206,31 @@ script.
         //console.log(e);
         const searchString = e.target.value.toLowerCase();
         const filteredTags = tags.filter(key=>{
-        return(
-            key.heading.toLowerCase().includes(searchString) || 
-            key.description.toLowerCase().includes(searchString)
-        );
+            return(
+                key.heading.toLowerCase().includes(searchString) || 
+                key.description.toLowerCase().includes(searchString)
+            );
         });
         //console.log(filteredTags);
         displayTags(filteredTags);
     });
     fetchTags();
         function fetchTags(){
-        fetch('/api/searchTags')
-            .then(res => res.json())
-            .then(result => {
-            tags=result;
-            })
+            fetch('/api/searchTags')
+                .then(res => res.json())
+                .then(result => {
+                    tags=result;
+                })
         }
     function displayTags(tags){
         //console.log(searchBar.value.length)
         if(tags.length==0){
-        const htmlString=  `
-            <li class="searchresults">
-                <span style="color:thistle;">No Results</span>
-            </li>
-            `;
-        resultList.innerHTML=htmlString;
+            const htmlString=  `
+                <li class="searchresults">
+                    <span style="color:thistle;">No Results</span>
+                </li>
+                `;
+            resultList.innerHTML=htmlString;
         }
         else if(searchBar.value.length==0){
             document.querySelector('.search-result-box').style.display='none';
@@ -240,14 +238,14 @@ script.
         else{
             const htmlString= tags
             .map((data)=>{
-            return `
-                <li class="searchresults">
-                    <a class="result-heading" href=${data.link}>${data.heading}[${data.date}]</a>
-                    <a class="result-description" href=${data.link}>${data.description}</a>
-                </li>
+                return `
+                    <li class="searchresults">
+                        <a class="result-heading" href=${data.link}>${data.heading}[${data.date}]</a>
+                        <a class="result-description" href=${data.link}>${data.description}</a>
+                    </li>
                 `;
             })
-        resultList.innerHTML=htmlString;
+            resultList.innerHTML=htmlString;
         }
     }
 

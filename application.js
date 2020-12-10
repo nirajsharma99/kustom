@@ -23,6 +23,7 @@ const registration = require('./models/registrationmongo');
 const ysltemplate = require('./models/deviceTemplates');
 const postTemplate = require('./models/postTemplates');
 const searchTag = require('./models/searchTag');
+const announcement = require('./models/announcements');
 //----------------------view engine-----------------
 application.set('view engine', 'pug');
 application.set('views', [
@@ -596,6 +597,43 @@ application.post(
 
 //-------------------------------------------update request ends here------------------------------------------------
 
+//---------------------------------------announcements---------------------------------------------------------------
+application.post('/makeAnnouncement', (req, res) => {
+  var author = req.query.admin;
+  var to = req.body.to;
+  var heading = req.body.heading;
+  var content = req.body.contentpass;
+  var data = new announcement({
+    author: author,
+    to: to,
+    heading: heading,
+    content: content,
+  });
+  data.save().then(() => {
+    req.flash('success_msg', 'Announcement made successfully');
+    res.redirect('back');
+  });
+});
+application.get('/api/getannouncements', (req, res) => {
+  announcement.find().then(function (tags) {
+    res.send(tags);
+  });
+});
+application.post('/api/deleteannouncement', (req, res) => {
+  const ID = req.body.objectId;
+  announcement
+    .findOneAndRemove({ _id: objid(ID) })
+    .then(() => {
+      console.log('User deleted');
+      req.flash('success_msg', 'Announcement deleted');
+      res.redirect('back');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+//---------------------------------------announcements ends here---------------------------------------------------------------
+
 //-------------------------------------------------get request for pages-------------------------------------------------
 application.get('/', (req, res) => {
   res.status(200).render('homepage.pug', (user = req.user));
@@ -615,7 +653,15 @@ application.get('/projects', ensureAuthenticated, (req, res) => {
 application.get('/security', ensureAuthenticated, (req, res) => {
   res.status(200).render('security.pug');
 });
-
+application.get('/announcement', ensureAuthenticated, (req, res) => {
+  res.status(200).render('announcement.pug');
+});
+application.get('/accountdetails', ensureAuthenticated, (req, res) => {
+  res.status(200).render('accountdetails.pug');
+});
+application.get('/usersecurity', ensureAuthenticated, (req, res) => {
+  res.status(200).render('usersecurity.pug');
+});
 application.get('/addproject', ensureAuthenticated, (req, res) => {
   res.status(200).render('addproject.pug');
 });
@@ -626,7 +672,17 @@ application.get('/editprofile', ensureAuthenticated, (req, res) => {
 application.get('/adminLogin', (req, res) => {
   res.status(200).render('adminLogin.pug');
 });
-
+application.get('/manageAnnouncements', ensureAuthenticated, (req, res) => {
+  if (req.user.usertype == 'admin') {
+    res.render('manageAnnouncements.pug', (user = req.user));
+  } else {
+    req.flash(
+      'error_msg',
+      'Authorisaton denied! Only Admin has access to this!'
+    );
+    res.redirect('/adminLogin');
+  }
+});
 application.get('/manageSearchTags', ensureAuthenticated, (req, res) => {
   if (req.user.usertype == 'admin') {
     res.render('manageSearchTags.pug', (user = req.user));
