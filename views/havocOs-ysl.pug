@@ -683,7 +683,7 @@ style
             <div class="reply-image-container"><div class="user-image"><img style="width:100px;height:100px;border-radius:50%;" src="./static/uploads/${replyData.filename}"></div></div>
             <div class="reply-user-details">
               <p style="color:white;display:inline;">${replyData.username}</p>
-              <p class=${replyData.usertype == "developer" ? 'showusertag':'hideusertag'} ><strong>&lt;dev&gt;</strong></p><button class=${username === replyData.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
+              <p class=${replyData.usertype == "developer" ? 'showusertag':'hideusertag'} ><strong>&lt;dev&gt;</strong></p><button onclick=deleteReply('${replyData._id}','${replyData.objectId}') class=${username === replyData.username ? 'showdelete':'hidedelete'}><i class="fas fa-trash-alt"></i></button>
               <hr style="background-color:#C4C1C1;">
               <div class="user-comments"><p style="color:white;white-space: initial;overflow:hidden;">${replyData.reply}</p></div>
               <div class="comment-buttons" style="text-align:right;">

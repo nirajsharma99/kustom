@@ -67,8 +67,8 @@
   "postindex": 5,
   "heading": "Stuff someone’s stocking this year with the OnePlus 8, $100 off for Black Friday",
   "description": "Looking for a perfect holiday gift? OnePlus has put their flagship OnePlus 8 on sale, and you can get it for just $599.",
-  "filename": "myFile-1606026370183.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026370183.jpg"
 },{
   "_id": {
     "$oid": "5fba04b1ba361a573801f659"
@@ -80,8 +80,8 @@
   "postindex": 6,
   "heading": "Best comfort grips for your Nintendo Switch and Nintendo Switch Lite",
   "description": "Finding your Nintendo handheld hard to hold on to? We have rounded up the best Nintendo Switch grips, as well as Nintendo Switch Lite grips!",
-  "filename": "myFile-1606026417295.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026417295.jpg"
 },{
   "_id": {
     "$oid": "5fba04e1ba361a573801f65a"
@@ -93,8 +93,8 @@
   "postindex": 7,
   "heading": "Microsoft Windows turned 35: From MS-DOS to Android",
   "description": "Microsoft Windows is 35 years old. On the 20th of November in 1985, Windows 1.0 was released, giving IBM-compatibles (what we now just call PCs) their first Graphical User Interface...",
-  "filename": "myFile-1606026465686.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026465686.jpg"
 },{
   "_id": {
     "$oid": "5fba051bba361a573801f65b"
@@ -106,8 +106,8 @@
   "postindex": 8,
   "heading": "Everything you need to know about USB Standards, Speeds and Port Types",
   "description": "USB or ‘Universal Serial Bus’ is one of the oldest and most popular interfaces today. While it was initially introduced as a computer port, it is now seen on almost...",
-  "filename": "myFile-1606026523930.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026523930.jpg"
 },{
   "_id": {
     "$oid": "5fba054fba361a573801f65c"
@@ -119,8 +119,8 @@
   "postindex": 9,
   "heading": "Verizon’s Black Friday deals include over $1,300 off smartphones, free PS Plus and PS Now, and more!",
   "description": "Looking to switch carriers? Make sure to take advantage of these Verizon Black Friday deals and enjoy the all the Verizon benefits.",
-  "filename": "myFile-1606026575745.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026575745.jpg"
 },{
   "_id": {
     "$oid": "5fba0577ba361a573801f65d"
@@ -132,8 +132,8 @@
   "postindex": 10,
   "heading": "Google Chrome support for Windows 7 will be extended another year",
   "description": "Google Chrome support for Windows 7 was supposed to end summer of 2021, but because of challenges presented by COVID-19, Google has announced an extension. The search giant revealed Chrome...",
-  "filename": "myFile-1606026615943.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026615943.jpg"
 },{
   "_id": {
     "$oid": "5fba05a5ba361a573801f65e"
@@ -145,8 +145,8 @@
   "postindex": 11,
   "heading": "Amazon Music gets X-Ray features for more insightful listening",
   "description": "Why just listen to your music when you can also fully engage with it? Amazon on Friday announced it’s bringing its popular X-Ray feature to its music streaming service, giving...",
-  "filename": "myFile-1606026661049.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026661049.jpg"
 },{
   "_id": {
     "$oid": "5fba05ccba361a573801f65f"
@@ -158,8 +158,8 @@
   "postindex": 12,
   "heading": "Learn a language in 10 minutes each day with 50% off a Babbel lifetime subscription",
   "description": "From making business connections to getting around on vacation, learning another language has many benefits. Learning from books and CDs isn’t for everyone — so Babbel helps you master new...",
-  "filename": "myFile-1606026700668.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026700668.jpg"
 },{
   "_id": {
     "$oid": "5fba0601ba361a573801f660"
@@ -171,8 +171,8 @@
   "postindex": 13,
   "heading": "Xbox Series X and Series S Restocks: When, where, and how to purchase Microsoft’s new game consoles",
   "description": "It’s time for a new gaming console generation, so you know what that means… time to hopelessly try to get a new console! Like most new generational launches, the Xbox...",
-  "filename": "myFile-1606026753438.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026753438.jpg"
 },{
   "_id": {
     "$oid": "5fba0628ba361a573801f661"
@@ -184,8 +184,8 @@
   "postindex": 14,
   "heading": "PlayStation 5 Restocks: When, where, and how to get your hands on Sony’s new game console",
   "description": "Looking to get the PlayStation 5? We’ve gathered everything we know about the PlayStation 5 restocks, all in one place!",
-  "filename": "myFile-1606026792192.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026792192.jpg"
 },{
   "_id": {
     "$oid": "5fba0665ba361a573801f662"
@@ -197,6 +197,6 @@
   "postindex": 15,
   "heading": "POCO X3 and Moto G9 Plus kernel sources are now available",
   "description": "Kernel source codes are a vital part of Android custom ROM or kernel development, as developers have to build on top of it. However, when it comes to releasing kernel...",
-  "filename": "myFile-1606026853592.jpg",
-  "__v": 0
+  "__v": 0,
+  "thumbnailfilename": "myFile-1606026853592.jpg"
 }]

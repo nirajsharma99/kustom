@@ -157,6 +157,7 @@ application.post('/api/deletereply', (req, res) => {
       console.log(err);
     });
 });
+
 application.post('/api/dolike', (req, res) => {
   const obj = req.body.objectId;
   Comment.find({ _id: objid(obj) }).then(function (comment) {
