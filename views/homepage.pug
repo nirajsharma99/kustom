@@ -356,9 +356,9 @@ script.
       divTag=document.createElement('div');
       divTag.classList.add('post1')
       let markup=`
-        <a  href="/posts?post=${data.postname}"><img src="../static/uploads/${data.thumbnailfilename}" alt="" class="post-image1"></a>
+        <a href="/posts?post=${data.postname}"><img src="../static/uploads/${data.thumbnailfilename}" alt="" class="post-image1"></a>
         <div class="post-preview1">
-        <a class="postlink" href="#">${data.heading}</a>   
+        <a href="/posts?post=${data.postname}" class="postlink" >${data.heading}</a>   
         </div>     
         `;
       divTag.innerHTML+=markup;
@@ -368,10 +368,10 @@ script.
       divTag=document.createElement('div');
       divTag.classList.add('post')
       let markup=`
-        <a href="#"><img src="./static/uploads/${data.filename}" alt="" class="post-image"></a>
+        <a href="/posts?post=${data.postname}"><img src="./static/uploads/${data.thumbnailfilename}" alt="" class="post-image"></a>
         <div class="post-preview">
-        <a class="postlink" href="#">${data.heading}</a><br>
-        <i class="far fa-user"> <a class="user" rel="author" href="#">${data.author} &nbsp;</a></i>
+        <a class="postlink" href="/posts?post=${data.postname}">${data.heading}</a><br>
+        <i class="far fa-user"> <a class="user" rel="author" href="/author?author=${data.author}">${data.author} &nbsp;</a></i>
         <i class="fa fa-calendar"> Aug 3,2020</i>
         <p class="preview-text">${data.description}</p>
         </div>     
@@ -383,9 +383,9 @@ script.
       liTag=document.createElement('li');
       liTag.classList.add('newspost')
       let markup=`
-        <a href="#"><img style="width:50px;height:50px;" src="./static/uploads/${data.thumbnailfilename}" alt="" class="news-image"></a>
+        <a "/posts?post=${data.postname}"><img style="width:50px;height:50px;" src="./static/uploads/${data.thumbnailfilename}" alt="" class="news-image"></a>
         <div class="news-preview">
-          <a style="font-size: 14px;" class="newslink" href="#">${data.heading}</a><br>
+          <a style="font-size: 14px;" class="newslink" href="/posts?post=${data.postname}">${data.heading}</a><br>
         </div>     
         `;
       liTag.innerHTML+=markup;

@@ -509,6 +509,14 @@ button.close:hover {
 .content .main-content {
   width: 69%;
   float: right;
+  /*display: flex;*/
+  margin-right: 4%;
+  margin-top: 18px;
+}
+
+.content .main-content2 {
+  width: 69%;
+  float: right;
   display: flex;
   margin-right: 4%;
   margin-top: 18px;

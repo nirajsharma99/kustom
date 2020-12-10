@@ -768,6 +768,18 @@ application.get('/posts', (req, res) => {
   res.status(200).render('posts.pug');
 });
 
+application.get(`/author`, (req, res) => {
+  const author = req.query.author;
+  postTemplate
+    .findOne({ author: author })
+    .then((postInfo) => {
+      res.render('author.pug', { postInfo: postInfo, user: req.user });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 application.get('/logout', (req, res) => {
   req.logOut();
   req.session.destroy();

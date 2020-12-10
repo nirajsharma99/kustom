@@ -555,6 +555,31 @@ a.user:hover {
   flex: 0.7;
   margin-top: 10px;
 }
+.content .main-content .post-box-1 {
+  display: block;
+  margin-left: 10%;
+}
+.content .main-content .post1 {
+  width: 45%;
+  display: inline-block;
+  border-radius: 5px;
+  background-color: black;
+  position: relative;
+  color: #dcdcdc;
+  box-sizing: border-box;
+  margin: 10px 10px;
+}
+.content .main-content .post1 .post-image1 {
+  width: 90%;
+  height: 80%;
+  display: inline-block;
+}
+.content .main-content .post1 .post-preview1 {
+  width: 90%;
+  display: inline-block;
+  background-color: black;
+  color: #808080;
+}
 h2.author-heading {
   color: thistle;
   text-align: left;
@@ -615,9 +640,14 @@ a:hover#author-instagram {
   font-size: 18px;
   color: thistle;
 }
-.author-data span {
+a.author {
   font-size: 25px;
   color: turquoise;
+}
+span.topic {
+  font-size: 30px;
+  font-weight: 10;
+  color: white;
 }
 /*------------------------------------------MAIN POSTS------------------------------*/
 
@@ -844,6 +874,27 @@ p.side-preview-text {
   .content .main-content {
     width: 100%;
     flex: none;
+  }
+  .content .main-content .post-box-1 {
+    display: block;
+    margin-left: 0;
+    padding: 0;
+  }
+  .content .main-content .post1 {
+    width: 100%;
+    vertical-align: top;
+    margin-left: 0;
+  }
+  .content .main-content .post1 .post-image1 {
+    width: 30%;
+    height: 80%;
+    float: left;
+  }
+  .content .main-content .post1 .post-preview1 {
+    width: 68%;
+    float: right;
+    background-color: black;
+    color: #808080;
   }
   .author-pic img {
     width: 100px;

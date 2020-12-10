@@ -785,7 +785,7 @@ p.side-preview-text {
   position: absolute;
   left: 0px;
 }
-
+/*---------------------------------------responsive-------------------*/
 @media screen and (max-device-width: 760px) {
   .banner {
     display: block;

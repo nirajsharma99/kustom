@@ -80,24 +80,22 @@ style
 
     <div class="content">
         <div class="main-content">
-            <div class="post-content">
-                <img src="./static/uploads/#{postInfo.postpicfilename}">
-                <div class="data"></div>
-                <h2 class="author-heading">ABOUT AUTHOR</h2>
-                <div class="about-author">
-                    <div class="author-pic">
-                        <img src="./static/uploads/#{postInfo.authorpicfilename}">
-                    </div>
-                    <div class="author-data">
-                        <a class="author"href="/author?author=#{postInfo.author}">#{postInfo.author}</a>
-                        <p>#{postInfo.authorportfolio}</p>
-                        <div class="author-social">
-                            <a href="#{postInfo.authortwitter}" id="author-twitter"><i class="fab fa-twitter"></i></a>
-                            <a href="#{postInfo.authorinstagram}" id="author-instagram"><i class="fab fa-instagram"></i></a>
-                        </div>
+            <h2 class="author-heading"> Posts from #{postInfo.author}</h2>
+            <div class="about-author">
+                <div class="author-pic">
+                    <img src="./static/uploads/#{postInfo.authorpicfilename}">
+                </div>
+                <div class="author-data">
+                    <a class="author"href="/author?author=#{postInfo.author}">#{postInfo.author}</a>
+                    <p>#{postInfo.authorportfolio}</p>
+                    <div class="author-social">
+                        <a href="#{postInfo.authortwitter}" id="author-twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#{postInfo.authorinstagram}" id="author-instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
+            <div class="post-box-1">
+            </div><!----post-box ends here---->
 
         </div>
 
@@ -355,6 +353,7 @@ style
 
     script.
         const news = document.querySelector('.news');
+        const postbox1 = document.querySelector('.post-box-1');
         function appendPost3(data){
         liTag=document.createElement('li');
         liTag.classList.add('newspost')
@@ -367,6 +366,18 @@ style
         liTag.innerHTML+=markup;
         news.append(liTag);
         }
+        function appendPost1(data){
+        divTag=document.createElement('div');
+        divTag.classList.add('post1')
+        let markup=`
+            <a  href="/posts?post=${data.postname}"><img src="../static/uploads/${data.thumbnailfilename}" alt="" class="post-image1"></a>
+            <div class="post-preview1">
+            <a class="postlink" href="/posts?post=${data.postname}">${data.heading}</a>   
+            </div>     
+            `;
+        divTag.innerHTML+=markup;
+        postbox1.append(divTag);
+        }
         fetchPostBox1();
         function fetchPostBox1(){
         fetch('/api/postTemplates')
@@ -374,6 +385,9 @@ style
             .then(result => {
             for(i=0;i<=3;i++){
                 appendPost3(result[i]);
+            }
+            for(i=0;i<=result.length;i++){
+                appendPost1(result[i]);
             }
             })
         }
@@ -433,13 +447,7 @@ style
                 resultList.innerHTML=htmlString;
             }
         }
-        var data = document.querySelector('.data');
-        var mapObj = {'&gt;':'>','&lt;':'<','&quot;':'"'};
-        var raw ="#{postInfo.content}";
-        raw =raw.replace(/&gt;|&lt;|&quot;/gi, function(matched){
-            return mapObj[matched];
-        });
-        data.innerHTML+=raw;
+
 
 
         function options(){
