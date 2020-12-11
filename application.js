@@ -774,7 +774,7 @@ application.get(`/author`, (req, res) => {
   postTemplate
     .findOne({ author: author })
     .then((postInfo) => {
-      res.render('author.pug', { postInfo: postInfo, user: req.user });
+      res.render('author.pug', { postInfo: postInfo, user: req.user, author });
     })
     .catch((err) => {
       console.log(err);

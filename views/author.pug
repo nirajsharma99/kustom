@@ -354,6 +354,7 @@ style
     script.
         const news = document.querySelector('.news');
         const postbox1 = document.querySelector('.post-box-1');
+        const author= "#{author}";
         function appendPost3(data){
         liTag=document.createElement('li');
         liTag.classList.add('newspost')
@@ -387,7 +388,10 @@ style
                 appendPost3(result[i]);
             }
             for(i=0;i<=result.length;i++){
+                console.log(author)
+                if(result[i].author == author){
                 appendPost1(result[i]);
+                }
             }
             })
         }

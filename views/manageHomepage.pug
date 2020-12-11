@@ -143,6 +143,18 @@ style
                 </form>
             </legend>
         </fieldset>
+        <div class="all-posts">
+            <h2 class="topic">Posts</h2>
+            <hr>
+            <table class="allposts">
+                <tr>
+                    <th style="color: #0ac5a8;">Author</th>
+                    <th style="color: #0ac5a8;">Date</th>
+                    <th style="color: #0ac5a8;">Heading</th>
+                    <th style="color: #0ac5a8;"></th>
+                </tr>
+            </table>
+                </div>
     </div>
 </div>
 
@@ -257,6 +269,42 @@ script.
     output.onload = function() {
         URL.revokeObjectURL(output.src) // free memory
     }
+    }
+    window.onload = function(){
+        const lists = document.querySelector(".allposts");
+        function appendList(data){
+            trTag=document.createElement('tr');
+            let markup=`
+                <td>${data.author}</td>
+                <td>${data.date}</td>
+                <td>${data.heading}</td>
+                <td><button onclick="deletePosts('${data._id}')" class="deleteProject"><i class="fas fa-trash-alt"></i></button></td>      
+            `;
+            trTag.innerHTML+=markup;
+            lists.append(trTag);
+        }
+
+        fetchUsers();
+            function fetchUsers(){
+                fetch('/api/posttemplates')
+                    .then(res => res.json())
+                    .then(result => {
+                        for(i=0;i<result.length;i++){
+                            appendList(result[i]);
+                        }
+                    })
+            }
+    }
+    function deletePosts(id){
+        const headers={
+            'Content-Type':'application/json'
+        }
+        const data={objectId:id};
+        fetch('/api/deleteannouncement',{method: "post", body: JSON.stringify(data),headers})
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+        })
     }
 
 

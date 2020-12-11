@@ -177,7 +177,7 @@ script.
                 <td>${data.to}</td>
                 <td>${data.author}</td>
                 <td>${data.content}</td>
-                <td><button onclick="deleteProjects('${data._id}')" class="deleteProject"><i class="fas fa-trash-alt"></i></button></td>      
+                <td><button onclick="deleteAnnouncements('${data._id}')" class="deleteProject"><i class="fas fa-trash-alt"></i></button></td>      
             `;
             trTag.innerHTML+=markup;
             lists.append(trTag);
@@ -194,7 +194,7 @@ script.
                     })
             }
     }
-    function deleteUser(id){
+    function deleteAnnouncements(id){
         const headers={
             'Content-Type':'application/json'
         }

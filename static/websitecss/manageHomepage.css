@@ -202,6 +202,30 @@ a:hover.result-description {
 .document-editor__editable {
   border: 1px solid #0ac5a8 !important;
 }
+h2.topic {
+  color: #0ac5a8;
+  text-align: left;
+  font-size: 25px;
+  font-weight: 10 !important;
+  position: relative;
+}
+
+h2.topic:after {
+  content: '';
+  display: block;
+  width: 90%;
+  height: 1px;
+  background: white;
+  right: 0;
+  top: 90%;
+  position: absolute;
+}
+.all-posts table {
+  width: 90%;
+}
+.all-posts table td {
+  color: white;
+}
 /*-----------------------------------------------------------------------------*/
 /*------------------------------------SIDE BAR---------------------------------*/
 .side-bar {
